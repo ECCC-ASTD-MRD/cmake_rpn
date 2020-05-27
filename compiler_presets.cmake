@@ -8,7 +8,7 @@
 # Check to see if we are at ECCC
 if(DEFINED ENV{EC_ARCH})
    message(STATUS "ECCC environment variable detected; ECCC presets")
-   set(COMPILER_PRESET_PATH "ECCC/${BASE_ARCH}/${COMPILER_SUITE}.cmake")
+   set(COMPILER_PRESET_PATH "ECCC/$ENV{BASE_ARCH}/${COMPILER_SUITE}.cmake")
 else()
    message(STATUS "Using default presets")
    set(COMPILER_PRESET_PATH "default/${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}/${COMPILER_SUITE}.cmake")
