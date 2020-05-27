@@ -4,12 +4,15 @@
 #
 # This module also add a definition nammed VERSION which contains GIT_VERSION
 
-execute_process(COMMAND git describe --tags --always
+execute_process(
+   COMMAND git describe --tags --always
+   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
    RESULT_VARIABLE GIT_RESULT
    OUTPUT_VARIABLE GIT_VERSION
    ERROR_VARIABLE GIT_ERROR
    OUTPUT_STRIP_TRAILING_WHITESPACE
-   ERROR_STRIP_TRAILING_WHITESPACE)
+   ERROR_STRIP_TRAILING_WHITESPACE
+)
 if(${GIT_RESULT} EQUAL 0)
    message(STATUS "Git version: " ${GIT_VERSION})
    # CMake does not deal with versions that do not follow the form
