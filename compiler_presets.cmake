@@ -3,6 +3,7 @@
 
 # Input
 #  COMPILER_SUITE : Lower case name of the compiler suite (gnu, intel, ...)
+#  LANGUAGES : List of language to enable for the project.  Usually C and Fotran
 
 # Check to see if we are at ECCC
 if(DEFINED ENV{EC_ARCH})
@@ -13,5 +14,5 @@ else()
    set(COMPILER_PRESET_PATH "default/${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}/${COMPILER_SUITE}.cmake")
 endif()
 
-message(STATUS "Loading preset ${COMPILER_PRESET_PATH}^")
-include("${CMAKE_CURRENT_LIST_DIR}/${COMPILER_PRESET_PATH}")
+message(STATUS "Loading preset ${COMPILER_PRESET_PATH}")
+include("${CMAKE_CURRENT_LIST_DIR}/compiler_presets/${COMPILER_PRESET_PATH}")
