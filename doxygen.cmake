@@ -1,7 +1,7 @@
 # Add a target to generate API documentation with Doxygen
 # Taken from https://p5r.uk/blog/2014/cmake-doxygen.html and slightly modified
 
-option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation (requires Doxygen and Graphviz)" ${DOXYGEN_FOUND})
+option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation (requires Doxygen and Graphviz)" ON)
 if(BUILD_DOCUMENTATION)
     find_package(Doxygen REQUIRED dot)
 
