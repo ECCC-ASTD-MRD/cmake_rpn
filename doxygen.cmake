@@ -5,6 +5,10 @@ option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation 
 if(BUILD_DOCUMENTATION)
     find_package(Doxygen REQUIRED dot)
 
+    if(NOT PROJECT_SOURCE_DIR)
+        message(FATAL_ERROR "PROJECT_SOURCE_DIR not defined!  This module must be called AFTER the project command!")
+    endif()
+
     set(doxyfile_in ${CMAKE_CURRENT_LIST_DIR}/Doxyfile.in)
     set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 
