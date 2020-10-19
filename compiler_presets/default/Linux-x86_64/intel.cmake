@@ -80,15 +80,16 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
 # Set the target architecture
 if(NOT ARCH)
-    execute_process(COMMAND sh "-c" "${CMAKE_CURRENT_LIST_DIR}/../../../intel_find_best_arch.sh" OUTPUT_VARIABLE best_arch ERROR_QUIET)
-    message(STATUS "Most performant -march for the Intel compilers on this hardware: ${best_arch}")
+    execute_process(COMMAND sh "-c" "${CMAKE_CURRENT_LIST_DIR}/../../../intel_find_best_arch.sh" OUTPUT_VARIABLE ARCH ERROR_QUIET)
+    message(STATUS "Most performant -march for the Intel compilers on this hardware: ${ARCH}")
 
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${best_arch}")
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${best_arch}")
-else()
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${ARCH}")
 endif()
+message(STATUS "Target architecture: ${ARCH}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${ARCH}")
+
 
 if (EXTRA_CHECKS)
    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -warn all -check all")

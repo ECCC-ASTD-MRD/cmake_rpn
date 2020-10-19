@@ -50,18 +50,18 @@ set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
 # Set the target architecture
 if(NOT ARCH)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=native")
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=native")
-else()
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${ARCH}")
+    set(ARCH "native")
 endif()
+message(STATUS "Target architecture: ${ARCH}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${ARCH}")
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
 # that are not added the find_package(OpenACC)
 # It doesn't matter if we defined them even if OpenACC isn't used because the
 # OpenACC_extra_FLAGS variable just won't be used
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
+
 
 if (EXTRA_CHECKS)
    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=bounds -fsanitize=alignment -fstack-protector-all -fstack-check -fstack-clash-protection")
