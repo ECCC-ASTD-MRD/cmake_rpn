@@ -37,20 +37,6 @@ message(STATUS "LAPACK_LIBRARIES=${LAPACK_LIBRARIES}")
 
 set(BLAS_LIBRARIES "blas")
 message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
-
-
-#CMAKE_Fortran_COMPILER_VERSION
-if(CMAKE_C_COMPILER_VERSION VERSION_LESS 7.4)
-    message(FATAL_ERROR "This code will not work with such an old compiler!  Please consider upgrading.")
-elseif(CMAKE_C_COMPILER_VERSION VERSION_LESS 9)
-    message(WARNING "Old compiler, but should work")
-elseif(CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 9 AND CMAKE_C_COMPILER_VERSION VERSION_LESS 10)
-    message(STATUS "Compiler is modern and everything should be tip-top")
-elseif(CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
-    message(FATAL_ERROR "Our code has not yet been updated to work with an up-to-date compiler")
-endif()
-
-
 # Since we are now using CMake mechanisms to build shared libraries
 # (BUILD_SHARED_LIBS), removed -fpic from CMAKE_C_FLAGS to see if it works
 set(CMAKE_C_FLAGS "-w -Wall -Wextra")
@@ -60,6 +46,21 @@ set(CMAKE_C_FLAGS_RELEASE "-O2")
 set(CMAKE_Fortran_FLAGS "-Wall -Wextra -Wno-compare-reals -Wno-conversion -Wno-unused-dummy-argument -Wno-unused-parameter -fbacktrace -fconvert=big-endian -fcray-pointer -fdump-core -ffpe-trap=invalid,zero,overflow -ffree-line-length-none -finit-real=nan -fno-second-underscore -frecord-marker=4")
 set(CMAKE_Fortran_FLAGS_DEBUG "-g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
+
+
+#CMAKE_Fortran_COMPILER_VERSION
+#CMAKE_C_COMPILER_VERSION
+if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
+    message(FATAL_ERROR "This code will not work with such an old compiler!  Please consider upgrading.")
+elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 9)
+    message(WARNING "Old compiler, but should work")
+elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 9 AND CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 10)
+    message(STATUS "Compiler is modern and everything should be tip-top")
+elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
+    #message(FATAL_ERROR "Our code has not yet been updated to work with an up-to-date compiler")
+    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
+endif()
+
 
 # Set the target architecture
 if(NOT ARCH)
