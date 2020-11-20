@@ -47,13 +47,13 @@ message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
-set(CMAKE_C_FLAGS "-mkl -Wtrigraphs -traceback -fp-model precise ${compFlags}" CACHE STRING "C compiler flags" FORCE)
+set(CMAKE_C_FLAGS "-Wtrigraphs -traceback -fp-model precise ${compFlags}" CACHE STRING "C compiler flags" FORCE)
 
 set(CMAKE_Fortran_FLAGS_DEBUG "-g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
-set(CMAKE_Fortran_FLAGS "-mkl -assume byterecl -convert big_endian -fpe0 -reentrancy threaded -traceback -threads -diag-disable 7713 -diag-disable 10212 -diag-disable 5140 -fp-model source ${compFlags}" CACHE STRING "Fortran compiler flags" FORCE)
+set(CMAKE_Fortran_FLAGS "-assume byterecl -convert big_endian -fpe0 -reentrancy threaded -traceback -threads -diag-disable 7713 -diag-disable 10212 -diag-disable 5140 -fp-model source ${compFlags}" CACHE STRING "Fortran compiler flags" FORCE)
 
-set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -mkl -static-intel")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -static-intel")
 
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
