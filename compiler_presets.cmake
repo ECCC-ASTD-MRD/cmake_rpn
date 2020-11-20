@@ -5,6 +5,8 @@
 #  COMPILER_SUITE : Lower case name of the compiler suite (gnu, intel, ...)
 #  LANGUAGES : List of language to enable for the project.  Usually C and Fotran
 
+message(STATUS "CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
+
 # TODO: Change this once debugging is done
 option(USE_ECCC_ENV_IF_AVAIL "Use ECCC's custom build envronement" FALSE)
 
