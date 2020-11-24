@@ -46,16 +46,10 @@ set(CMAKE_C_FLAGS "-fp-model source -ip -mkl -traceback -Wtrigraphs" CACHE STRIN
 
 set(CMAKE_Fortran_FLAGS_DEBUG "-g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
-set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fpe0 -fp-model source -ip -mkl -threads -traceback  -stand f08 -diag-disable 7713 -diag-disable 10212 -diag-disable 5140" CACHE STRING "Fortran compiler flags" FORCE)
+set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fpe0 -fp-model source -ip -mkl -traceback -stand f08 -diag-disable 7713 -diag-disable 10212 -diag-disable 5140" CACHE STRING "Fortran compiler flags" FORCE)
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -mkl -static-intel")
 
-# First let's see if CMake adds -static-intel
-# if(NOT BUILD_SHARED_LIBS)
-#     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-intel" CACHE STRING "C compiler flags" FORCE)
-#     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -static-intel" CACHE STRING "Fortran compiler flags" FORCE)
-#     set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -static-intel")
-# endif()
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
 # that are not added the find_package(OpenACC)
