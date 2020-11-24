@@ -8,7 +8,7 @@
 message(STATUS "CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
 
 # TODO: Change this once debugging is done
-option(USE_ECCC_ENV_IF_AVAIL "Use ECCC's custom build envronement" FALSE)
+option(USE_ECCC_ENV_IF_AVAIL "Use ECCC's custom build envronement" TRUE)
 
 if(USE_ECCC_ENV_IF_AVAIL)
    if(DEFINED ENV{EC_ARCH})
