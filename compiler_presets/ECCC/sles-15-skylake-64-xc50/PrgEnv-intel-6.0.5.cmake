@@ -38,6 +38,12 @@ message(STATUS "LAPACK_LIBRARIES=${LAPACK_LIBRARIES}")
 set(BLAS_LIBRARIES "blas")
 message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 
+if(BUILD_SHARED_LIBS)
+    message(WARNING "You are building with shared libs on this system.
+    This is probably not what you want!
+    To fix this, add -DBUILD_SHARED_LIBS=NO to your CMake command line.")
+endif()
+
 # Intel compiler diag codes (Use cc or ftn -diag-dump to get the full list) :
 #    5140: Unrecognized directive
 #    6182: Fortran @@ does not allow this edit descriptor.
@@ -45,13 +51,14 @@ message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 #    7713: This statement function has not been used.
 #   10212: xxxx%sprecise evaluates in source precision with Fortran.
 
-set(CMAKE_C_FLAGS_DEBUG "-g")
+set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
-set(CMAKE_C_FLAGS "-Wtrigraphs -traceback -fp-model precise ${compFlags}" CACHE STRING "C compiler flags" FORCE)
+set(CMAKE_C_FLAGS "-fp-model source -ip -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
 
-set(CMAKE_Fortran_FLAGS_DEBUG "-g")
+# The impact of -align array32byte is not well known or documented
+set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
-set(CMAKE_Fortran_FLAGS "-assume byterecl -convert big_endian -fpe0 -reentrancy threaded -traceback -threads -diag-disable 7713 -diag-disable 10212 -diag-disable 5140 -fp-model source ${compFlags}" CACHE STRING "Fortran compiler flags" FORCE)
+set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fpe0 -fp-model source -ip -threads -traceback -stand f08 -diag-disable 7713 -diag-disable 10212 -diag-disable 5140" CACHE STRING "Fortran compiler flags" FORCE)
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -static-intel")
 
@@ -64,14 +71,11 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
 # Set the target architecture
 if(NOT ARCH)
-    set(ARCH "skylake-avx512")
-
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${ARCH}")
+    set(ARCH "CORE-AVX512")
 endif()
 message(STATUS "Target architecture: ${ARCH}")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
-set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${ARCH}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x${ARCH}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -x${ARCH}")
 
 
 if (EXTRA_CHECKS)

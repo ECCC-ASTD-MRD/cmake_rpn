@@ -42,13 +42,13 @@ message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 # (BUILD_SHARED_LIBS), removed -fpic from CMAKE_C_FLAGS to see if it works
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
-set(CMAKE_C_FLAGS "-mkl -Wl, -Wtrigraphs -traceback -fp-model precise ${compFlags}" CACHE STRING "C compiler flags" FORCE)
+set(CMAKE_C_FLAGS "-fp-model source -ip -mkl -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
 
 set(CMAKE_Fortran_FLAGS_DEBUG "-g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
-set(CMAKE_Fortran_FLAGS "-mkl -assume byterecl -convert big_endian -fpe0 -reentrancy threaded -traceback -threads -diag-disable 7713 -diag-disable 10212 -diag-disable 5140 -fp-model source ${compFlags}" CACHE STRING "Fortran compiler flags" FORCE)
+set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fpe0 -fp-model source -ip -mkl -threads -traceback  -stand f08 -diag-disable 7713 -diag-disable 10212 -diag-disable 5140" CACHE STRING "Fortran compiler flags" FORCE)
 
-set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -static-intel -mkl")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -mkl -static-intel")
 
 # First let's see if CMake adds -static-intel
 # if(NOT BUILD_SHARED_LIBS)
@@ -82,9 +82,6 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 if(NOT ARCH)
     execute_process(COMMAND sh "-c" "${CMAKE_CURRENT_LIST_DIR}/../../../intel_find_best_arch.sh" OUTPUT_VARIABLE ARCH ERROR_QUIET)
     message(STATUS "Most performant -march for the Intel compilers on this hardware: ${ARCH}")
-
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${ARCH}")
 endif()
 message(STATUS "Target architecture: ${ARCH}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
