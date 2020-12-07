@@ -6,17 +6,17 @@
 set(VGRID_VERSION ${VGRID_FIND_VERSION})
 find_path(VGRID_INCLUDE_DIR
    NAMES vgrid.h
-   PATHS ${EC_INCLUDE_PATH} NO_DEFAULT_PATH)
+   PATHS ${EC_INCLUDE_PATH})
        
 # [[DOC]] for find_library https://cmake.org/cmake/help/latest/command/find_library.html
 if("shared" IN_LIST VGRID_FIND_COMPONENTS)
    find_library(VGRID_LIBRARY
       NAMES vgridshared
-      PATHS ${EC_LD_LIBRARY_PATH} NO_DEFAULT_PATH)
+      PATHS ${EC_LD_LIBRARY_PATH})
 else()
    find_library(VGRID_LIBRARY
       NAMES vgrid
-      PATHS ${EC_LD_LIBRARY_PATH} NO_DEFAULT_PATH)
+      PATHS ${EC_LD_LIBRARY_PATH})
 endif()
 
 string(REGEX MATCH ".*/libs/([0-9]+\\.[0-9]+)(\\.[0-9])?(-[a,b][0-9]*)?.*/" null ${VGRID_LIBRARY})
@@ -34,4 +34,11 @@ find_package_handle_standard_args(VGRID
 if(VGRID_FOUND)
    set(VGRID_INCLUDE_DIRS ${VGRID_INCLUDE_DIR})
    set(VGRID_LIBRARIES ${VGRID_LIBRARY})
+
+   add_library(VGRID::VGRID SHARED IMPORTED)
+   set_target_properties(VGRID::VGRID PROPERTIES
+      IMPORTED_LOCATION             ${VGRID_LIBRARY}
+      INTERFACE_INCLUDE_DIRECTORIES ${VGRID_INCLUDE_DIR}
+      INTERFACE_COMPILE_DEFINITIONS HAVE_VGRID
+   )
 endif()
