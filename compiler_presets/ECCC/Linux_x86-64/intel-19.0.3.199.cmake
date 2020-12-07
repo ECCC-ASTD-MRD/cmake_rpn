@@ -65,11 +65,11 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
 # Set the target architecture
 if(NOT ARCH)
-    set(ARCH "CORE-AVX512")
+    set(ARCH "SSE3")
 endif()
 message(STATUS "Target architecture: ${ARCH}")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x${ARCH}")
-set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -x${ARCH}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m${ARCH}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -m${ARCH}")
 
 
 if (EXTRA_CHECKS)
