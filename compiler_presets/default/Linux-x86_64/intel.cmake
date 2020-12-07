@@ -57,29 +57,14 @@ set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -mkl -static-intel")
 # OpenACC_extra_FLAGS variable just won't be used
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
-
-# The Intel compilers do not support -march=native like GCC does
-# This will have to be edited in order to get the most out of the hardware
-
-# If you run into unknown instruction errors at runtime, you will have to change the
-# target architecture specified for "-march".
-
-# Here are architecture names given in descending order of performance:
-#     skylake-avx512
-#     skylake
-#     core-avx2
-#     core-avx-i
-#     corei7-avx
-#     core2
-
 # Set the target architecture
 if(NOT ARCH)
-    execute_process(COMMAND sh "-c" "${CMAKE_CURRENT_LIST_DIR}/../../../intel_find_best_arch.sh" OUTPUT_VARIABLE ARCH ERROR_QUIET)
-    message(STATUS "Most performant -march for the Intel compilers on this hardware: ${ARCH}")
+    # -xHost is the Intel equivalent of GCC's -march=native
+    set(ARCH "Host")
 endif()
 message(STATUS "Target architecture: ${ARCH}")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${ARCH}")
-set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${ARCH}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x${ARCH}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -x${ARCH}")
 
 
 if (EXTRA_CHECKS)
