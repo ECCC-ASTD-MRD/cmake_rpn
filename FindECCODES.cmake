@@ -21,7 +21,16 @@ if(ECCODES_FOUND)
    set(ECCODES_INCLUDE_DIRS ${ECCODES_INCLUDE_DIR})
    set(ECCODES_LIBRARIES ${ECCODES_LIBRARY})
 
-   add_library(ECCODES::ECCODES SHARED IMPORTED)
+   string(LENGTH ${ECCODES_LIBRARY} type)
+   math(EXPR type "${type}-2")
+   string(SUBSTRING ${ECCODES_LIBRARY} ${type} -1 type)
+   if(type STREQUAL CMAKE_STATIC_LIBRARY_SUFFIX)
+       set(type STATIC)
+   else()
+       set(type SHARED)
+   endif()
+
+   add_library(ECCODES::ECCODES ${type} IMPORTED)
    set_target_properties(ECCODES::ECCODES PROPERTIES
       IMPORTED_LOCATION             ${ECCODES_LIBRARY}
       INTERFACE_INCLUDE_DIRECTORIES ${ECCODES_INCLUDE_DIR}

@@ -23,7 +23,16 @@ if(ECBUFR_FOUND)
    set(ECBUFR_INCLUDE_DIRS ${ECBUFR_INCLUDE_DIR})
    set(ECBUFR_LIBRARIES ${ECBUFR_LIBRARY})
 
-   add_library(ECBUFR::ECBUFR SHARED IMPORTED)
+   string(LENGTH ${ECBUFR_LIBRARY} type)
+   math(EXPR type "${type}-2")
+   string(SUBSTRING ${ECBUFR_LIBRARY} ${type} -1 type)
+   if(type STREQUAL CMAKE_STATIC_LIBRARY_SUFFIX)
+       set(type STATIC)
+   else()
+       set(type SHARED)
+   endif()
+
+   add_library(ECBUFR::ECBUFR ${type} IMPORTED)
    set_target_properties(ECBUFR::ECBUFR PROPERTIES
       IMPORTED_LOCATION             ${ECBUFR_LIBRARY}
       INTERFACE_INCLUDE_DIRECTORIES ${ECBUFR_INCLUDE_DIR}

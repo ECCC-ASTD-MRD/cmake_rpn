@@ -22,7 +22,16 @@ if(FLT_FOUND)
    set(FLT_INCLUDE_DIRS ${FLT_INCLUDE_DIR})
    set(FLT_LIBRARIES ${FLT_LIBRARY})
 
-   add_library(FLT::FLT SHARED IMPORTED)
+   string(LENGTH ${FLT_LIBRARY} type)
+   math(EXPR type "${type}-2")
+   string(SUBSTRING ${FLT_LIBRARY} ${type} -1 type)
+   if(type STREQUAL CMAKE_STATIC_LIBRARY_SUFFIX)
+       set(type STATIC)
+   else()
+       set(type SHARED)
+   endif()
+
+   add_library(FLT::FLT ${type} IMPORTED)
    set_target_properties(FLT::FLT PROPERTIES
       IMPORTED_LOCATION             ${FLT_LIBRARY}
       INTERFACE_INCLUDE_DIRECTORIES ${FLT_INCLUDE_DIR}

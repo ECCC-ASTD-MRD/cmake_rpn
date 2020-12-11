@@ -34,20 +34,19 @@ if(URP_FOUND)
    set(URP_INCLUDE_DIRS ${URP_INCLUDE_DIR})
    set(URP_LIBRARIES ${MUT_LIBRARY} ${DRP_LIBRARY} ${URP_LIBRARY} ${DSP_LIBRARY} ${BZ2_LIBRARY})
 
-   add_library(URP::LibURP STATIC IMPORTED)
-   set_target_properties(URP::LibURP PROPERTIES IMPORTED_LOCATION ${URP_LIBRARY})
+   foreach(lib IN ITEMS MUT DRP URP DSP BZ2)
+       string(LENGTH "${${lib}_LIBRARY}" type)
+       math(EXPR type "${type}-2")
+       string(SUBSTRING "${${lib}_LIBRARY}" ${type} -1 type)
+       if(type STREQUAL CMAKE_STATIC_LIBRARY_SUFFIX)
+           set(type STATIC)
+       else()
+           set(type SHARED)
+       endif()
 
-   add_library(URP::LibMUT STATIC IMPORTED)
-   set_target_properties(URP::LibMUT PROPERTIES IMPORTED_LOCATION ${MUT_LIBRARY})
-
-   add_library(URP::LibDRP STATIC IMPORTED)
-   set_target_properties(URP::LibDRP PROPERTIES IMPORTED_LOCATION ${DRP_LIBRARY})
-
-   add_library(URP::LibDSP STATIC IMPORTED)
-   set_target_properties(URP::LibDSP PROPERTIES IMPORTED_LOCATION ${DSP_LIBRARY})
-
-   add_library(URP::LibBZ2 SHARED IMPORTED)
-   set_target_properties(URP::LibBZ2 PROPERTIES IMPORTED_LOCATION ${BZ2_LIBRARY})
+       add_library("URP::Lib${lib}" ${type} IMPORTED)
+       set_target_properties("URP::Lib${lib}" PROPERTIES IMPORTED_LOCATION "${${lib}_LIBRARY}")
+   endforeach()
 
    #----- Add the target that includes all libraries
    add_library(URP::URP INTERFACE IMPORTED)

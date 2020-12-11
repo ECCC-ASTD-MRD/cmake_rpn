@@ -22,7 +22,16 @@ if(GDB_FOUND)
    set(GDB_INCLUDE_DIRS ${GDB_INCLUDE_DIR})
    set(GDB_LIBRARIES ${GDB_LIBRARY})
 
-   add_library(GDB::GDB SHARED IMPORTED)
+   string(LENGTH ${GDB_LIBRARY} type)
+   math(EXPR type "${type}-2")
+   string(SUBSTRING ${GDB_LIBRARY} ${type} -1 type)
+   if(type STREQUAL CMAKE_STATIC_LIBRARY_SUFFIX)
+       set(type STATIC)
+   else()
+       set(type SHARED)
+   endif()
+
+   add_library(GDB::GDB ${type} IMPORTED)
    set_target_properties(GDB::GDB PROPERTIES
       IMPORTED_LOCATION             ${GDB_LIBRARY}
       INTERFACE_INCLUDE_DIRECTORIES ${GDB_INCLUDE_DIR}
