@@ -38,15 +38,26 @@ message(STATUS "LAPACK_LIBRARIES=${LAPACK_LIBRARIES}")
 set(BLAS_LIBRARIES "blas")
 message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 
+# Intel compiler diag codes (Use icc or ifort -diag-dump to get the full list) :
+#    5140: Unrecognized directive
+#    6182: Fortran @@ does not allow this edit descriptor.
+#    7416: Fortran @@ does not allow this intrinsic procedure.
+#    7713: This statement function has not been used.
+#   10212: xxxx%sprecise evaluates in source precision with Fortran.
+
+# When we will want to have flags different from the compiler rules, we should add
+#   -ip To enable additional interprocedural optimizations
+#   -threads The linker searches for unresolved references in a library that supports enabling thread-safe operation.
+
 # Since we are now using CMake mechanisms to build shared libraries
 # (BUILD_SHARED_LIBS), removed -fpic from CMAKE_C_FLAGS to see if it works
-set(CMAKE_C_FLAGS_DEBUG "-g")
+set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 set(CMAKE_C_FLAGS "-fp-model source -ip -mkl -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
 
-set(CMAKE_Fortran_FLAGS_DEBUG "-g")
+set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv -DDEBUG")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
-set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fpe0 -fp-model source -ip -mkl -traceback -stand f08 -diag-disable 7713 -diag-disable 10212 -diag-disable 5140" CACHE STRING "Fortran compiler flags" FORCE)
+set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fp-model source -fpe0 -mkl -traceback -stand f08 -diag-disable 5140 -diag-disable 7713 -diag-disable 10212" CACHE STRING "Fortran compiler flags" FORCE)
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -mkl -static-intel")
 
