@@ -47,12 +47,12 @@ message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 
 set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
-set(CMAKE_C_FLAGS "-fp-model source -ip -mkl -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
+set(CMAKE_C_FLAGS "-fp-model precise -mkl -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
 
 # The impact of -align array32byte is not well known or documented
 set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
-set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fpe0 -fp-model source -ip -mkl -threads -traceback  -stand f08 -diag-disable 7713 -diag-disable 10212 -diag-disable 5140" CACHE STRING "Fortran compiler flags" FORCE)
+set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fp-model source -fpe0 -mkl -traceback -stand f08 -diag-disable 7713 -diag-disable 10212 -diag-disable 5140" CACHE STRING "Fortran compiler flags" FORCE)
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -mkl -static-intel")
 
@@ -65,7 +65,7 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
 # Set the target architecture
 if(NOT ARCH)
-    set(ARCH "SSE3")
+    set(ARCH "sse3")
 endif()
 message(STATUS "Target architecture: ${ARCH}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m${ARCH}")
