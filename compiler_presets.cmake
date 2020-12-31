@@ -7,7 +7,8 @@
 
 message(STATUS "CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
 
-# TODO: Change this once debugging is done
+add_definitions(-DPROJECT_NAME=${PROJECT_NAME})
+
 option(USE_ECCC_ENV_IF_AVAIL "Use ECCC's custom build environment" TRUE)
 
 if(USE_ECCC_ENV_IF_AVAIL)
