@@ -5,7 +5,7 @@
 # This module also add a definition nammed VERSION which contains GIT_VERSION
 
 execute_process(
-   COMMAND git describe --tags --always
+   COMMAND git describe --tags --always --dirty --broken
    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
    RESULT_VARIABLE GIT_RESULT
    OUTPUT_VARIABLE GIT_VERSION
