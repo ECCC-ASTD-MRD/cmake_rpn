@@ -49,8 +49,6 @@ message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 #   -ip To enable additional interprocedural optimizations
 #   -threads The linker searches for unresolved references in a library that supports enabling thread-safe operation.
 
-# Since we are now using CMake mechanisms to build shared libraries
-# (BUILD_SHARED_LIBS), removed -fpic from CMAKE_C_FLAGS to see if it works
 set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 set(CMAKE_C_FLAGS "-fp-model source -ip -mkl -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
