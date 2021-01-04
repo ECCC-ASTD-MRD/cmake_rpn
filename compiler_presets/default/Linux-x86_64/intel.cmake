@@ -15,7 +15,6 @@ find_program(MPI_Fortran_COMPILER "mpif90")
 
 # I don't know why, but enable_language empties CMAKE_BUILD_TYPE!
 # We therefore have to back it up and restore it after enable_language
-message(STATUS "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 set(TMP_BUILD_TYPE ${CMAKE_BUILD_TYPE})
 
 foreach(LANGUAGE ${LANGUAGES})
@@ -25,7 +24,6 @@ endforeach()
 # Reset CMAKE_BUILD_TYPE
 set(CMAKE_BUILD_TYPE ${TMP_BUILD_TYPE})
 unset(TMP_BUILD_TYPE)
-message(STATUS "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 
 # find_package() commands can only be called after the languages have been 
 # eneabled or they will fail
@@ -51,7 +49,7 @@ message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 
 set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
-set(CMAKE_C_FLAGS "-fp-model source -ip -mkl -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
+set(CMAKE_C_FLAGS "-fp-model precise -mkl -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
 
 set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv -DDEBUG")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")

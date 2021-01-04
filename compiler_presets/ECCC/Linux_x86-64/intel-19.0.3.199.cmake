@@ -15,7 +15,6 @@ find_program(MPI_Fortran_COMPILER "mpif90")
 
 # I don't know why, but enable_language empties CMAKE_BUILD_TYPE!
 # We therefore have to back it up and restore it after enable_language
-message(STATUS "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 set(TMP_BUILD_TYPE ${CMAKE_BUILD_TYPE})
 
 foreach(LANGUAGE ${LANGUAGES})
@@ -25,7 +24,6 @@ endforeach()
 # Reset CMAKE_BUILD_TYPE
 set(CMAKE_BUILD_TYPE ${TMP_BUILD_TYPE})
 unset(TMP_BUILD_TYPE)
-message(STATUS "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 
 # find_package() commands can only be called after the languages have been 
 # eneabled or they will fail
@@ -53,14 +51,11 @@ set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 set(CMAKE_C_FLAGS "-fp-model precise -mkl -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
 
-# The impact of -align array32byte is not well known or documented
 set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv -DDEBUG")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fp-model source -fpe0 -mkl -traceback -stand f08 -diag-disable 5140 -diag-disable 7713 -diag-disable 10212" CACHE STRING "Fortran compiler flags" FORCE)
 
-# --allow-shlib-undefined Does not look like this is actually necessary, but there might be
-# use case that I don't know about
-set(CMAKE_EXE_LINKER_FLAGS_INIT "-mkl -static-intel")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -mkl -static-intel")
 
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,

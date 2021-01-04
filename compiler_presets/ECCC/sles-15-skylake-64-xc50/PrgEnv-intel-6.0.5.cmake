@@ -15,7 +15,6 @@ find_program(MPI_Fortran_COMPILER "ftn")
 
 # I don't know why, but enable_language empties CMAKE_BUILD_TYPE!
 # We therefore have to back it up and restore it after enable_language
-message(STATUS "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 set(TMP_BUILD_TYPE ${CMAKE_BUILD_TYPE})
 
 foreach(LANGUAGE ${LANGUAGES})
@@ -25,7 +24,6 @@ endforeach()
 # Reset CMAKE_BUILD_TYPE
 set(CMAKE_BUILD_TYPE ${TMP_BUILD_TYPE})
 unset(TMP_BUILD_TYPE)
-message(STATUS "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 
 # find_package() commands can only be called after the languages have been 
 # eneabled or they will fail
