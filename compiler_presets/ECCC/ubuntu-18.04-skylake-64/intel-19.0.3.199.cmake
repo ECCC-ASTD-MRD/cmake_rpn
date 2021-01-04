@@ -64,12 +64,12 @@ set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -mkl -static-intel")
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
 # Set the target architecture
-if(NOT ARCH)
-    set(ARCH "CORE-AVX512")
+if(NOT TARGET_PROC)
+    set(TARGET_PROC "CORE-AVX512")
 endif()
-message(STATUS "Target architecture: ${ARCH}")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x${ARCH}")
-set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -x${ARCH}")
+message(STATUS "Target architecture: ${TARGET_PROC}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x${TARGET_PROC}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -x${TARGET_PROC}")
 
 
 if (EXTRA_CHECKS)
