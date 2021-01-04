@@ -40,7 +40,7 @@ find_package_handle_standard_args(RMN
       RMN_LIBRARY
       RMN_INCLUDE_DIR
    VERSION_VAR RMN_VERSION)
-   
+
 if(RMN_FOUND)
    set(RMN_INCLUDE_DIRS ${RMN_INCLUDE_DIR})
    set(RMN_LIBRARIES ${RMN_LIBRARY})
@@ -58,4 +58,4 @@ if("rpnpy" IN_LIST RMN_FIND_COMPONENTS)
         message("Could not find component rpnpy")
     endif()
 endif()
-    
+

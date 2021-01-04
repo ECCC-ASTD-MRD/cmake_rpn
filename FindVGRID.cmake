@@ -7,7 +7,7 @@ set(VGRID_VERSION ${VGRID_FIND_VERSION})
 find_path(VGRID_INCLUDE_DIR
    NAMES vgrid.h
    PATHS ${EC_INCLUDE_PATH} NO_DEFAULT_PATH)
-       
+
 # [[DOC]] for find_library https://cmake.org/cmake/help/latest/command/find_library.html
 if("shared" IN_LIST VGRID_FIND_COMPONENTS)
    find_library(VGRID_LIBRARY
