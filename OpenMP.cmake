@@ -1,3 +1,4 @@
+option(WITH_OPENMP "Compile with OpenMP support" FALSE)
 message(STATUS "WITH_OPENMP=${WITH_OPENMP}")
 if (WITH_OPENMP)
    find_package(OpenMP)

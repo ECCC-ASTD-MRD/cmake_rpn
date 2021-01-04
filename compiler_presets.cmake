@@ -5,6 +5,10 @@
 #  COMPILER_SUITE : Lower case name of the compiler suite (gnu, intel, ...)
 #  LANGUAGES : List of language to enable for the project.  Usually C and Fotran
 
+set(COMPILER_SUITE "GNU" CACHE STRING "Compiler suite to use for the build.  Can be one of the following: GNU, Intel, XL")
+string(TOLOWER ${COMPILER_SUITE} COMPILER_SUITE)
+
+message(STATUS "COMPILER_SUITE=${COMPILER_SUITE}")
 message(STATUS "CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
 message(STATUS "CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
 
