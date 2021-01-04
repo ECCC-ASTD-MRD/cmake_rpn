@@ -6,10 +6,12 @@
 #  LANGUAGES : List of language to enable for the project.  Usually C and Fotran
 
 message(STATUS "CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
+message(STATUS "CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
 
 add_definitions(-DPROJECT_NAME=${PROJECT_NAME})
 
 option(USE_ECCC_ENV_IF_AVAIL "Use ECCC's custom build environment" TRUE)
+message(STATUS "USE_ECCC_ENV_IF_AVAIL=${USE_ECCC_ENV_IF_AVAIL}")
 
 if(USE_ECCC_ENV_IF_AVAIL)
     if(DEFINED ENV{EC_ARCH})
