@@ -1,3 +1,4 @@
+message(STATUS "WITH_OPENMP=${WITH_OPENMP}")
 if (WITH_OPENMP)
    find_package(OpenMP)
    if (NOT OPENMP_FOUND)
