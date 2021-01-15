@@ -1,3 +1,5 @@
+message(FATAL "This combinaison of compiler and architecture not yet ready for use")
+
 # MV suggested to add -qufmt=be
 
 add_definitions(-DLittle_Endian)

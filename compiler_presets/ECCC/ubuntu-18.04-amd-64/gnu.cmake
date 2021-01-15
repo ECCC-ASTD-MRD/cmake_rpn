@@ -1,3 +1,5 @@
+message(FATAL "This combinaison of compiler and architecture not yet ready for use")
+
 add_definitions(-DLittle_Endian)
 
 set(CMAKE_C_COMPILER "gcc")
