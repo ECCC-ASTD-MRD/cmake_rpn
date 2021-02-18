@@ -1,4 +1,6 @@
 
+set(CMAKE_NO_SYSTEM_FROM_IMPORTED ON)
+
 #----- Fortran Compiler Rules
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)

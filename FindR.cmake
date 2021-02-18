@@ -84,7 +84,7 @@ if(R_COMMAND)
   # reset cmake find_library to initial value
   set(CMAKE_FIND_LIBRARY_SUFFIXES ${OLD_SUFFIXES})
 else()
-  message(SEND_ERROR "FindR.cmake requires the following variables to be set: R_COMMAND")
+  message(WARNING "FindR.cmake requires the following variables to be set: R_COMMAND")
 endif()
 
 include(FindPackageHandleStandardArgs)
