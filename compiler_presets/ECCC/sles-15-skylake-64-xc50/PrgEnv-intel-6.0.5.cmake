@@ -1,32 +1,6 @@
-# Default configuration for the GNU compiler suite
+# Default configuration for the Cray programming environment (Intel compiler)
 # Input:
-#  LANGUAGES List of languages to enable for the project
 #  EXTRA_CHECKS Enable extra checking.  This will make the execution slower.
-
-# The full path of the compiler for <LANG> must be set in CMAKE_<LANG>_COMPILER
-# before calling enable_language(<LANG>)
-find_program(CMAKE_C_COMPILER "icc")
-find_program(CMAKE_Fortran_COMPILER "ifort")
-
-# Do these need to be here if we don't use MPI?  Are there any adverse effect to
-# having them?
-find_program(MPI_C_COMPILER "cc")
-find_program(MPI_Fortran_COMPILER "ftn")
-
-# I don't know why, but enable_language empties CMAKE_BUILD_TYPE!
-# We therefore have to back it up and restore it after enable_language
-set(TMP_BUILD_TYPE ${CMAKE_BUILD_TYPE})
-
-foreach(LANGUAGE ${LANGUAGES})
-   enable_language(${LANGUAGE})
-endforeach()
-
-# Reset CMAKE_BUILD_TYPE
-set(CMAKE_BUILD_TYPE ${TMP_BUILD_TYPE})
-unset(TMP_BUILD_TYPE)
-
-# find_package() commands can only be called after the languages have been 
-# eneabled or they will fail
 
 add_definitions(-DLittle_Endian)
 
