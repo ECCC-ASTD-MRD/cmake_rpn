@@ -12,13 +12,14 @@ This package can be included as a submodule or used through the CMAKE_MODULE_PAT
   * Initialises some variables and the compiler suite. if the compiler suite is not defined (cmake -COMPILER_SUITE=[gnu|intel|xlf], it will be determined by the compiler which is loaded on the platform. default is gnu
 * include(ec_parse_manifest)
   * Parse a MANIFEST file defining package information, and dependencies and defines the variables NAME, VERSION, BUILD, DESCRITPTION, MAINTAINER, URL and for each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH. ex:
+</br>
 ```shell
 NAME       : libgeoref
 VERSION    : 0.1.0
 BUILD      : Debug
 DESCRIPTION: ECCC-CCMEP Geo reference manipulation library
 SUMMARY    : This library allows for reprojection, coordinate transform and interpolation in between various type of geo reference (RPN,WTK,meshes,...)
-MAINTAINER : Jean-Philipe Gauthier - Jean-Philipep.Gauthier@canada.ca 
+MAINTAINER : Someone - Someone@canada.ca 
 URL        : https://gitlab.science.gc.ca/RPN-SI/libgeoref
 
 # Dependencies 
