@@ -6,6 +6,7 @@
 cc=CMAKE_CC
 ftn=CMAKE_FTN
 cflags=CMAKE_CFLAGS
+fflags=CMAKE_FFLAGS
 libs=CMAKE_LIBS
 
 version=CMAKE_VERSION
@@ -23,9 +24,9 @@ Available values for OPTION include:
   --help         display this help message and exit
   --cc           C compiler [${cc}]
   --ftn          FORTRAN compiler [${ftn}]
-  --cflags       pre-processor and compiler flags [${cflags}]
-  --libs         library linking information for netcdf [${libs}]
-  --version      Library version [${version}]
+  --cflags       C compiler flags [${cflags}]
+  --fflags       Fortran compiler flags [${fflags}]
+  --version      library version [${version}]
   --has-rmn      which version of librmn is it compiled with [${has_rmn}]
   --has-gdal     which version of gdal is it compiled with [${has_gdal}]
   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
@@ -60,10 +61,14 @@ while test $# -gt 0; do
        	echo ${ftn:-no}
        	;;
 
-    --clags)
+    --cflags)
        	echo ${cflags}
        	;;
            
+    --fflags)
+       	echo ${fflags}
+       	;;
+
     --libs)
        	echo ${libs}
        	;;

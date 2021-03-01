@@ -1,6 +1,6 @@
 # Description
 
-This package contains common functions used thoughout the building of various tools with cmake. 
+This package contains common functions used throughout the build of various tools with cmake. 
 It also defines a set of compilers rules optimized for ECCC's many platforms and compilers
 
 # Usage
@@ -9,10 +9,12 @@ This package can be included as a submodule or used through the CMAKE_MODULE_PAT
 ## functions
 
 * include(ec_init)
-  * Initialises some variables and the compiler suite. if the compiler suite is not defined (cmake -COMPILER_SUITE=[gnu|intel|xlf], it will be determined by the compiler which is loaded on the platform. default is gnu
+  * Initializes some variables and the compiler suite. If the compiler suite is not defined (cmake -COMPILER_SUITE=[gnu|intel|xlf], it will be determined by the compiler which is loaded on the platform. Default is gnu
+
 * include(ec_parse_manifest)
-  * Parse a MANIFEST file defining package information, and dependencies and defines the variables NAME, VERSION, BUILD, DESCRITPTION, MAINTAINER, URL and for each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH. ex:
-</br>
+  * Parses a MANIFEST file defining package information and dependencies, and defines the variables NAME, VERSION, BUILD, DESCRIPTION, MAINTAINER, URL and for each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH. ex:
+
+
 ```shell
 NAME       : libgeoref
 VERSION    : 0.1.0
@@ -32,22 +34,22 @@ GDAL ~>= 2.0
 ```
 
 * include(ec_build_info)
-  * Produces an include file (build_info.h) with build information (BUILD_TIMESTAMP,BUILD_INFO,BUILD_ARCH,BUILD_USER,VERSION,DESCRIPTION) and an associated target (build_info) that will updated the timestamp on call to make.
+  * Produces an include file (build_info.h) with build information (BUILD_TIMESTAMP, BUILD_INFO, BUILD_ARCH, BUILD_USER, VERSION, DESCRIPTION) and an associated target (build_info) that will update the timestamp on call to make.
 
 * include(doxygen) 
-  * Provides a Doxygen target to build the documentation
+  * Provides a Doxygen target to build the documentation.
 
 * include(compiler_presets)
-  * Loads predefined compiler settings optimized per compiler and platform
+  * Loads predefined compiler settings optimized per compiler and platform.
 
 * include(ec_bin_config)
   * Parse a file named "config.in" in the trunk to produce a configuration information script "[NAME]-config" giving information on how the package was built (compiler, rmn_version, ...):
 
 * include(git_version)
-  * Extracts the version from git information into variable VERSION
+  * Extracts the version from git information into variable VERSION.
 
 * dump_cmake_variables :
-  * Dumps all of the cmake variables sorted
+  * Dumps all of the cmake variables sorted.
 
 * find_package(RMN [RMN_REQ_VERSION] COMPONENTS [SHARED|THREADED] [OPTIONAL|REQUIRED])
 * find_package(VGRID [VGRID_REQ_VERSION] COMPONENTS [SHARED] [OPTIONAL|REQUIRED])
