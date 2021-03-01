@@ -18,5 +18,5 @@ install(CODE "execute_process(COMMAND sed
    -e \"s/CMAKE_NETCDF/${NETCDF_VERSION}/\" 
    -e \"s/CMAKE_HDF4/${HDF4_VERSION}/\" 
    -e \"s/CMAKE_HDF5/${HDF5_VERSION}/\"
-   ../config OUTPUT_FILE ${NAME}-config)")
+   ../config.in OUTPUT_FILE ${NAME}-config)")
 install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
