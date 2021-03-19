@@ -1,14 +1,10 @@
 #----- Compiler selection
 if(NOT DEFINED COMPILER_SUITE)
    if(DEFINED ENV{CRAYPE_VERSION})
-# TODO: Clear up compilers fo MPI as if we force them find MPI fails
-      set(CMAKE_C_COMPILER icc)
-      set(CMAKE_CXX_COMPILER icpc)
-      set(CMAKE_Fortran_COMPILER ifort)
-      set(MPI_C_COMPILER cc)
-      set(MPI_Fortran_COMPILER ftn)
- #     set(MPI_C_COMPILER_FLAGS "-I$ENV{CRAY_MPICH_DIR}/include")
       set(CMAKE_SYSTEM_NAME CrayLinuxEnvironment)
+      # We have to leave the default compiler on Cray for cmake to be able to find MPI
+      # Only force ifort since we dont want Cray's ftn flags in this case
+      set(CMAKE_Fortran_COMPILER ifort)
    elseif(DEFINED ENV{INTEL_LICENSE_FILE})
       set(COMPILER_SUITE intel)
    else()
