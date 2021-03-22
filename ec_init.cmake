@@ -38,10 +38,10 @@ elseif(COMPILER_SUITE MATCHES pgi)
 endif()
 
 #----- Prepare some variables for the search paths
-if(DEFINED ENV{EC_INCLUDE_PATH})
+if(DEFINED $ENV{EC_INCLUDE_PATH})
    string(REPLACE " " ";" EC_INCLUDE_PATH    $ENV{EC_INCLUDE_PATH})
 endif()
-if(DEFINED ENV{EC_LD_LIBRARY_PATH})
+if(DEFINED $ENV{EC_LD_LIBRARY_PATH})
    string(REPLACE " " ";" EC_LD_LIBRARY_PATH $ENV{EC_LD_LIBRARY_PATH})
 endif()
 
