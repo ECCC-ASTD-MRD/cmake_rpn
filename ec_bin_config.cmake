@@ -18,7 +18,7 @@ macro(ec_bin_config)
       -e \"s/CMAKE_EER/${eerUtils_VERSION}${EER_STATE}/\" 
       -e \"s/CMAKE_GDAL/${GDAL_VERSION}/\" 
       -e \"s/CMAKE_NETCDF/${NETCDF_VERSION}/\" 
-      -e \"s/CMAKE_HDF4/${HDF4_mv VERSION}/\" 
+      -e \"s/CMAKE_HDF4/${HDF4_VERSION}/\" 
       -e \"s/CMAKE_HDF5/${HDF5_VERSION}/\"
       ../config.in OUTPUT_FILE ${NAME}-config)")
    install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
