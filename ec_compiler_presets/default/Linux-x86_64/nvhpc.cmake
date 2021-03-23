@@ -1,5 +1,5 @@
-set(CMAKE_C_COMPILER "pgcc")
-set(CMAKE_Fortran_COMPILER "pgfortran")
+set(CMAKE_C_COMPILER "nvc")
+set(CMAKE_Fortran_COMPILER "nvfortran")
 
 set(MPI_C_COMPILER "mpicc")
 set(MPI_Fortran_COMPILER "mpif90")
