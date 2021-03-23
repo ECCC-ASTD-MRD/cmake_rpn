@@ -4,7 +4,7 @@
 # various things about the library installation.
 
 cc=CMAKE_CC
-ftn=CMAKE_FTN
+fc=CMAKE_FC
 cflags=CMAKE_CFLAGS
 fflags=CMAKE_FFLAGS
 libs=CMAKE_LIBS
@@ -23,7 +23,7 @@ Available values for OPTION include:
 
   --help         display this help message and exit
   --cc           C compiler [${cc}]
-  --ftn          FORTRAN compiler [${ftn}]
+  --fc           FORTRAN compiler [${ftn}]
   --cflags       C compiler flags [${cflags}]
   --fflags       Fortran compiler flags [${fflags}]
   --version      library version [${version}]
@@ -57,8 +57,8 @@ while test $# -gt 0; do
        	echo ${cc:-no}
        	;;
 
-    --ftn)
-       	echo ${ftn:-no}
+    --fc)
+       	echo ${fc:-no}
        	;;
 
     --cflags)
