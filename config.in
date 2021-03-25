@@ -2,22 +2,31 @@
 #
 # This forms the basis for the xx-config utility, which tells you
 # various things about the library installation.
+# Usage:
+#    Copy to your project directory and remove/add packages
+#    Call this within cmake:
+#       configure_file(config.in ${CMAKE_BINARY_DIR}/${NAME}-config @ONLY)
+#       install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
 
-cc=CMAKE_CC
-fc=CMAKE_FC
-cflags=CMAKE_CFLAGS
-fflags=CMAKE_FFLAGS
+cc="@CMAKE_C_COMPILER_ID@ @CMAKE_C_COMPILER_VERSION@"
+fc="@CMAKE_Fortran_COMPILER_ID@ @CMAKE_Fortran_COMPILER_VERSION@"
+cflags="@CMAKE_C_FLAGS@"
+fflags="@CMAKE_Fortran_Flags@"
 libs=CMAKE_LIBS
 
-version=CMAKE_VERSION
-has_rmn=CMAKE_RMN
-has_gdal=CMAKE_GDAL
-has_vgrid=CMAKE_VGRID
+version=@VERSION@@STATE@
+has_rmn=@RMN_VERSION@@RMN_STATE@
+has_vgrid=@VGRID_VERSION@@VGRID_STATE@
+has_eer=@eerUtils_VERSION@@eerUtils_STATE@ 
+has_gdal=@GDAL_VERSION@
+has_netcdf=@NETCDF_VERSION@ 
+has_hdf4=@HDF4_VERSION}@ 
+has_hdf5=@HDF5_VERSION}@
 
 usage()
 {
     cat <<EOF
-Usage: CMAKE_NAME-config [OPTION]
+Usage: @NAME@-config [OPTION]
 
 Available values for OPTION include:
 
@@ -28,8 +37,12 @@ Available values for OPTION include:
   --fflags       Fortran compiler flags [${fflags}]
   --version      library version [${version}]
   --has-rmn      which version of librmn is it compiled with [${has_rmn}]
-  --has-gdal     which version of gdal is it compiled with [${has_gdal}]
   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
+  --has-eer      which version of eerUtils is it compiled with [${has_eer}]
+  --has-gdal     which version of gdal is it compiled with [${has_gdal}]
+  --has-netcdf   which version of netCDF is it compiled with [${has_netcdf}]
+  --has-hdf4     which version of gdal is it compiled with [${has_hdf4}]
+  --has-hdf5     which version of gdal is it compiled with [${has_hdf5}]
 
 EOF
 }
@@ -77,16 +90,28 @@ while test $# -gt 0; do
        	echo ${has_rmn:-no}
        	;;
 
-    --has-gdal)
-       	echo ${has_gdal:-no}
-       	;;
-
     --has-vgrid)
        	echo ${has_vgrid:-no}
        	;;
 
-    --libs)
-       	echo $libs
+    --has-eer)
+       	echo ${has_eer:-no}
+       	;;
+
+    --has-gdal)
+       	echo ${has_gdal:-no}
+       	;;
+
+    --has-netcdf)
+       	echo ${has_netcdf:-no}
+       	;;
+
+    --has-hdf4)
+       	echo ${has_hdf4:-no}
+       	;;
+
+    --has-hdf5)
+       	echo ${has_hdf5:-no}
        	;;
 
     --version)
