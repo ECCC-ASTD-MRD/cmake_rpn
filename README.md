@@ -45,8 +45,12 @@ GDAL ~>= 2.0
 * ec_build_info
   * Produces an include file (build_info.h) with build information (BUILD_TIMESTAMP, BUILD_INFO, BUILD_ARCH, BUILD_USER, VERSION, DESCRIPTION) and an associated target (build_info) that will update the timestamp on call to make.
 
-* ec_bin_config
-  * Parse a file named "config.in" in the trunk to produce a configuration information script "[NAME]-config" giving information on how the package was built (compiler, rmn_version, ...):
+* config.in
+  * This is a file used to build a configuration information script "[NAME]-config" giving information on how the package was built (compiler, rmn_version, ...) which will end-up in the bin directory. Copy to your project base directory and remove/add packages within it then add this within you CMakeLists.txt:
+```cmake
+       configure_file(config.in ${CMAKE_BINARY_DIR}/${NAME}-config @ONLY)
+       install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
+```
 
 * ec_dump_cmake_variables :
   * Dumps all of the cmake variables sorted.

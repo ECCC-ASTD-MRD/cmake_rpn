@@ -115,7 +115,7 @@ while test $# -gt 0; do
        	;;
 
     --version)
-	    echo $version
+	    echo ${version}
 	    ;;
 
     *)
