@@ -27,9 +27,6 @@ file(WRITE \"build_info.h\" \"\\
 #define BUILD_ARCH      \\\"$ENV{EC_ARCH}\\\"
 #define BUILD_USER      \\\"$ENV{USER}\\\"
 
-#define VERSION         \\\"${VERSION}\\\"
-#define DESCRIPTION     \\\"${DESCRIPTION}\\\"
-
 #endif // _BUILD_INFO_H
 \")
 ")
