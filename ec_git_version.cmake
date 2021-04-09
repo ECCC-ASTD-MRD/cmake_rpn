@@ -19,13 +19,9 @@ macro(ec_git_version)
       # CMake does not deal with versions that do not follow the form
       # <major>.<minor>.<patch>.<tweak> where each component is a number
       # "0.0.1.0" is valid, but not "0.0.1.fe09182"
-      string(REGEX MATCH  "[0-9]+(\.[0-9]+)*" ${GIT_VERSION} MATCH)
-      if(MATCH)
-         set(VERSION ${GIT_VERSION})
-      else()
-         set(VERSION "0.0.0")
-      endif()
+      set(VERSION ${GIT_VERSION})
    else()
+      set(VERSION "0.0.0")
       message(FATAL_ERROR "Failed to get version info from Git!\n" "Git error message:\n" ${GIT_ERROR})
    endif()
 
