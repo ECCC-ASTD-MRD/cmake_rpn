@@ -23,7 +23,7 @@ set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 #CMAKE_Fortran_COMPILER_VERSION
 #CMAKE_C_COMPILER_VERSION
 if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
-    message(FATAL_ERROR "This code will not work with such an old compiler!  Please consider upgrading.")
+    message(WARNING "This code might not work with such an old compiler!  Please consider upgrading.")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 9)
     message(WARNING "Old compiler, but should work")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 9 AND CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 10)
