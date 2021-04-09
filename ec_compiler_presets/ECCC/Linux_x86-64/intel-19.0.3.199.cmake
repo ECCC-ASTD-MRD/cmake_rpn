@@ -4,12 +4,6 @@
 
 add_definitions(-DLittle_Endian)
 
-set(LAPACK_LIBRARIES "lapack")
-message(STATUS "LAPACK_LIBRARIES=${LAPACK_LIBRARIES}")
-
-set(BLAS_LIBRARIES "blas")
-message(STATUS "BLAS_LIBRARIES=${BLAS_LIBRARIES}")
-
 # Intel compiler diag codes (Use icc or ifort -diag-dump to get the full list) :
 #    5140: Unrecognized directive
 #    6182: Fortran @@ does not allow this edit descriptor.
