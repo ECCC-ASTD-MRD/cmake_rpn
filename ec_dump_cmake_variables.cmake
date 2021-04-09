@@ -1,4 +1,4 @@
-function(dump_cmake_variables)
+function(ec_dump_cmake_variables)
     get_cmake_property(_variableNames VARIABLES)
     list (SORT _variableNames)
     foreach (_variableName ${_variableNames})

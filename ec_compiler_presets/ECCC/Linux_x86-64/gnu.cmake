@@ -1,32 +1,6 @@
 # Default configuration for the GNU compiler suite
 # Input:
-#  LANGUAGES List of languages to enable for the project
 #  EXTRA_CHECKS Enable extra checking.  This will make the execution slower.
-
-# The full path of the compiler for <LANG> must be set in CMAKE_<LANG>_COMPILER
-# before calling enable_language(<LANG>)
-find_program(CMAKE_C_COMPILER "gcc")
-find_program(CMAKE_Fortran_COMPILER "gfortran")
-
-# Do these need to be here if we don't use MPI?  Are there any adverse effect to
-# having them?
-find_program(MPI_C_COMPILER "mpicc")
-find_program(MPI_Fortran_COMPILER "mpif90")
-
-# I don't know why, but enable_language empties CMAKE_BUILD_TYPE!
-# We therefore have to back it up and restore it after enable_language
-set(TMP_BUILD_TYPE ${CMAKE_BUILD_TYPE})
-
-foreach(LANGUAGE ${LANGUAGES})
-   enable_language(${LANGUAGE})
-endforeach()
-
-# Reset CMAKE_BUILD_TYPE
-set(CMAKE_BUILD_TYPE ${TMP_BUILD_TYPE})
-unset(TMP_BUILD_TYPE)
-
-# find_package() commands can only be called after the languages have been 
-# eneabled or they will fail
 
 add_definitions(-DLittle_Endian)
 
@@ -49,7 +23,7 @@ set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 #CMAKE_Fortran_COMPILER_VERSION
 #CMAKE_C_COMPILER_VERSION
 if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
-    message(FATAL_ERROR "This code will not work with such an old compiler!  Please consider upgrading.")
+    message(WARNING "This code might not work with such an old compiler!  Please consider upgrading.")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 9)
     message(WARNING "Old compiler, but should work")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 9 AND CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 10)
