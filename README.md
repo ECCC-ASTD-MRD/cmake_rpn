@@ -76,12 +76,15 @@ foreach(PATH $ENV{EC_CMAKE_MODULE_PATH})
 endforeach()
 
 include(ec_init)           # Initialize compilers and ECCC specific functions
-ec_parse_manifest          # Parse MANIFEST file (optional)
-ec_build_info              # Generate build include file (optional)
+ec_parse_manifest()        # Parse MANIFEST file (optional)
+ec_build_info()            # Generate build include file (optional)
+ec_git_version()           # Get the version from the git repository
 
 include(doxygen)           # Doxygen target (optional)
 
-project("SomeProject" VERSION 0.0.0 DESCRIPTION "Does something")
+project("SomeProject" DESCRIPTION "Does something")
+set(PROJECT_VERSION ${VERSION})
+
 option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones." TRUE)
 
 set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
