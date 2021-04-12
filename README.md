@@ -68,14 +68,14 @@ GDAL ~>= 2.0
 ## Example usage
 
 ```cmake
-...
+cmake_minimum_required(VERSION 3.12)
 
 #----- Append EC specific module path
 foreach(PATH $ENV{EC_CMAKE_MODULE_PATH})
    list(APPEND CMAKE_MODULE_PATH ${PATH})
 endforeach()
 
-include(ec_init)           # Initialize compilers and ECCC specific functions
+include(ec_init)           # Include EC specific cmake utils
 ec_parse_manifest()        # Parse MANIFEST file (optional)
 ec_build_info()            # Generate build include file (optional)
 ec_git_version()           # Get the version from the git repository
@@ -85,24 +85,19 @@ include(doxygen)           # Doxygen target (optional)
 project("SomeProject" DESCRIPTION "Does something")
 set(PROJECT_VERSION ${VERSION})
 
-option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones." TRUE)
-
-set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
-
 #----- Enable language before sourcing the compiler presets
 enable_language(C)
 enable_language(Fortran)
 enable_testing()
 
-include(ec_compiler_presets)
+include(ec_compiler_presets)  # Include compiler specific flags
 
 find_package(RMN ${RMN_REQ_VERSION} COMPONENTS SHARED OPTIONAL)
 find_package(VGRID ${VGRID_REQ_VERSION} COMPONENTS SHARED OPTIONAL)
-find_package(GDB)
-find_package(ECCODES ${ECCODES_REQ_VERSION})
-find_package(ECBUFR ${ECBUFR_REQ_VERSION})
-find_package(FLT ${FLT_REQ_VERSION})
-find_package(URP ${URP_REQ_VERSION})
 
-...
+add_subdirectory(src src)
+
+#----- Process config script
+configure_file(config.in ${CMAKE_BINARY_DIR}/${NAME}-config @ONLY)
+install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
 ```
