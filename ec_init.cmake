@@ -1,4 +1,4 @@
-#----- Compiler selection
+# Compiler selection
 if(NOT DEFINED COMPILER_SUITE)
    if(DEFINED ENV{CRAYPE_VERSION})
       set(CMAKE_SYSTEM_NAME CrayLinuxEnvironment)
@@ -39,7 +39,7 @@ elseif(COMPILER_SUITE MATCHES nvhpc)
    set(MPI_Fortran_COMPILER mpif90)
 endif()
 
-#----- Prepare some variables for the search paths
+# Prepare some variables for the search paths
 if(DEFINED ENV{EC_INCLUDE_PATH})
    string(REPLACE " " ";" EC_INCLUDE_PATH    $ENV{EC_INCLUDE_PATH})
 endif()
@@ -48,10 +48,11 @@ if(DEFINED ENV{EC_LD_LIBRARY_PATH})
 endif()
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
+   message(WARNING "CMAKE_INSTALL_PREFIX was not specified!  Emptying default path!")
+   set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
 endif()
 
-#----- Include EC defined functions
+# Include EC defined functions
 include(ec_build_info)
 include(ec_dump_cmake_variables)
 include(ec_git_version)
