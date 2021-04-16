@@ -53,8 +53,5 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 
 # Include EC defined functions
-include(ec_build_info)
-include(ec_dump_cmake_variables)
 include(ec_git_version)
-include(ec_parse_manifest)
-include(ec_shared_lib)
+include(ec_build_info)
