@@ -29,7 +29,7 @@ elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 9)
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 9 AND CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 10)
     message(STATUS "Compiler is modern and everything should be tip-top")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
-    message(WARNING "Our code has not yet been updated to work with an up-to-date compiler; adding extra options to be more permissive.")
+    message(WARNING "Our code has not yet been updated to work with GNU compilers 10.x; adding extra options to be more permissive.")
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
 endif()
 
