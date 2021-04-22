@@ -41,10 +41,10 @@ endif()
 
 # Prepare some variables for the search paths
 if(DEFINED ENV{EC_INCLUDE_PATH})
-   string(REPLACE " " ";" EC_INCLUDE_PATH    $ENV{EC_INCLUDE_PATH})
+   string(REPLACE " " ";" EC_INCLUDE_PATH "$ENV{EC_INCLUDE_PATH}")
 endif()
 if(DEFINED ENV{EC_LD_LIBRARY_PATH})
-   string(REPLACE " " ";" EC_LD_LIBRARY_PATH $ENV{EC_LD_LIBRARY_PATH})
+   string(REPLACE " " ";" EC_LD_LIBRARY_PATH "$ENV{EC_LD_LIBRARY_PATH}")
 endif()
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
