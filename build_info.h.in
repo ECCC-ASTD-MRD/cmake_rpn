@@ -1,0 +1,21 @@
+#ifndef _BUILD_INFO_H
+#define _BUILD_INFO_H
+
+/* Warning: The project name macro does not include quotes!  This is so we can
+    cat it into a symbol name */
+#define PROJECT_NAME    @PROJECT_NAME@
+#define VERSION         "@GIT_VERSION@"
+#define EC_ARCH         "@EC_ARCH@"
+#define BUILD_USER      "@BUILD_USER@"
+#define BUILD_TIMESTAMP "@BUILD_TIMESTAMP@"
+
+#define C_COMPILER_ID "@CMAKE_C_COMPILER_ID@"
+#define C_COMPILER_VERSION "@CMAKE_C_COMPILER_VERSION@"
+
+#define CXX_COMPILER_ID "@CMAKE_CXX_COMPILER_ID@"
+#define CXX_COMPILER_VERSION "@CMAKE_CXX_COMPILER_VERSION@"
+
+#define FORTRAN_COMPILER_ID "@CMAKE_Fortran_COMPILER_ID@"
+#define FORTRAN_COMPILER_VERSION "@CMAKE_Fortran_COMPILER_VERSION@"
+
+#endif /* _BUILD_INFO_H */

@@ -1,42 +1,23 @@
-# Build ISO 8601 build timestamp target
-# How to use:
-#   - add as a target to a build
-#   - add_dependencies(eerUtils$ENV{OMPI} build)
-#   - and include the file build.h to have the BUILD_TIMESTAMP variable #defined
+function(ec_build_info)
+    message(STATUS "Adding build_info target")
 
-macro(ec_build_info)
-   include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-
-   file(WRITE "${CMAKE_BINARY_DIR}/build_info.cmake" "
-if(EXISTS \"${CMAKE_CURRENT_SOURCE_DIR}/.git\")
-   execute_process(COMMAND git describe --always
-      OUTPUT_VARIABLE BUILD_INFO)
-   string(STRIP \"\${BUILD_INFO}\" BUILD_INFO)
-else()
-   set(BUILD_INFO \"\")
-endif()
-
-string(TIMESTAMP BUILD_TIMESTAMP UTC)
-
-file(WRITE \"build_info.h\" \"\\
-#ifndef _BUILD_INFO_H
-#define _BUILD_INFO_H
-
-#define BUILD_TIMESTAMP \\\"\${BUILD_TIMESTAMP}\\\"
-#define BUILD_INFO      \\\"\${BUILD_INFO}\\\"
-#define BUILD_ARCH      \\\"$ENV{EC_ARCH}\\\"
-#define BUILD_USER      \\\"$ENV{USER}\\\"
-
-#endif // _BUILD_INFO_H
-\")
-")
-
-   add_custom_target(build_info
-      COMMAND           "${CMAKE_COMMAND}" -P "${CMAKE_BINARY_DIR}/build_info.cmake"
-      BYPRODUCTS        "build_info.h"
-      COMMENT           "Generating build_info"
-   )
-
-   include_directories(${CMAKE_BINARY_DIR})
-endmacro()
-
+    # Variables from the current CMake execution environment have to be passed
+    # with "-D" since they will not be available when executed with "-P"
+    add_custom_target(
+        build_info
+        ALL
+        COMMAND "${CMAKE_COMMAND}" 
+            "-DPROJECT_NAME=${PROJECT_NAME}"
+            "-DSOURCE_DIR=${CMAKE_SOURCE_DIR}"
+            "-DCMAKE_C_COMPILER_ID=${CMAKE_C_COMPILER_ID}"
+            "-DCMAKE_C_COMPILER_VERSION=${CMAKE_C_COMPILER_VERSION}"
+            "-DCMAKE_CXX_COMPILER_ID=${CMAKE_CXX_COMPILER_ID}"
+            "-DCMAKE_CXX_COMPILER_VERSION=${CMAKE_CXX_COMPILER_VERSION}"
+            "-DCMAKE_Fortran_COMPILER_ID=${CMAKE_Fortran_COMPILER_ID}"
+            "-DCMAKE_Fortran_COMPILER_VERSION=${CMAKE_Fortran_COMPILER_VERSION}"
+            -P "${CMAKE_SOURCE_DIR}/cmake_rpn/ec_build_info_maketime.cmake"
+        BYPRODUCTS "${PROJECT_NAME}_build_info.h"
+        COMMENT "Generating ${PROJECT_NAME}_build_info.h"
+    )
+    include_directories(${CMAKE_BINARY_DIR})
+endfunction()

@@ -24,6 +24,4 @@ macro(ec_git_version)
       set(VERSION "0.0.0")
       message(FATAL_ERROR "Failed to get version info from Git!\n" "Git error message:\n" ${GIT_ERROR})
    endif()
-
-   add_definitions(-DVERSION="${GIT_VERSION}")
 endmacro()
