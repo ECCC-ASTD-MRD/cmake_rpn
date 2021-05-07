@@ -1,7 +1,7 @@
 # Description
 
 This package contains common functions used throughout the build of various tools with cmake. 
-It also defines a set of compilers rules optimized for ECCC's many platforms and compilers
+It also defines a set of compilers presets optimized for ECCC's many platforms and compilers
 
 # Usage
 This package can be included as a submodule or used through the CMAKE_MODULE_PATH environment variable
@@ -12,10 +12,10 @@ This package can be included as a submodule or used through the CMAKE_MODULE_PAT
   * Initializes some variables and the compiler suite. If the compiler suite is not defined (cmake -COMPILER_SUITE=[gnu|intel|xlf], it will be determined by the compiler which is loaded on the platform. Default is gnu
 
 * include(ec_compiler_presets)
-  * Loads predefined compiler settings optimized per compiler and platform. must be included afte languages are enabled
+  * Loads predefined compiler settings optimized per compiler and platform. must be included after languages are enabled
 
 * include(ec_doxygen) 
-  * Provides a Doxygen target to build the documentation.
+  * Creates a __doc__ target to build the documentation with Doxygen.  Plase note that the __doc__ target is not included in __all__.  This means that it won't be built when running ```make```.  To build the documentation, ```make doc``` must be executed explicitly.
 
 * ec_parse_manifest
   * Parses a MANIFEST file defining package information and dependencies, and defines the variables NAME, VERSION, BUILD, DESCRIPTION, MAINTAINER, URL and for each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH. ex:
@@ -40,10 +40,21 @@ GDAL ~>= 2.0
 ```
 
 * ec_git_version
-  * Extracts the version from git information into variable VERSION.
+  * Extracts the version from git information into variable GIT_VERSION.
 
 * ec_build_info
-  * Produces an include file (build_info.h) with build information (BUILD_TIMESTAMP, BUILD_INFO, BUILD_ARCH, BUILD_USER) and an associated target (build_info) that will update the timestamp on call to make.
+  * Produces an header file (${PROJECT_NAME}_build_info.h) with build information and an associated target (build_info) that will update the timestamp and version when ```make``` is invoked.  The following definitions will be present in the generated header file:
+    * PROJECT_NAME
+    * VERSION
+    * EC_ARCH
+    * BUILD_USER
+    * BUILD_TIMESTAMP
+    * C_COMPILER_ID
+    * C_COMPILER_VERSION
+    * CXX_COMPILER_ID
+    * CXX_COMPILER_VERSION
+    * FORTRAN_COMPILER_ID
+    * FORTRAN_COMPILER_VERSION
 
 * config.in
   * This is a file used to build a configuration information script "[NAME]-config" giving information on how the package was built (compiler, rmn_version, ...) which will end-up in the bin directory. Copy to your project base directory and remove/add packages within it then add this within you CMakeLists.txt:
@@ -86,8 +97,7 @@ project("SomeProject" DESCRIPTION "Does something")
 set(PROJECT_VERSION ${VERSION})
 
 #----- Enable language before sourcing the compiler presets
-enable_language(C)
-enable_language(Fortran)
+enable_language(C Fortran)
 enable_testing()
 
 include(ec_compiler_presets)  # Include compiler specific flags
