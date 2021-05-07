@@ -21,7 +21,7 @@ This package can be included as a submodule or used through the CMAKE_MODULE_PAT
   * Parses a MANIFEST file defining package information and dependencies, and defines the variables NAME, VERSION, BUILD, DESCRIPTION, MAINTAINER, URL and for each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH. ex:
 
 
-```shell
+```
 NAME       : libgeoref
 VERSION    : 0.1.0
 BUILD      : Debug
