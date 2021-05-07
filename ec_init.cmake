@@ -10,6 +10,8 @@ if(NOT DEFINED COMPILER_SUITE)
    else()
       set(COMPILER_SUITE gnu)
    endif()
+else()
+   string(TOLOWER "${COMPILER_SUITE}" COMPILER_SUITE)
 endif()
 message(STATUS "COMPILER_SUITE=${COMPILER_SUITE}")
 
