@@ -31,11 +31,11 @@ file(WRITE \"build_info.h\" \"\\
 \")
 ")
 
-   add_custom_target(build_info
+   add_custom_command(
       COMMAND           "${CMAKE_COMMAND}" -P "${CMAKE_BINARY_DIR}/build_info.cmake"
-      BYPRODUCTS        "build_info.h"
-      COMMENT           "Generating build_info"
+      OUTPUT            "build_info.h"
    )
+   add_custom_target(build_info DEPENDS build_info.h)
 
    include_directories(${CMAKE_BINARY_DIR})
 endmacro()
