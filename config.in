@@ -11,7 +11,7 @@
 cc="@CMAKE_C_COMPILER_ID@ @CMAKE_C_COMPILER_VERSION@"
 fc="@CMAKE_Fortran_COMPILER_ID@ @CMAKE_Fortran_COMPILER_VERSION@"
 cflags="@CMAKE_C_FLAGS@"
-fflags="@CMAKE_Fortran_Flags@"
+fflags="@CMAKE_Fortran_FLAGS@"
 libs=CMAKE_LIBS
 
 version=@VERSION@@STATE@
