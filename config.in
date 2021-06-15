@@ -32,7 +32,7 @@ Available values for OPTION include:
 
   --help         display this help message and exit
   --cc           C compiler [${cc}]
-  --fc           FORTRAN compiler [${ftn}]
+  --fc           FORTRAN compiler [${fc}]
   --cflags       C compiler flags [${cflags}]
   --fflags       Fortran compiler flags [${fflags}]
   --version      library version [${version}]
