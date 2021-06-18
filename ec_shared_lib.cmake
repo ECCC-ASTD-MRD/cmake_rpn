@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 macro(ec_target_link_library_if _target _condvar)
    set(_libs ${ARGN})
    list(LENGTH _libs _nlibs)

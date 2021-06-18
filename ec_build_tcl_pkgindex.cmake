@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 # This module builds the pkgIndec.tcl file information and installs it
 #    Needs the MANIFEST file to have been parsed earlier (rpn_parse_manifest)
 

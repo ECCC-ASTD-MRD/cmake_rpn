@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 add_definitions(-Di386 -DLittle_Endian)
 
 set(CMAKE_C_COMPILER "clang")

@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# Copyright 2021, Her Majesty the Queen in right of Canada
+#
 # This forms the basis for the xx-config utility, which tells you
 # various things about the library installation.
 # Usage:

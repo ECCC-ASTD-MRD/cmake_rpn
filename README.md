@@ -111,3 +111,7 @@ add_subdirectory(src src)
 configure_file(config.in ${CMAKE_BINARY_DIR}/${NAME}-config @ONLY)
 install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
 ```
+
+
+# License
+Please see the content of the __LICENSE__ file for liscensing information.

@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 # This modules loads compiler presets for the current platform and handles
 # ECCC's computing environment differently
 

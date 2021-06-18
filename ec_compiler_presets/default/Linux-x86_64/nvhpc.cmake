@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 set(CMAKE_C_COMPILER "nvc")
 set(CMAKE_Fortran_COMPILER "nvfortran")
 

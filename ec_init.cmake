@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 # Compiler selection
 if(NOT DEFINED COMPILER_SUITE)
    if(DEFINED ENV{CRAYPE_VERSION})

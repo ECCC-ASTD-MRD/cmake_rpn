@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 # This file is used by the build_info target and will be parsed whenever make is invoked
 
 include(${SOURCE_DIR}/cmake_rpn/ec_git_version.cmake)
