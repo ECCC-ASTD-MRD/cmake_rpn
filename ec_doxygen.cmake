@@ -6,7 +6,7 @@ if(WITH_DOC)
     find_package(Doxygen REQUIRED dot)
 
     if(NOT PROJECT_SOURCE_DIR)
-        message(FATAL_ERROR "PROJECT_SOURCE_DIR not defined!  This module must be called AFTER the project command!")
+        message(FATAL_ERROR "(EC) PROJECT_SOURCE_DIR not defined!  This module must be called AFTER the project command!")
     endif()
 
     set(doxyfile_in ${CMAKE_CURRENT_LIST_DIR}/Doxyfile.in)

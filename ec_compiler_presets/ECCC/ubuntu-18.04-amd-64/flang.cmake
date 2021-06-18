@@ -1,4 +1,4 @@
-message(FATAL "This combinaison of compiler and architecture not yet ready for use")
+message(FATAL "(EC) This combinaison of compiler and architecture not yet ready for use")
 
 add_definitions(-Di386 -DLittle_Endian)
 
