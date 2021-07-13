@@ -11,7 +11,7 @@
 cc="@CMAKE_C_COMPILER_ID@ @CMAKE_C_COMPILER_VERSION@"
 fc="@CMAKE_Fortran_COMPILER_ID@ @CMAKE_Fortran_COMPILER_VERSION@"
 cflags="@CMAKE_C_FLAGS@"
-fflags="@CMAKE_Fortran_Flags@"
+fflags="@CMAKE_Fortran_FLAGS@"
 defs="@EC_CMAKE_DEFINITIONS@"
 libs=CMAKE_LIBS
 
@@ -33,7 +33,7 @@ Available values for OPTION include:
 
   --help         display this help message and exit
   --cc           C compiler [${cc}]
-  --fc           FORTRAN compiler [${ftn}]
+  --fc           FORTRAN compiler [${fc}]
   --cflags       C compiler flags [${cflags}]
   --fflags       Fortran compiler flags [${fflags}]
   --defs         Preprocessor definitions [${defs}]
