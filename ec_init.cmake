@@ -55,3 +55,4 @@ endif()
 # Include EC defined functions
 include(ec_git_version)
 include(ec_build_info)
+include(ec_build_config)
