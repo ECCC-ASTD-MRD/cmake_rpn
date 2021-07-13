@@ -74,7 +74,4 @@ endif()
 # Include EC defined functions
 include(ec_git_version)
 include(ec_build_info)
-<<<<<<< HEAD
 include(ec_build_config)
-=======
->>>>>>> 19f7edd2dc35e414d6102062519406ce7fff42e7
