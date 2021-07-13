@@ -7,7 +7,7 @@
 add_definitions(-DLittle_Endian)
 
 if(BUILD_SHARED_LIBS)
-    message(WARNING "You are building with shared libs on this system.
+    message(WARNING "(EC) You are building with shared libs on this system.
     This is probably not what you want!
     To fix this, add -DBUILD_SHARED_LIBS=NO to your CMake command line.")
 endif()
@@ -36,7 +36,7 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 if(NOT TARGET_PROC)
     set(TARGET_PROC "CORE-AVX512")
 endif()
-message(STATUS "Target architecture: ${TARGET_PROC}")
+message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x${TARGET_PROC}")
 set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -x${TARGET_PROC}")
 

@@ -14,6 +14,7 @@ cc="@CMAKE_C_COMPILER_ID@ @CMAKE_C_COMPILER_VERSION@"
 fc="@CMAKE_Fortran_COMPILER_ID@ @CMAKE_Fortran_COMPILER_VERSION@"
 cflags="@CMAKE_C_FLAGS@"
 fflags="@CMAKE_Fortran_FLAGS@"
+defs="@EC_CMAKE_DEFINITIONS@"
 libs=CMAKE_LIBS
 
 version=@VERSION@@STATE@
@@ -37,6 +38,7 @@ Available values for OPTION include:
   --fc           FORTRAN compiler [${fc}]
   --cflags       C compiler flags [${cflags}]
   --fflags       Fortran compiler flags [${fflags}]
+  --defs         Preprocessor definitions [${defs}]
   --version      library version [${version}]
   --has-rmn      which version of librmn is it compiled with [${has_rmn}]
   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
@@ -82,6 +84,10 @@ while test $# -gt 0; do
            
     --fflags)
        	echo ${fflags}
+       	;;
+
+    --defs)
+       	echo ${defs}
        	;;
 
     --libs)

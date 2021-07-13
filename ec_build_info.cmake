@@ -1,7 +1,7 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
 function(ec_build_info)
-    message(STATUS "Adding build_info target")
+    message(STATUS "(EC) Adding build_info target")
 
     # Variables from the current CMake execution environment have to be passed
     # with "-D" since they will not be available when executed with "-P"

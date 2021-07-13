@@ -11,7 +11,7 @@ if(NOT DEFINED COMPILER_SUITE)
       set(COMPILER_SUITE ${CMAKE_MATCH_1})
 
       if(NOT COMPILER_SUITE STREQUAL "intel")
-         message(FATAL_ERROR "We only support Intel compilers in the CrayLinuxEnvironment!")
+         message(FATAL_ERROR "(EC) We only support Intel compilers in the CrayLinuxEnvironment!")
       endif()
    elseif(DEFINED ENV{INTEL_LICENSE_FILE})
       set(COMPILER_SUITE intel)
@@ -21,7 +21,7 @@ if(NOT DEFINED COMPILER_SUITE)
 else()
    string(TOLOWER "${COMPILER_SUITE}" COMPILER_SUITE)
 endif()
-message(STATUS "COMPILER_SUITE=${COMPILER_SUITE}")
+message(STATUS "(EC) COMPILER_SUITE=${COMPILER_SUITE}")
 
 # Only set compilers if we are not in the CrayLinuxEnvironment
 if(NOT CMAKE_SYSTEM_NAME MATCHES CrayLinuxEnvironment)
@@ -67,10 +67,14 @@ if(DEFINED ENV{EC_LD_LIBRARY_PATH})
 endif()
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-   message(WARNING "CMAKE_INSTALL_PREFIX was not specified!  Emptying default path!")
+   message(WARNING "(EC) CMAKE_INSTALL_PREFIX was not specified!  Emptying default path!")
    set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
 endif()
 
 # Include EC defined functions
 include(ec_git_version)
 include(ec_build_info)
+<<<<<<< HEAD
+include(ec_build_config)
+=======
+>>>>>>> 19f7edd2dc35e414d6102062519406ce7fff42e7

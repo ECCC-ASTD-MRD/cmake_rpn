@@ -28,7 +28,7 @@ if(NOT TARGET_PROC)
     # -xHost is the Intel equivalent of GCC's -march=native
     set(TARGET_PROC "Host")
 endif()
-message(STATUS "Target architecture: ${TARGET_PROC}")
+message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x${TARGET_PROC}")
 set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -x${TARGET_PROC}")
 

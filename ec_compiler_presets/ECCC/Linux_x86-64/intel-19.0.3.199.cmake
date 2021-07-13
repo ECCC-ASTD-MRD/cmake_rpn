@@ -41,7 +41,7 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 if(NOT TARGET_PROC)
     set(TARGET_PROC "sse3")
 endif()
-message(STATUS "Target architecture: ${TARGET_PROC}")
+message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m${TARGET_PROC}")
 set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -m${TARGET_PROC}")
 
