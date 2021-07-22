@@ -19,7 +19,6 @@ set(CMAKE_Fortran_FLAGS "-Wall -Wextra -Wno-compare-reals -Wno-conversion -Wno-u
 set(CMAKE_Fortran_FLAGS_DEBUG "-g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
-
 #CMAKE_Fortran_COMPILER_VERSION
 #CMAKE_C_COMPILER_VERSION
 if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
@@ -29,10 +28,9 @@ elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 9)
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 9 AND CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 10)
     message(STATUS "(EC) Compiler is modern and everything should be tip-top")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
-    message(WARNING "(EC) Our code has not yet been updated to work with an up-to-date compiler; adding extra options to be more permissive.")
+    message(WARNING "(EC) Our code has not yet been updated to work with GNU compilers 10.x; adding extra options to be more permissive.")
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
 endif()
-
 
 # Set the target architecture
 if(NOT TARGET_PROC)
@@ -47,7 +45,6 @@ set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${TARGET_PROC}")
 # It doesn't matter if we defined them even if OpenACC isn't used because the
 # OpenACC_extra_FLAGS variable just won't be used
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
-
 
 if (EXTRA_CHECKS)
    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fanalyzer -fsanitize=bounds -fsanitize=alignment -fstack-protector-all -fstack-check -fstack-clash-protection")

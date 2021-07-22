@@ -2,12 +2,6 @@ message(FATAL "(EC) This combinaison of compiler and architecture not yet ready 
 
 add_definitions(-DLittle_Endian)
 
-set(CMAKE_C_COMPILER "gcc")
-set(CMAKE_Fortran_COMPILER "gfortran")
-
-set(MPI_C_COMPILER "mpicc")
-set(MPI_Fortran_COMPILER "mpif90")
-
 set(OPTIMIZ_FLAG -O2)
 if (SHARED)
    set (LIBTYPE -shared)

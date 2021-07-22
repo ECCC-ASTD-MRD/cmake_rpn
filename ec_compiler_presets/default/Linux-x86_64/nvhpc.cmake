@@ -1,9 +1,3 @@
-set(CMAKE_C_COMPILER "nvc")
-set(CMAKE_Fortran_COMPILER "nvfortran")
-
-set(MPI_C_COMPILER "mpicc")
-set(MPI_Fortran_COMPILER "mpif90")
-
 set(CMAKE_C_FLAGS "-O2 -Wl,--allow-shlib-undefined -fpic -I." CACHE STRING "C compiler flags" FORCE)
 
 set(CMAKE_Fortran_FLAGS "-O2 -fpic -byteswapio -fast -Mvect=fuse,simd -Kieee -traceback" CACHE STRING "Fortran compiler flags" FORCE)
