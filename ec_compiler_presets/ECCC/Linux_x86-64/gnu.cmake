@@ -11,7 +11,7 @@ set(BLAS_LIBRARIES "blas")
 message(STATUS "(EC) BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 # Since we are now using CMake mechanisms to build shared libraries
 # (BUILD_SHARED_LIBS), removed -fpic from CMAKE_C_FLAGS to see if it works
-set(CMAKE_C_FLAGS "-w -Wall -Wextra")
+set(CMAKE_C_FLAGS "-Wall -Wextra")
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
