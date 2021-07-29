@@ -6,7 +6,7 @@
    "summary": "@SUMMARY@ (@URL@)",
    "description": "@DESCRIPTION@",
    "requires": "",
-   "x-build-date": "@BUILD_TIMESTAMP@"),
+   "x-build-date": "@BUILD_TIMESTAMP@",
    "x-build-platform": "@EC_PLAT@",
    "x-build-user": @EC_USER@,
    "x-build-host": @OS_HOSTNAME@,
