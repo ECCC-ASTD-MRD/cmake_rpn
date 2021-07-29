@@ -42,6 +42,9 @@ GDAL ~>= 2.0
 * ec_git_version
   * Extracts the version from git information into variable GIT_VERSION.
 
+* ec_install_prefix
+  * Defines the install prefix with the EC convention (NAME_VERSION-COMPARCH-PLATFORM), if it has not been specified on the cmake command line
+
 * ec_build_info
   * Produces an header file (${PROJECT_NAME}_build_info.h) with build information and an associated target (build_info) that will update the timestamp and version when ```make``` is invoked.  The following definitions will be present in the generated header file:
     * PROJECT_NAME
@@ -87,14 +90,16 @@ foreach(PATH $ENV{EC_CMAKE_MODULE_PATH})
 endforeach()
 
 include(ec_init)           # Include EC specific cmake utils
-ec_parse_manifest()        # Parse MANIFEST file (optional)
-ec_build_info()            # Generate build include file (optional)
 ec_git_version()           # Get the version from the git repository
+ec_parse_manifest()        # Parse MANIFEST file (optional)
 
 include(doxygen)           # Doxygen target (optional)
 
 project("SomeProject" DESCRIPTION "Does something")
 set(PROJECT_VERSION ${VERSION})
+
+ec_build_info()            # Generate build include file
+ec_install_prefix()        # Define install prefix  
 
 #----- Enable language before sourcing the compiler presets
 enable_language(C Fortran)

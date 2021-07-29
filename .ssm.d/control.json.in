@@ -1,0 +1,14 @@
+{
+   "name": "@NAME@",
+   "version": "@PROJECT_VERSION@",
+   "platform": "@EC_PLAT@",
+   "maintainer": "@MAINTAINER@",
+   "summary": "@SUMMARY@ (@URL@)",
+   "description": "@DESCRIPTION@",
+   "requires": "",
+   "x-build-date": "@BUILD_TIMESTAMP@"),
+   "x-build-platform": "@EC_PLAT@",
+   "x-build-user": @EC_USER@,
+   "x-build-host": @OS_HOSTNAME@,
+   "x-build-uname": f"('@OS_HOSTNAME@', '@OS_FQDN@', '@OS_RELEASE@', '@OS_VERSION@', '@OS_PLATFORM@')"
+}
