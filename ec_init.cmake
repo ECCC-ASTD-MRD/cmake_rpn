@@ -76,6 +76,7 @@ endif()
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
    message(WARNING "(EC) CMAKE_INSTALL_PREFIX was not specified!  Emptying default path!")
+
    set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
 endif()
 
@@ -90,3 +91,5 @@ include(ec_build_info)
 include(ec_build_config)
 include(ec_parse_manifest)
 include(ec_dump_cmake_variables)
+include(ec_install_prefix)
+include(ec_prepare_ssm)

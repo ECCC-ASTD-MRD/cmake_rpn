@@ -17,7 +17,7 @@ This package can be included as a submodule or used through the CMAKE_MODULE_PAT
 * include(ec_doxygen) 
   * Creates a __doc__ target to build the documentation with Doxygen.  Plase note that the __doc__ target is not included in __all__.  This means that it won't be built when running ```make```.  To build the documentation, ```make doc``` must be executed explicitly.
 
-* ec_parse_manifest
+* ec_parse_manifest()
   * Parses a MANIFEST file defining package information and dependencies, and defines the variables NAME, VERSION, BUILD, DESCRIPTION, MAINTAINER, URL and for each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH. ex:
 
 
@@ -39,10 +39,13 @@ VGRID ~= 6.5.0
 GDAL ~>= 2.0
 ```
 
-* ec_git_version
+* ec_git_version()
   * Extracts the version from git information into variable GIT_VERSION.
 
-* ec_build_info
+* ec_install_prefix()
+  * Defines the install prefix with the EC convention (NAME_VERSION-COMPARCH-PLATFORM), if it has not been specified on the cmake command line
+
+* ec_build_info()
   * Produces an header file (${PROJECT_NAME}_build_info.h) with build information and an associated target (build_info) that will update the timestamp and version when ```make``` is invoked.  The following definitions will be present in the generated header file:
     * PROJECT_NAME
     * VERSION
@@ -63,7 +66,7 @@ GDAL ~>= 2.0
        install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
 ```
 
-* ec_dump_cmake_variables :
+* ec_dump_cmake_variables()
   * Dumps all of the cmake variables sorted.
 
 
@@ -87,14 +90,16 @@ foreach(PATH $ENV{EC_CMAKE_MODULE_PATH})
 endforeach()
 
 include(ec_init)           # Include EC specific cmake utils
-ec_parse_manifest()        # Parse MANIFEST file (optional)
-ec_build_info()            # Generate build include file (optional)
 ec_git_version()           # Get the version from the git repository
+ec_parse_manifest()        # Parse MANIFEST file (optional)
 
 include(doxygen)           # Doxygen target (optional)
 
 project("SomeProject" DESCRIPTION "Does something")
 set(PROJECT_VERSION ${VERSION})
+
+ec_build_info()            # Generate build include file
+ec_install_prefix()        # Define install prefix  
 
 #----- Enable language before sourcing the compiler presets
 enable_language(C Fortran)
@@ -110,4 +115,18 @@ add_subdirectory(src src)
 #----- Process config script
 configure_file(config.in ${CMAKE_BINARY_DIR}/${NAME}-config @ONLY)
 install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
+
+#----- Packaging setps
+ec_prepare_ssm()
+
+set(CPACK_GENERATOR "TGZ")
+set(CPACK_PACKAGE_VENDOR "ECCC")
+set(CPACK_PACKAGE_CONTACT "${MAINTAINER}")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
+set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+set(CPACK_OUTPUT_FILE_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/package")
+set(CPACK_PACKAGE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+set(CPACK_PACKAGE_FILE_NAME "${CMAKE_INSTALL_PREFIX}")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_INSTALL_PREFIX}")
+include(CPack)
 ```
