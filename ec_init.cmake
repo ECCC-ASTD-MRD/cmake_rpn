@@ -81,7 +81,7 @@ endif()
 
 # Enable DEBUG macro on cmake debug build
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_definitions(-DDEBUG)
+    add_definitions(-DDEBUG_LEVEL)
 endif()
 
 # Include EC defined functions
