@@ -4,11 +4,6 @@
 
 add_definitions(-DLittle_Endian)
 
-set(LAPACK_LIBRARIES "lapack")
-message(STATUS "(EC) LAPACK_LIBRARIES=${LAPACK_LIBRARIES}")
-
-set(BLAS_LIBRARIES "blas")
-message(STATUS "(EC) BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 # Since we are now using CMake mechanisms to build shared libraries
 # (BUILD_SHARED_LIBS), removed -fpic from CMAKE_C_FLAGS to see if it works
 set(CMAKE_C_FLAGS "-Wall -Wextra")
@@ -19,8 +14,6 @@ set(CMAKE_Fortran_FLAGS "-Wall -Wextra -Wno-compare-reals -Wno-conversion -Wno-u
 set(CMAKE_Fortran_FLAGS_DEBUG "-g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
-#CMAKE_Fortran_COMPILER_VERSION
-#CMAKE_C_COMPILER_VERSION
 if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
     message(WARNING "(EC) This code might not work with such an old compiler!  Please consider upgrading.")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
@@ -33,6 +26,7 @@ if(NOT TARGET_PROC)
     set(TARGET_PROC "native")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${TARGET_PROC}")
 set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${TARGET_PROC}")
 
