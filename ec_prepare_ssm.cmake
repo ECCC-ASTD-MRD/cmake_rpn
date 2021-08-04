@@ -7,6 +7,10 @@
 macro(ec_prepare_ssm)
    set(EC_PLAT $ENV{ORDENV_PLAT})
    set(EC_USER $ENV{USER})
+   set(EC_COMP "")
+   if(DEFINED ENV{COMP_ARCH})
+      set(EC_COMP "-$ENV{COMP_ARCH}")
+   endif()
 
    string(TIMESTAMP BUILD_TIMESTAMP UTC)
    cmake_host_system_information(RESULT OS_HOSTNAME QUERY HOSTNAME)
@@ -22,6 +26,6 @@ macro(ec_prepare_ssm)
 
    # Replace ssm variables in post-install file
    configure_file(.ssm.d/post-install.in ${CMAKE_BINARY_DIR}/.ssm.d/post-install @ONLY)
-   install(FILES ${CMAKE_BINARY_DIR}/.ssm.d/post-install DESTINATION .ssm.d)
+   install(PROGRAMS ${CMAKE_BINARY_DIR}/.ssm.d/post-install DESTINATION .ssm.d)
 endmacro()
 
