@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 #----- Parse a MANIFEST file
 macro(ec_parse_manifest)
    file(STRINGS MANIFEST dependencies)

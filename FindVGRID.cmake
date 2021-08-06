@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 # TODO We should have code to check the version
 
 # [[DOC]] for find_package (lists variables that are set automatically by CMake)

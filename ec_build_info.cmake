@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 function(ec_build_info)
     message(STATUS "(EC) Adding build_info target")
 

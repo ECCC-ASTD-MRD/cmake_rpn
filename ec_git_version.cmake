@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 # This module exports the following variables:
 #  GIT_VERSION : Latest tag obtained or short commit hash obtained from Git
 #  VERSION : The GIT_VERSION if it is compatible with CMake 0.0.0 otherwise

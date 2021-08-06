@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 # Default configuration for the Intel compiler suite
 # Input:
 #  EXTRA_CHECKS Enable extra checking.  This will make the execution slower.

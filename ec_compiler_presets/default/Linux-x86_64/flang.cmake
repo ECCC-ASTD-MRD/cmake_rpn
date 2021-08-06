@@ -1,3 +1,5 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 add_definitions(-Di386 -DLittle_Endian)
 
 # original flags in previous version of Linux-x86_64-gfortran

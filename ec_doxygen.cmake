@@ -1,5 +1,6 @@
+# Copyright 2021, Her Majesty the Queen in right of Canada
+
 # Add a target to generate API documentation with Doxygen
-# Taken from https://p5r.uk/blog/2014/cmake-doxygen.html and slightly modified
 
 option(WITH_DOC "Create and install the HTML based API documentation (requires Doxygen and Graphviz)" OFF)
 if(WITH_DOC)

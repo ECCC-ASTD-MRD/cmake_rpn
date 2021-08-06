@@ -133,3 +133,7 @@ set(CPACK_PACKAGE_FILE_NAME "${CMAKE_INSTALL_PREFIX}")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_INSTALL_PREFIX}")
 include(CPack)
 ```
+
+
+# License
+Please see the content of the __LICENSE__ file for liscensing information.
