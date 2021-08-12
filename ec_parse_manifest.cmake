@@ -5,13 +5,13 @@ macro(ec_parse_manifest)
    file(STRINGS MANIFEST dependencies)
    foreach(line ${dependencies})
       string(REGEX MATCH "[#]|([A-Z,a-z,_]+)[ ]*([<,>,=,~,:]+)[ ]*(.*)" res ${line})
-#      message("..${CMAKE_MATCH_1}..${CMAKE_MATCH_2}..${CMAKE_MATCH_3}..")
       set(LBL1 ${CMAKE_MATCH_1})
       set(LBL2 ${CMAKE_MATCH_2})
       set(LBL3 ${CMAKE_MATCH_3})
-
+#      message("..${CMAKE_MATCH_1}..${CMAKE_MATCH_2}..${CMAKE_MATCH_3}..")
+   
       #----- Skip comment lines
-      if("${res}" STREQUAL "" OR "${res}" MATCHES "#")
+      if("${res}" STREQUAL "" OR "${res}" MATCHES "#" OR "${LBL3}" STREQUAL "")
          continue()
       endif()
 
@@ -31,10 +31,14 @@ macro(ec_parse_manifest)
       endif()
   endforeach()
 
-   #----- Extract version and state
-   string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)(.*)" null ${VERSION})
-   set(VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
-   set(STATE "${CMAKE_MATCH_4}")
+  #----- Extract version and state
+  if(NOT "${VERSION}" STREQUAL "")
+     string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)(.*)" null ${VERSION})
+     if (NOT ${CMAKE_MATCH_1} STREQUAL "")
+        set(VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
+        set(STATE "${CMAKE_MATCH_4}")
+     endif()
+  endif()
 
   set(CMAKE_BUILD_TYPE ${BUILD})
   message(STATUS "Generating ${NAME} package")
