@@ -25,7 +25,7 @@ set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs" CACHE STRING "C com
 # The impact of -align array32byte is not well known or documented
 set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
-set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fp-model source -fpe0 -traceback -stand f08 -diag-disable 5268 -diag-disable 5140 -diag-disable 7713 -diag-disable 10212" CACHE STRING "Fortran compiler flags" FORCE)
+set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fp-model source -fpe0 -traceback -stand f08" CACHE STRING "Fortran compiler flags" FORCE)
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -static-intel")
 
