@@ -6,9 +6,7 @@
 
 add_definitions(-DLittle_Endian)
 
-# Since we are now using CMake mechanisms to build shared libraries
-# (BUILD_SHARED_LIBS), removed -fpic from CMAKE_C_FLAGS to see if it works
-set(CMAKE_C_FLAGS "-Wall -Wextra")
+set(CMAKE_C_FLAGS "-Wall -Wextra -std=c99 -pedantic")
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
