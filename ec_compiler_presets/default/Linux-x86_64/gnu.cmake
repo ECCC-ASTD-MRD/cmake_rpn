@@ -16,12 +16,10 @@ set(CMAKE_C_FLAGS "-Wall -Wextra -std=c99 -pedantic")
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
-set(CMAKE_Fortran_FLAGS "-Wall -Wextra -Wno-compare-reals -Wno-conversion -Wno-unused-dummy-argument -Wno-unused-parameter -fbacktrace -fconvert=big-endian -fcray-pointer -fdump-core -ffpe-trap=invalid,zero,overflow -ffree-line-length-none -finit-real=nan -fno-second-underscore -frecord-marker=4")
+set(CMAKE_Fortran_FLAGS "-Wall -Wextra -fbacktrace -fconvert=big-endian -fcray-pointer -ffpe-trap=invalid,zero,overflow -ffree-line-length-none -finit-real=nan -fno-second-underscore -frecord-marker=4")
 set(CMAKE_Fortran_FLAGS_DEBUG "-g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
-#CMAKE_Fortran_COMPILER_VERSION
-#CMAKE_C_COMPILER_VERSION
 if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
     message(WARNING "(EC) This code might not work with such an old compiler!  Please consider upgrading.")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
