@@ -41,7 +41,6 @@ macro(ec_parse_manifest)
   endif()
 
   set(CMAKE_BUILD_TYPE ${BUILD})
-  message(STATUS "Generating ${NAME} package")
 endmacro()
 
 function(ec_check_version DEPENDENCY)

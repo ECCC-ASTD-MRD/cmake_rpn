@@ -6,7 +6,7 @@ function(ec_build_info)
     # Variables from the current CMake execution environment have to be passed
     # with "-D" since they will not be available when executed with "-P"
     add_custom_target(
-        build_info
+        "${PROJECT_NAME}_build_info"
         ALL
         COMMAND "${CMAKE_COMMAND}" 
             "-DPROJECT_NAME=${PROJECT_NAME}"
@@ -21,5 +21,5 @@ function(ec_build_info)
         BYPRODUCTS "${PROJECT_NAME}_build_info.h"
         COMMENT "Generating ${PROJECT_NAME}_build_info.h"
     )
-    include_directories(${CMAKE_BINARY_DIR})
+    include_directories(${CMAKE_CURRENT_BINARY_DIR})
 endfunction()
