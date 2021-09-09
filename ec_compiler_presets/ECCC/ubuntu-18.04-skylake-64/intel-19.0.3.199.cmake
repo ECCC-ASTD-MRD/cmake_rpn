@@ -6,7 +6,7 @@
 
 add_definitions(-DLittle_Endian)
 
-set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -std=c99" CACHE STRING "C compiler flags" FORCE)
+set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
 set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 

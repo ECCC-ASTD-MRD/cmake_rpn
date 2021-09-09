@@ -10,7 +10,7 @@ add_definitions(-DLittle_Endian)
 #   -ip To enable additional interprocedural optimizations
 #   -threads The linker searches for unresolved references in a library that supports enabling thread-safe operation.
 
-set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -std=c99" CACHE STRING "C compiler flags" FORCE)
+set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
 set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 

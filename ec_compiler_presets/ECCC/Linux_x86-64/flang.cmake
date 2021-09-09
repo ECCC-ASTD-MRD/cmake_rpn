@@ -4,7 +4,7 @@ message(FATAL "(EC) This combinaison of compiler and architecture not yet ready 
 
 add_definitions(-DLittle_Endian)
 
-set(CMAKE_C_FLAGS "-W -std=c99" CACHE STRING "C compiler flags" FORCE)
+set(CMAKE_C_FLAGS "-W" CACHE STRING "C compiler flags" FORCE)
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 

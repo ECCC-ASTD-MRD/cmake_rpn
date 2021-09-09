@@ -6,7 +6,7 @@
 
 add_definitions(-DLittle_Endian)
 
-set(CMAKE_C_FLAGS "-Wall -Wextra -std=c99 -pedantic")
+set(CMAKE_C_FLAGS "-Wall -Wextra -pedantic")
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 

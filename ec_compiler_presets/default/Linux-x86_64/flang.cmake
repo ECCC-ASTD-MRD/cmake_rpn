@@ -3,7 +3,7 @@
 add_definitions(-DLittle_Endian)
 
 # original flags in previous version of Linux-x86_64-gfortran
-set(CMAKE_C_FLAGS "-W -std=c99" CACHE STRING "C compiler flags" FORCE)
+set(CMAKE_C_FLAGS "-W" CACHE STRING "C compiler flags" FORCE)
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
