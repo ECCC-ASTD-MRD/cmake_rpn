@@ -3,11 +3,11 @@
 # This modules loads compiler presets for the current platform and handles
 # ECCC's computing environment differently
 
-message(STATUS "(EC) CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
-message(STATUS "(EC) CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
+#message(DEBUG "(EC) CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
+#message(DEBUG "(EC) CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
 
 option(USE_ECCC_ENV_IF_AVAIL "Use ECCC's custom build environment" TRUE)
-message(STATUS "(EC) USE_ECCC_ENV_IF_AVAIL=${USE_ECCC_ENV_IF_AVAIL}")
+#message(DEBUG "(EC) USE_ECCC_ENV_IF_AVAIL=${USE_ECCC_ENV_IF_AVAIL}")
 
 if(DEFINED ENV{EC_ARCH} AND USE_ECCC_ENV_IF_AVAIL)
    set(COMPILER_PRESET_PATH "ECCC/$ENV{EC_ARCH}")

@@ -12,7 +12,7 @@ message(STATUS "(EC) LAPACK_LIBRARIES=${LAPACK_LIBRARIES}")
 set(BLAS_LIBRARIES "blas")
 message(STATUS "(EC) BLAS_LIBRARIES=${BLAS_LIBRARIES}")
 
-set(CMAKE_C_FLAGS "-Wall -Wextra -std=c99 -pedantic")
+set(CMAKE_C_FLAGS "-Wall -Wextra -pedantic")
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 

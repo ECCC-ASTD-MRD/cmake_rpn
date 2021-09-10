@@ -4,8 +4,6 @@ if (DEFINED EC_INIT_DONE)
    message(STATUS "(EC) EC Initialisation already done")
 else()
    # Do ec_init() only once (in case of projects cascades)
-   SET(EC_INIT_DONE TRUE)
-
    # Compiler selection
    if(NOT DEFINED COMPILER_SUITE)
       if(DEFINED ENV{CRAYPE_VERSION})
@@ -68,11 +66,11 @@ else()
       endif()
    endif()
 
-   # message(STATUS CMAKE_C_COMPILER=${CMAKE_C_COMPILER})
-   # message(STATUS CMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER})
-   # message(STATUS CMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER})
-   # message(STATUS MPI_C_COMPILER=${MPI_C_COMPILER})
-   # message(STATUS MPI_Fortran_COMPILER=${MPI_Fortran_COMPILER})
+#   message(DEBUG CMAKE_C_COMPILER=${CMAKE_C_COMPILER})
+#   message(DEBUG CMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER})
+#   message(DEBUG CMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER})
+#   message(DEBUG MPI_C_COMPILER=${MPI_C_COMPILER})
+#   message(DEBUG MPI_Fortran_COMPILER=${MPI_Fortran_COMPILER})
 
    # Prepare some variables for the search paths
    if(DEFINED ENV{EC_INCLUDE_PATH})
@@ -82,11 +80,11 @@ else()
       string(REPLACE " " ";" EC_LD_LIBRARY_PATH "$ENV{EC_LD_LIBRARY_PATH}")
    endif()
 
-   if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-      message(WARNING "(EC) CMAKE_INSTALL_PREFIX was not specified!  Emptying default path!")
-
-      set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
-   endif()
+#  if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+#      message(WARNING "(EC) CMAKE_INSTALL_PREFIX was not specified!  Emptying default path!")
+#
+#      set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
+#   endif()
 
    # Enable DEBUG macro on cmake debug build
    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -103,3 +101,6 @@ else()
    include(ec_prepare_ssm)
 
 endif()
+
+# Increment init check to control cascade options
+MATH(EXPR EC_INIT_DONE "${EC_INIT_DONE}+1")
