@@ -26,46 +26,46 @@
 #        Distributions customize the manual section to their specifics, which
 #        often include additional sections.0
 #
-macro(orgmanpages_add_man_target)
+option(WITH_MANPAGE "Create and install the man pages derived from org files" ON)
+if(WITH_MANPAGE)
+   add_custom_target(man ALL)
 
-    add_custom_target(man ALL)
+   file(GLOB_RECURSE org_files
+      RELATIVE ${CMAKE_SOURCE_DIR}
+      share/man/*.org
+   )
 
-    file(GLOB_RECURSE org_files
-        RELATIVE ${CMAKE_SOURCE_DIR}
-        share/man/*.org
-    )
+   foreach(rel_org_file ${org_files})
+      get_filename_component(org_base ${rel_org_file} NAME)
+      get_filename_component(rel_dir ${rel_org_file} DIRECTORY)
 
-    foreach(rel_org_file ${org_files})
-        get_filename_component(org_base ${rel_org_file} NAME)
-        get_filename_component(rel_dir ${rel_org_file} DIRECTORY)
+      set(source_dir  ${CMAKE_SOURCE_DIR}/${rel_dir})
+      set(target_dir  ${CMAKE_BINARY_DIR}/${rel_dir})
 
-        set(source_dir  ${CMAKE_SOURCE_DIR}/${rel_dir})
-        set(target_dir  ${CMAKE_BINARY_DIR}/${rel_dir})
+      set(org_file ${CMAKE_SOURCE_DIR}/${rel_org_file})
 
-        set(org_file ${CMAKE_SOURCE_DIR}/${rel_org_file})
+      string(REGEX REPLACE ".org$" ".man" man_file  ${org_file})
 
-        string(REGEX REPLACE ".org$" ".man" man_file  ${org_file})
+      string(REGEX REPLACE ".*man([1-9]).*" "\\1" man_section_number ${rel_org_file})
+      string(REGEX REPLACE ".org$" ".${man_section_number}" target_base ${org_base})
+      set(target_file ${target_dir}/${target_base})
 
-        string(REGEX REPLACE ".*man([1-9]).*" "\\1" man_section_number ${rel_org_file})
-        string(REGEX REPLACE ".org$" ".${man_section_number}" target_base ${org_base})
-        set(target_file ${target_dir}/${target_base})
+      add_custom_command(
+         OUTPUT ${target_file}
+         DEPENDS ${rel_org_file}
 
-        add_custom_command(
-            OUTPUT ${target_file}
-            DEPENDS ${rel_org_file}
+         # Emacs version
+         # COMMAND emacs --batch -l ox-man ${org_file} -f org-man-export-to-man
+         #     && mkdir -p ${target_dir}
+         #     && mv ${man_file} ${target_file}
+         # BYPRODUCTS ${man_file}~
 
-            # Emacs version
-            # COMMAND emacs --batch -l ox-man ${org_file} -f org-man-export-to-man
-            #     && mkdir -p ${target_dir}
-            #     && mv ${man_file} ${target_file}
-            # BYPRODUCTS ${man_file}~
+         # The '-s' is really important!
+         COMMAND mkdir -p ${target_dir} && pandoc -s -f org -t man ${org_file} -o ${target_file}
+      )
+      add_custom_target(${target_base} DEPENDS ${target_file})
 
-            # The '-s' is really important!
-            COMMAND mkdir -p ${target_dir} && pandoc -s -f org -t man ${org_file} -o ${target_file}
-        )
-        add_custom_target(${target_base} DEPENDS ${target_file})
-
-        add_dependencies(man ${target_base})
-    endforeach()
-    install(DIRECTORY ${CMAKE_BINARY_DIR}/share DESTINATION ${CMAKE_INSTALL_PREFIX})
-endmacro()
+      add_dependencies(man ${target_base})
+   endforeach()
+   install(DIRECTORY ${CMAKE_BINARY_DIR}/share DESTINATION ${CMAKE_INSTALL_PREFIX})
+endif()
