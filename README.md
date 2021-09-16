@@ -17,6 +17,9 @@ This package can be included as a submodule or used through the CMAKE_MODULE_PAT
 * include(ec_doxygen) 
   * Creates a __doc__ target to build the documentation with Doxygen.  Plase note that the __doc__ target is not included in __all__.  This means that it won't be built when running ```make```.  To build the documentation, ```make doc``` must be executed explicitly.
 
+* include(ec_org_manpages) 
+  * Creates a __man__ target to build the man pages from org documents.
+
 * ec_parse_manifest()
   * Parses a MANIFEST file defining package information and dependencies, and defines the variables NAME, VERSION, BUILD, DESCRIPTION, MAINTAINER, URL and for each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH. ex:
 
@@ -96,13 +99,17 @@ include(ec_init)           # Include EC specific cmake utils
 ec_git_version()           # Get the version from the git repository
 ec_parse_manifest()        # Parse MANIFEST file (optional)
 
-include(doxygen)           # Doxygen target (optional)
+include(ec_doxygen)        # Doxygen target (optional)
+include(ec_org_manpages)   # Generates manpages (optional)
 
 project("SomeProject" DESCRIPTION "Does something")
 set(PROJECT_VERSION ${VERSION})
 
 ec_build_info()            # Generate build include file
 ec_install_prefix()        # Define install prefix  
+
+include(CTest)
+add_custom_target(check COMMAND CTEST_OUTPUT_ON_FAILURE=true ${CMAKE_CTEST_COMMAND})
 
 #----- Enable language before sourcing the compiler presets
 enable_language(C Fortran)
@@ -115,12 +122,8 @@ find_package(VGRID ${VGRID_REQ_VERSION} COMPONENTS SHARED OPTIONAL)
 
 add_subdirectory(src src)
 
-#----- Process config script
-configure_file(config.in ${CMAKE_BINARY_DIR}/${NAME}-config @ONLY)
-install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
-
-#----- Packaging setps
-ec_prepare_ssm()
+ec_build_config()      # Create build configuration script
+ec_prepare_ssm()       # Prepare ssm packaging files
 
 set(CPACK_GENERATOR "TGZ")
 set(CPACK_PACKAGE_VENDOR "ECCC")
