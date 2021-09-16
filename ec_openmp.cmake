@@ -1,8 +1,8 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
 option(WITH_OPENMP "Compile with OpenMP support" FALSE)
-message(STATUS "(EC) WITH_OPENMP=${WITH_OPENMP}")
 if (WITH_OPENMP)
+   message(STATUS "(EC) Building WITH OpenMP")
    find_package(OpenMP)
    if (NOT OPENMP_FOUND)
       message(FATAL_ERROR "(EC) OpenMP was requested, but was not found!")
