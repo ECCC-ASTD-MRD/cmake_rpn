@@ -23,8 +23,8 @@ else()
       PATHS ${EC_LD_LIBRARY_PATH})
 endif()
 
-string(REGEX MATCH ".*/libs/([0-9]+\\.[0-9]+)(\\.[0-9])?(-[a,b][0-9]*)?.*/" null ${VGRID_LIBRARY})
-set(VGIRD_VERSION ${CMAKE_MATCH_1}${CMAKE_MATCH_2})
+string(REGEX MATCH ".*/vgrid/([0-9]+\\.[0-9]+\\.[0-9])?(-[a,b][0-9]*)?.*/" null ${VGRID_LIBRARY})
+set(VGRID_VERSION ${CMAKE_MATCH_1}${CMAKE_MATCH_2})
 set(VGRID_STATE   ${CMAKE_MATCH_3})
 
 include(FindPackageHandleStandardArgs)
