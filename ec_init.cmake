@@ -1,6 +1,6 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
-if (DEFINED EC_INIT_DONE)
+if (DEFINED EC_INIT_DONE) # Is the initial setup already done
    message(STATUS "(EC) EC Initialisation already done")
 else()
    # Do ec_init() only once (in case of projects cascades)
@@ -80,15 +80,14 @@ else()
       string(REPLACE " " ";" EC_LD_LIBRARY_PATH "$ENV{EC_LD_LIBRARY_PATH}")
    endif()
 
-#  if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-#      message(WARNING "(EC) CMAKE_INSTALL_PREFIX was not specified!  Emptying default path!")
-#
-#      set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
-#   endif()
-
    # Enable DEBUG macro on cmake debug build
    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
       add_definitions(-DDEBUG_LEVEL)
+   endif()
+
+   if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+      message(WARNING "(EC) CMAKE_INSTALL_PREFIX was not specified!  Emptying default path!")
+      set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
    endif()
 
    # Include EC defined functions
@@ -98,6 +97,7 @@ else()
    include(ec_parse_manifest)
    include(ec_dump_cmake_variables)
    include(ec_install_prefix)
+   include(ec_install_symlink)
    include(ec_prepare_ssm)
 
 endif()

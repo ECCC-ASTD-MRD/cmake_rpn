@@ -1,8 +1,14 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
-#----- Parse a MANIFEST file
+#----- Parse a MANIFEST file (optional path in argument)
 macro(ec_parse_manifest)
-   file(STRINGS MANIFEST dependencies)
+
+   if(DEFINED ARGV0)
+      file(STRINGS ${ARGV0}/MANIFEST dependencies)
+   else()  
+      file(STRINGS MANIFEST dependencies)
+   endif()
+
    foreach(line ${dependencies})
       string(REGEX MATCH "[#]|([A-Z,a-z,_]+)[ ]*([<,>,=,~,:]+)[ ]*(.*)" res ${line})
       set(LBL1 ${CMAKE_MATCH_1})
@@ -30,7 +36,7 @@ macro(ec_parse_manifest)
 #         message("${LBL1} ${CMAKE_MATCH_1}..${CMAKE_MATCH_2}..${CMAKE_MATCH_3}")
       endif()
   endforeach()
-
+ 
   #----- Extract version and state
   if(NOT "${VERSION}" STREQUAL "")
      string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)(.*)" null ${VERSION})
