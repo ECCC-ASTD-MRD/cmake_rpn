@@ -48,6 +48,9 @@ GDAL ~>= 2.0
 * ec_install_prefix()
   * Defines the install prefix with the EC convention (NAME_VERSION-COMPARCH-PLATFORM), if it has not been specified on the cmake command line.
 
+* ec_install_symlink(filepath sympath)
+  * Defines a symlink (sympath->filepath) to be invoked at the install step.
+
 * ec_prepare_ssm()
   * Builds the ssm control file and pre/post install scripts if needed. To use, copy the .ssm.d/ directory to yout projects ROOT and edit the pre/post install scripts as required. Information for the control file is taken from the MANIFEST file.
 
