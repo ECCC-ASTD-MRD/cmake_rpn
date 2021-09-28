@@ -34,8 +34,12 @@ function(ec_install_prefix)
       # Otherwise, define the CMAKE_INSTALL_PREFIX to it
       # In cascade calls, we don't want to override the prefix
       if (EC_INIT_DONE LESS 2)
-         set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/${prefix}" PARENT_SCOPE)
-         message(STATUS "(EC) Defining install prefix for local install: ${CMAKE_INSTALL_PREFIX}/${prefix}") 
+         if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+            set(CMAKE_INSTALL_PREFIX "${prefix}" CACHE PATH "Default install path" FORCE)
+         else()
+            set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/${prefix}" CACHE PATH "Install path" FORCE)
+         endif()
+         message(STATUS "(EC) Defining install prefix for local install: ${CMAKE_INSTALL_PREFIX}") 
       endif()
    endif()
 

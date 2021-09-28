@@ -85,11 +85,6 @@ else()
       add_definitions(-DDEBUG_LEVEL)
    endif()
 
-   if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-      message(WARNING "(EC) CMAKE_INSTALL_PREFIX was not specified!  Emptying default path!")
-      set(CMAKE_INSTALL_PREFIX "" CACHE PATH "..." FORCE)
-   endif()
-
    # Include EC defined functions
    include(ec_git_version)
    include(ec_build_info)
