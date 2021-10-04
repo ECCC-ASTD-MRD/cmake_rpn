@@ -46,7 +46,9 @@ macro(ec_parse_manifest)
      endif()
   endif()
 
-  set(CMAKE_BUILD_TYPE ${BUILD})
+  if (NOT DEFINED CMAKE_BUILD_TYPE)
+     set(CMAKE_BUILD_TYPE ${BUILD})
+  endif()
 endmacro()
 
 function(ec_check_version DEPENDENCY)
