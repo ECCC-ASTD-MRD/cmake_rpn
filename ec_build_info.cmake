@@ -17,6 +17,7 @@ function(ec_build_info)
             "-DCMAKE_CXX_COMPILER_VERSION=${CMAKE_CXX_COMPILER_VERSION}"
             "-DCMAKE_Fortran_COMPILER_ID=${CMAKE_Fortran_COMPILER_ID}"
             "-DCMAKE_Fortran_COMPILER_VERSION=${CMAKE_Fortran_COMPILER_VERSION}"
+            "-DWITH_OPENMP=${WITH_OPENMP}"
             -P "${CMAKE_SOURCE_DIR}/cmake_rpn/ec_build_info_maketime.cmake"
         BYPRODUCTS "${PROJECT_NAME}_build_info.h"
         COMMENT "Generating ${PROJECT_NAME}_build_info.h"
