@@ -4,7 +4,7 @@
 #
 # Input variables:
 #   RMN_ROOT Root of the librmn installation.  If this is provided, no other paths will be checked.
-#   RMN_LINK_TYPE Specify how librmn should be linked (STATIC|SHARED).  Default: STATIC
+#   RMN_LINK_TYPE Specify how librmn should be linked (STATIC|SHARED).  Default: BUILD_SHARED_LIBS if explicitly defined, STATIC if not
 #   RMN_MIN_VERSION Minimum required version
 #
 # Output variables:
@@ -26,7 +26,17 @@ if(DEFINED RMN_LINK_TYPE)
         message(FATAL_ERROR "(EC) RMN_LINK_TYPE must be SHARED or STATIC!")
     endif()
 else()
-    set(RMN_LINK_TYPE STATIC)
+    if(DEFINED BUILD_SHARED_LIBS)
+        message(STATUS "(EC) BUILD_SHARED_LIBS explicitly defined.  Using it to set RMN_LINK_TYPE accordingly.")
+        if(BUILD_SHARED_LIBS)
+            set(RMN_LINK_TYPE SHARED)
+        else()
+            set(RMN_LINK_TYPE STATIC)
+        endif()
+    else()
+        message(STATUS "(EC) BUILD_SHARED_LIBS not explictly defined defaulting to STATIC linking for librmn.")
+        set(RMN_LINK_TYPE STATIC)
+    endif()
 endif()
 message(STATUS "(EC) RMN_LINK_TYPE=${RMN_LINK_TYPE}")
 
@@ -83,6 +93,11 @@ message(STATUS "(EC) RMN_HEADER_VERSION=${RMN_HEADER_VERSION}")
 if(NOT ${RMN_VERSION} MATCHES ${RMN_HEADER_VERSION})
     message(FATAL_ERROR "Header version does not match lib binary!")
 endif()
+
+string(REGEX MATCH "\n#define +WITH_OPENMP +\"([^\"]*)\"\n" null ${RMN_BUILD_INFO})
+set(RMN_WITH_OPENMP ${CMAKE_MATCH_1})
+message(STATUS "(EC) Librmn compiled WITH_OPENMP=${RMN_WITH_OPENMP}")
+
 unset(RMN_HEADER_VERSION)
 
 include(FindPackageHandleStandardArgs)
@@ -103,8 +118,11 @@ if(RMN_FOUND)
         rmn PROPERTIES
         IMPORTED_LOCATION ${RMN_LIBRARY}
         INTERFACE_INCLUDE_DIRECTORIES ${RMN_INCLUDE_DIR}
-        INTERFACE_COMPILE_DEFINITIONS WITN_RMN
+        INTERFACE_COMPILE_DEFINITIONS WITH_RMN
     )
+    if(${RMN_WITH_OPENMP} MATCHES "TRUE")
+        target_compile_options(rmn INTERFACE -fopenmp)
+    endif()
     target_compile_options(rmn
         INTERFACE $<$<COMPILE_LANG_AND_ID:Fortran,GNU>:-fconvert=big-endian -fcray-pointer -fno-second-underscore -frecord-marker=4>
                   $<$<COMPILE_LANG_AND_ID:Fortran,Intel>:-align array32byte -assume byterecl -convert big_endian>
