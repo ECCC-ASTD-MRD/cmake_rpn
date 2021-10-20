@@ -13,6 +13,7 @@
 #   --fflags       Fortran compiler flags [${fflags}]
 #   --defs         Preprocessor definitions [${defs}]
 #   --version      library version [${version}]
+#   --env          environment version [${env}]
 #   --has-rmn      which version of librmn is it compiled with [${has_rmn}]
 #   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
 #   ...
@@ -22,6 +23,8 @@ macro(ec_build_config)
    get_directory_property(EC_CMAKE_DEFINITIONS DIRECTORY ${CMAKE_SOURCE_DIR} COMPILE_DEFINITIONS)
    list(TRANSFORM EC_CMAKE_DEFINITIONS PREPEND "-D")
    list(JOIN EC_CMAKE_DEFINITIONS " " EC_CMAKE_DEFINITIONS)
+
+   set(ECCI_ENV $ENV{ECCI_ENV})
 
    # Replace build info variables in script
    configure_file(config.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config @ONLY)

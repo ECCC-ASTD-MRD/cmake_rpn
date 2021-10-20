@@ -18,6 +18,8 @@ defs="@EC_CMAKE_DEFINITIONS@"
 libs=CMAKE_LIBS
 
 version=@VERSION@@STATE@
+env=@ECCI_ENV@
+
 has_rmn=@RMN_VERSION@@RMN_STATE@
 has_vgrid=@VGRID_VERSION@@VGRID_STATE@
 has_eer=@eerUtils_VERSION@@eerUtils_STATE@ 
@@ -40,6 +42,7 @@ Available values for OPTION include:
   --fflags       Fortran compiler flags [${fflags}]
   --defs         Preprocessor definitions [${defs}]
   --version      library version [${version}]
+  --env          environment version used
   --has-rmn      which version of librmn is it compiled with [${has_rmn}]
   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
   --has-eer      which version of eerUtils is it compiled with [${has_eer}]
@@ -125,6 +128,9 @@ while test $# -gt 0; do
     --version)
 	    echo ${version}
 	    ;;
+        
+    --env)
+       echo ${env}
 
     *)
         echo "unknown option: $1"
