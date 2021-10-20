@@ -6,6 +6,7 @@
 /* Warning: The project name macro does not include quotes!  This is so we can
     cat it into a symbol name */
 #define PROJECT_NAME           @PROJECT_NAME@
+#define PROJECT_NAME_STRING    "@PROJECT_NAME@"
 #define PROJECT_VERSION_STRING "@PROJECT_NAME@ @VERSION@ @EC_ARCH@ @BUILD_TIMESTAMP@"
 #define VERSION                "@GIT_VERSION@"
 #define EC_ARCH                "@EC_ARCH@"
