@@ -42,7 +42,7 @@ Available values for OPTION include:
   --fflags       Fortran compiler flags [${fflags}]
   --defs         Preprocessor definitions [${defs}]
   --version      library version [${version}]
-  --env          environment version used
+  --env          environment version used [${env}]
   --has-rmn      which version of librmn is it compiled with [${has_rmn}]
   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
   --has-eer      which version of eerUtils is it compiled with [${has_eer}]
@@ -131,7 +131,8 @@ while test $# -gt 0; do
         
     --env)
        echo ${env}
-
+       ;;
+       
     *)
         echo "unknown option: $1"
 	    usage 1
