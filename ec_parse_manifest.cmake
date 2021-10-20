@@ -46,7 +46,7 @@ macro(ec_parse_manifest)
      endif()
   endif()
 
-  if (NOT DEFINED CMAKE_BUILD_TYPE)
+  if (NOT CMAKE_BUILD_TYPE)
      set(CMAKE_BUILD_TYPE ${BUILD})
   endif()
 endmacro()
