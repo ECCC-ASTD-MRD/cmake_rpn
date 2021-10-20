@@ -3,6 +3,13 @@
 # This modules loads compiler presets for the current platform and handles
 # ECCC's computing environment differently
 
+# CMAKE_BUILD_TYPE can be one of Debug, Release, RelWithDebInfo, MinSizeRel
+if (NOT CMAKE_BUILD_TYPE)
+  message(STATUS "No build type selected, default to RelWithDebInfo")
+  set(CMAKE_BUILD_TYPE "RelWithDebInfo")
+endif()
+message(STATUS "(EC) Configuring for ${CMAKE_BUILD_TYPE} build type")
+
 #message(DEBUG "(EC) CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
 #message(DEBUG "(EC) CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
 
