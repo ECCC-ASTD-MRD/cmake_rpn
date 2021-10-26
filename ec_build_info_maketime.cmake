@@ -4,9 +4,12 @@
 
 include(${SOURCE_DIR}/cmake_rpn/ec_git_version.cmake)
 # When a CMake script is executed with "-P", CMAKE_SOURCE_DIR is the current dir
-# Since we don't want that, we force it
+# Since we don't want that, we force it.  CMAKE_CURRENT_SOURCE_DIR must also be fudged
 set(CMAKE_SOURCE_DIR "${SOURCE_DIR}")
+set(CMAKE_CURRENT_SOURCE_DIR "${SOURCE_DIR}")
+
 ec_git_version()
+
 
 string(TIMESTAMP BUILD_TIMESTAMP UTC)
 
