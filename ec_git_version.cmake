@@ -9,7 +9,7 @@
 macro(ec_git_version)
    execute_process(
       COMMAND git describe --tags --always --dirty --broken
-      WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       RESULT_VARIABLE GIT_RESULT
       OUTPUT_VARIABLE GIT_VERSION
       ERROR_VARIABLE GIT_ERROR
