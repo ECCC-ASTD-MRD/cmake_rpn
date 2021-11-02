@@ -27,5 +27,15 @@ macro(ec_prepare_ssm)
    # Replace ssm variables in post-install file
    configure_file(.ssm.d/post-install.in ${CMAKE_BINARY_DIR}/.ssm.d/post-install @ONLY)
    install(PROGRAMS ${CMAKE_BINARY_DIR}/.ssm.d/post-install DESTINATION .ssm.d)
+
+   # Install dummy compiler pointer
+   if(DEFINED ENV{COMP_ARCH})
+      foreach(dummy ${ARGN})
+         execute_process(
+            COMMAND mkdir -p ${CMAKE_BINARY_DIR}/${dummy}/ 
+            COMMAND touch "${CMAKE_BINARY_DIR}/${dummy}/dummy_$ENV{COMP_ARCH}")
+        install(FILES ${CMAKE_BINARY_DIR}/${dummy}/dummy_$ENV{COMP_ARCH} DESTINATION ${dummy})
+      endforeach()
+   endif()
 endmacro()
 
