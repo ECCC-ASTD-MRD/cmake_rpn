@@ -2,7 +2,8 @@
 # How to use:
 #    - Copy the .ssm.d directory in your project's root directory
 #    - Edit the .ssm.d/post-install.in file according to your needs
-#    - Call the ec_prepare_ssm macro. 
+#    - Call the ec_prepare_ssm macro.
+#    - Pass wich directory needs dummy files if needed (ie: lib include) 
 
 macro(ec_prepare_ssm)
    set(EC_PLAT $ENV{ORDENV_PLAT})
