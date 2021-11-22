@@ -13,6 +13,7 @@
 #   --fflags       Fortran compiler flags [${fflags}]
 #   --defs         Preprocessor definitions [${defs}]
 #   --version      library version [${version}]
+#   --arch         architecture [${arch}]
 #   --env          environment version [${env}]
 #   --has-rmn      which version of librmn is it compiled with [${has_rmn}]
 #   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
@@ -25,6 +26,7 @@ macro(ec_build_config)
    list(JOIN EC_CMAKE_DEFINITIONS " " EC_CMAKE_DEFINITIONS)
 
    set(EC_CI_ENV $ENV{ECCI_ENV})
+   set(EC_ARCH $ENV{EC_ARCH})
 
    # Build flags list
    set(EC_C_FLAGS "${CMAKE_C_FLAGS}")
