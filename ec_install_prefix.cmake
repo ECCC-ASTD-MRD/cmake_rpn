@@ -32,8 +32,8 @@ function(ec_package_name)
       set(${ARGV2} ${package} PARENT_SCOPE)
    else()
       if (EC_INIT_DONE LESS 2)
-        # In cascade calls, we don't want to override the package name
-        set(PACKAGE_NAME "${package}" PARENT_SCOPE)
+         # In cascade calls, we don't want to override the package name
+         set(PACKAGE_NAME "${package}" PARENT_SCOPE)
       endif()
    endif()
 
