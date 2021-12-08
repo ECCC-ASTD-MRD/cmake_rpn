@@ -4,6 +4,38 @@
 # Optional arguments 1 and 2 allow to specify the name and version to be used
 # Optional argument 3 can be used to specify a return variable for the prefix instead of changing the CMAKE_INSTALL_PREFIX
 
+function(ec_package_prefix)
+
+   if (DEFINED ARGV0)
+      set(name ${ARGV0})
+   else()
+     set(name ${PROJECT_NAME})
+   endif()
+
+   if (DEFINED ARGV1)
+      set(version ${ARGV1})
+   else()
+      set(version ${PROJECT_VERSION})
+   endif()
+
+   if(DEFINED ENV{ORDENV_PLAT})
+      if(DEFINED ENV{COMP_ARCH})
+         set(EC_COMP "-$ENV{COMP_ARCH}")
+      endif()
+      set(prefix "${name}_${version}${EC_COMP}_$ENV{ORDENV_PLAT}")
+   else()
+      set(prefix "${name}_${version}")
+   endif()
+
+   if (DEFINED ARGV2)
+      # If a variable is passed, return the prefix in it
+      set(${ARGV2} ${prefix} PARENT_SCOPE)
+   else()
+      set(PACKAGE_PREFIX "${prefix}" PARENT_SCOPE)
+   endif()
+
+endfunction()
+
 function(ec_install_prefix)
 
    if (DEFINED ARGV0)
