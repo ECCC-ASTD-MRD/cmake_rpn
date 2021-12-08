@@ -21,7 +21,6 @@ macro(ec_parse_manifest)
          continue()
       endif()
 
-      string(TOUPPER ${LBL1} LBL1)
       if (${LBL2} MATCHES ":")
          set(${LBL1} ${LBL3}) 
       else()
