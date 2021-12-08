@@ -31,7 +31,10 @@ function(ec_package_name)
       # If a variable is passed, return the prefix in it
       set(${ARGV2} ${package} PARENT_SCOPE)
    else()
-      set(PACKAGE_NAME "${package}" PARENT_SCOPE)
+      if (EC_INIT_DONE LESS 2)
+        # In cascade calls, we don't want to override the package name
+        set(PACKAGE_NAME "${package}" PARENT_SCOPE)
+      endif()
    endif()
 
 endfunction()
