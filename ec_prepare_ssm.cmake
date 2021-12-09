@@ -3,11 +3,14 @@
 #    - Copy the .ssm.d directory in your project's root directory
 #    - Edit the .ssm.d/post-install.in file according to your needs
 #    - Call the ec_prepare_ssm macro.
-#    - Pass wich directory needs dummy files if needed (ie: lib include) 
+#    - Pass wich directory needs dummy files if needed (ie: bin lib include) 
+set(EC_SSM 11)
+if (EC_SSM LESS_EQUAL "11")
+   set (EC_SSM_ARCH ${EC_ARCH})
+endif()
 
 macro(ec_prepare_ssm)
-   set(EC_PLAT $ENV{ORDENV_PLAT})
-   set(EC_USER $ENV{USER})
+
    set(EC_COMP "")
    if(DEFINED ENV{COMP_ARCH})
       set(EC_COMP "-$ENV{COMP_ARCH}")
@@ -30,12 +33,12 @@ macro(ec_prepare_ssm)
    install(PROGRAMS ${CMAKE_BINARY_DIR}/.ssm.d/post-install DESTINATION .ssm.d)
    
    # Install dummy compiler pointer
-   if(DEFINED ENV{COMP_ARCH})
-     foreach(dummy ${ARGN})
-       execute_process(COMMAND mkdir -p ${CMAKE_BINARY_DIR}/${dummy}) 
-       execute_process(COMMAND touch "${CMAKE_BINARY_DIR}/${dummy}/dummy_$ENV{COMP_ARCH}")
-       install(FILES ${CMAKE_BINARY_DIR}/${dummy}/dummy_$ENV{COMP_ARCH} DESTINATION ${dummy})
-     endforeach()
+   if((EC_SSM LESS_EQUAL "11") AND (DEFINED ENV{COMP_ARCH}))
+      foreach(dummy ${ARGN})
+         execute_process(COMMAND mkdir -p ${CMAKE_BINARY_DIR}/${dummy}) 
+         execute_process(COMMAND touch "${CMAKE_BINARY_DIR}/${dummy}/dummy_$ENV{COMP_ARCH}")
+         install(FILES ${CMAKE_BINARY_DIR}/${dummy}/dummy_$ENV{COMP_ARCH} DESTINATION ${dummy})
+      endforeach()
    endif()
  endmacro()
 

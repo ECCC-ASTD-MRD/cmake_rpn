@@ -10,7 +10,7 @@
 #define PROJECT_VERSION_STRING "@PROJECT_NAME@ @VERSION@ @EC_ARCH@ @BUILD_TIMESTAMP@"
 #define VERSION                "@GIT_VERSION@"
 #define EC_ARCH                "@EC_ARCH@"
-#define BUILD_USER             "@BUILD_USER@"
+#define BUILD_USER             "@EC_USER@"
 #define BUILD_TIMESTAMP        "@BUILD_TIMESTAMP@"
 
 #define C_COMPILER_ID "@CMAKE_C_COMPILER_ID@"

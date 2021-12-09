@@ -85,6 +85,12 @@ else()
       add_definitions(-DDEBUG_LEVEL)
    endif()
 
+   # define some internal EC variables
+   set(EC_ARCH   $ENV{EC_ARCH})
+   set(EC_PLAT   $ENV{ORDENV_PLAT})
+   set(EC_USER   $ENV{USER})
+   set(EC_CI_ENV $ENV{ECCI_ENV})
+
    # Include EC defined functions
    include(ec_git_version)
    include(ec_build_info)

@@ -25,9 +25,6 @@ macro(ec_build_config)
    list(TRANSFORM EC_CMAKE_DEFINITIONS PREPEND "-D")
    list(JOIN EC_CMAKE_DEFINITIONS " " EC_CMAKE_DEFINITIONS)
 
-   set(EC_CI_ENV $ENV{ECCI_ENV})
-   set(EC_ARCH $ENV{EC_ARCH})
-
    # Build flags list
    set(EC_C_FLAGS "${CMAKE_C_FLAGS}")
    set(EC_Fortran_FLAGS "${CMAKE_Fortran_FLAGS}")
@@ -46,6 +43,6 @@ macro(ec_build_config)
 
    # Replace build info variables in script
    configure_file(config.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config @ONLY)
-   install(PROGRAMS ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config DESTINATION bin)
+   install(PROGRAMS ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config DESTINATION bin/${EC_SSM_ARCH})
 endmacro()
 
