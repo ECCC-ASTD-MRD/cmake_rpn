@@ -14,7 +14,7 @@ function(ec_package_name)
    if (DEFINED ARGV0)
       set(name ${ARGV0})
    else()
-     set(name ${PROJECT_NAME})
+      set(name ${PROJECT_NAME})
    endif()
 
    if (DEFINED ARGV1)
@@ -24,8 +24,8 @@ function(ec_package_name)
    endif()
 
    if(DEFINED ENV{ORDENV_PLAT})
-#      set(package "${name}_${version}${EC_COMP}_$ENV{ORDENV_PLAT}")
-      set(package "${name}${EC_COMP}_${version}_$ENV{ORDENV_PLAT}")
+      set(package "${name}_${version}${EC_COMP}_$ENV{ORDENV_PLAT}")
+#      set(package "${name}${EC_COMP}_${version}_$ENV{ORDENV_PLAT}")
    else()
       set(package "${name}_${version}")
    endif()
@@ -43,8 +43,6 @@ function(ec_package_name)
 endfunction()
 
 macro(ec_prepare_ssm)
-
-   set (EC_SSM_NAME ${NAME}${EC_COMP})
 
    string(TIMESTAMP BUILD_TIMESTAMP UTC)
    cmake_host_system_information(RESULT OS_HOSTNAME QUERY HOSTNAME)
