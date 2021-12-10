@@ -85,11 +85,15 @@ else()
       add_definitions(-DDEBUG_LEVEL)
    endif()
 
-   # define some internal EC variables
+   # Prepare some internal EC variables
    set(EC_ARCH   $ENV{EC_ARCH})
    set(EC_PLAT   $ENV{ORDENV_PLAT})
    set(EC_USER   $ENV{USER})
    set(EC_CI_ENV $ENV{ECCI_ENV})
+   set(EC_COMP "")
+   if(DEFINED ENV{COMP_ARCH})
+      set(EC_COMP "-$ENV{COMP_ARCH}")
+   endif()
 
    # Include EC defined functions
    include(ec_git_version)
@@ -99,7 +103,7 @@ else()
    include(ec_dump_cmake_variables)
    include(ec_install_prefix)
    include(ec_install_symlink)
-   include(ec_prepare_ssm)
+   include(ec_package_ssm)
 
 endif()
 

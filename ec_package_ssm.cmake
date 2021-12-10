@@ -9,12 +9,46 @@ if (EC_SSM LESS_EQUAL "11")
    set (EC_SSM_ARCH ${EC_ARCH})
 endif()
 
+function(ec_package_name)
+
+   if (DEFINED ARGV0)
+      set(name ${ARGV0})
+   else()
+     set(name ${PROJECT_NAME})
+   endif()
+
+   if (DEFINED ARGV1)
+      set(version ${ARGV1})
+   else()
+      set(version ${PROJECT_VERSION})
+   endif()
+
+   if(DEFINED ENV{ORDENV_PLAT})
+#      set(package "${name}_${version}${EC_COMP}_$ENV{ORDENV_PLAT}")
+      set(package "${name}${EC_COMP}_${version}_$ENV{ORDENV_PLAT}")
+   else()
+      set(package "${name}_${version}")
+   endif()
+
+   if (DEFINED ARGV2)
+      # If a variable is passed, return the prefix in it
+      set(${ARGV2} ${package} PARENT_SCOPE)
+   else()
+      if (EC_INIT_DONE LESS 2)
+         # In cascade calls, we don't want to override the package name
+         set(PACKAGE_NAME "${package}" PARENT_SCOPE)
+      endif()
+   endif()
+
+endfunction()
+
 macro(ec_prepare_ssm)
 
    set(EC_COMP "")
    if(DEFINED ENV{COMP_ARCH})
       set(EC_COMP "-$ENV{COMP_ARCH}")
    endif()
+   set (EC_SSM_NAME ${NAME}${EC_COMP})
 
    string(TIMESTAMP BUILD_TIMESTAMP UTC)
    cmake_host_system_information(RESULT OS_HOSTNAME QUERY HOSTNAME)
