@@ -19,7 +19,10 @@ set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian
 set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
-set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -static-intel")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
+if(NOT BUILD_SHARED_LIBS)
+    set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -static-intel")
+endif()
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
 # that are not added the find_package(OpenACC)
