@@ -44,10 +44,6 @@ endfunction()
 
 macro(ec_prepare_ssm)
 
-   set(EC_COMP "")
-   if(DEFINED ENV{COMP_ARCH})
-      set(EC_COMP "-$ENV{COMP_ARCH}")
-   endif()
    set (EC_SSM_NAME ${NAME}${EC_COMP})
 
    string(TIMESTAMP BUILD_TIMESTAMP UTC)
