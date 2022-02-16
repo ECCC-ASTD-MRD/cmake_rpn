@@ -10,10 +10,8 @@
 #  R_HOME              - Path to 'R home', as reported by R
 #  R_INCLUDE_DIR       - Path to R include directory
 #  R_LIBRARY_BASE      - Path to R library
-#  R_LIBRARY_BLAS      - Path to Rblas / blas library
-#  R_LIBRARY_LAPACK    - Path to Rlapack / lapack library
 #  R_LIBRARY_READLINE  - Path to readline library
-#  R_LIBRARIES         - Array of: R_LIBRARY_BASE, R_LIBRARY_BLAS, R_LIBRARY_LAPACK, R_LIBRARY_BASE [, R_LIBRARY_READLINE]
+#  R_LIBRARIES         - Array of: R_LIBRARY_BASE, R_LIBRARY_BASE [, R_LIBRARY_READLINE]
 #
 #  VTK_R_HOME          - (deprecated, use R_HOME instead) Path to 'R home', as reported by R
 #
@@ -70,14 +68,6 @@ if(R_COMMAND)
             HINTS ${R_ROOT_DIR}/lib ${R_ROOT_DIR}/bin/${R_LIB_ARCH}
             DOC "R library (example libR.a, libR.dylib, etc.).")
 
-  find_library(R_LIBRARY_BLAS NAMES Rblas blas
-            HINTS ${R_ROOT_DIR}/lib ${R_ROOT_DIR}/bin/${R_LIB_ARCH}
-            DOC "Rblas library (example libRblas.a, libRblas.dylib, etc.).")
-
-  find_library(R_LIBRARY_LAPACK NAMES Rlapack lapack
-            HINTS ${R_ROOT_DIR}/lib ${R_ROOT_DIR}/bin/${R_LIB_ARCH}
-            DOC "Rlapack library (example libRlapack.a, libRlapack.dylib, etc.).")
-
   find_library(R_LIBRARY_READLINE readline
             DOC "(Optional) system readline library. Only required if the R libraries were built with readline support.")
 
@@ -88,16 +78,16 @@ else()
 endif()
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(R DEFAULT_MSG R_HOME R_INCLUDE_DIR R_LIBRARY_BASE R_LIBRARY_BLAS R_LIBRARY_LAPACK)
+find_package_handle_standard_args(R DEFAULT_MSG R_HOME R_INCLUDE_DIR R_LIBRARY_BASE)
 
 # Note: R_LIBRARY_BASE is added to R_LIBRARIES twice; this may be due to circular linking dependencies; needs further investigation
 if(R_FOUND)
-   set(R_LIBRARIES ${R_LIBRARY_BASE} ${R_LIBRARY_BLAS} ${R_LIBRARY_LAPACK} ${R_LIBRARY_BASE})
+   set(R_LIBRARIES ${R_LIBRARY_BASE} ${R_LIBRARY_BASE})
    if(R_LIBRARY_READLINE)
       set(R_LIBRARIES ${R_LIBRARIES} ${R_LIBRARY_READLINE})
    endif()
 
-   foreach(lib IN ITEMS BASE BLAS LAPACK READLINE)
+   foreach(lib IN ITEMS BASE READLINE)
        string(LENGTH "${R_LIBRARY_${lib}}" type)
        math(EXPR type "${type}-2")
        string(SUBSTRING "${R_LIBRARY_${lib}}" ${type} -1 type)
@@ -112,7 +102,7 @@ if(R_FOUND)
    endforeach()
 
    add_library(R::R INTERFACE IMPORTED)
-   target_link_libraries(R::R INTERFACE R::BASE R::BLAS R::LAPACK)
+   target_link_libraries(R::R INTERFACE R::BASE)
    set_target_properties(R::R PROPERTIES
       INTERFACE_INCLUDE_DIRECTORIES ${R_INCLUDE_DIR}
       INTERFACE_COMPILE_DEFINITIONS HAVE_R
