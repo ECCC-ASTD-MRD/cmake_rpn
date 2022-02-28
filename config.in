@@ -26,8 +26,8 @@ has_vgrid=@VGRID_VERSION@@VGRID_STATE@
 has_eer=@eerUtils_VERSION@@eerUtils_STATE@ 
 has_gdal=@GDAL_VERSION@
 has_netcdf=@NETCDF_VERSION@ 
-has_hdf4=@HDF4_VERSION}@ 
-has_hdf5=@HDF5_VERSION}@
+has_hdf4=@HDF4_VERSION@ 
+has_hdf5=@HDF5_VERSION@
 
 usage()
 {
