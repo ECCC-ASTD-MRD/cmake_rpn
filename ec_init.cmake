@@ -66,13 +66,14 @@ else()
       else()
          message(FATAL_ERROR "(EC) Unknown compiler suite: ${COMPILER_SUITE}")
       endif()
+
+      # Check if specified compiler suite exists
+      find_program(COMPILER_FOUND ${CMAKE_C_COMPILER} NO_CACHE)
+      if(NOT COMPILER_FOUND) 
+         message(FATAL_ERROR "(EC) Compiler suite not found: ${COMPILER_SUITE}")
+      endif()
    endif()
 
-   # Check if specified compiler suite exists
-   find_program(COMPILER_FOUND ${CMAKE_C_COMPILER} NO_CACHE)
-   if(NOT COMPILER_FOUND) 
-      message(FATAL_ERROR "(EC) Compiler suite not found: ${COMPILER_SUITE}")
-   endif()
 
 #   message(DEBUG CMAKE_C_COMPILER=${CMAKE_C_COMPILER})
 #   message(DEBUG CMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER})
