@@ -2,15 +2,9 @@
 
 message(FATAL "(EC) This combinaison of compiler and architecture not yet ready for use")
 
-# MV suggested to add -qufmt=be
+#TODO MV suggested to add -qufmt=be
 
 add_definitions(-DLittle_Endian)
-
-set(CMAKE_C_COMPILER "xlc")
-set(CMAKE_Fortran_COMPILER "xlf_r")
-
-set(MPI_C_COMPILER "xlc")
-set(MPI_Fortran_COMPILER "xlf_r")
 
 set(MPI_C_LIBRARIES "-L/usr/mpi/gcc/openmpi-4.0.0rc5/lib64 -lmpi")
 set(MPI_C_INCLUDE_PATH "/usr/mpi/gcc/openmpi-4.0.0rc5/include")

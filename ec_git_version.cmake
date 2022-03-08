@@ -9,7 +9,7 @@
 macro(ec_git_version)
    execute_process(
       COMMAND git describe --tags --always --dirty --broken
-      WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       RESULT_VARIABLE GIT_RESULT
       OUTPUT_VARIABLE GIT_VERSION
       ERROR_VARIABLE GIT_ERROR
@@ -24,6 +24,6 @@ macro(ec_git_version)
       set(VERSION ${GIT_VERSION})
    else()
       set(VERSION "0.0.0")
-      message(FATAL_ERROR "(EC) Failed to get version info from Git!\n" "Git error message:\n" ${GIT_ERROR})
+      message(WARNING "(EC) Failed to get version info from Git!\n" "Git error message:\n" ${GIT_ERROR})
    endif()
 endmacro()

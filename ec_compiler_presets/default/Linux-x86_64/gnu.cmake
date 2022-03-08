@@ -6,35 +6,20 @@
 
 add_definitions(-DLittle_Endian)
 
-set(LAPACK_LIBRARIES "lapack")
-message(STATUS "(EC) LAPACK_LIBRARIES=${LAPACK_LIBRARIES}")
-
-set(BLAS_LIBRARIES "blas")
-message(STATUS "(EC) BLAS_LIBRARIES=${BLAS_LIBRARIES}")
-# Since we are now using CMake mechanisms to build shared libraries
-# (BUILD_SHARED_LIBS), removed -fpic from CMAKE_C_FLAGS to see if it works
-set(CMAKE_C_FLAGS "-w -Wall -Wextra")
-set(CMAKE_C_FLAGS_DEBUG "-g")
+#set(CMAKE_C_FLAGS "")
+set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
-set(CMAKE_Fortran_FLAGS "-Wall -Wextra -Wno-compare-reals -Wno-conversion -Wno-unused-dummy-argument -Wno-unused-parameter -fbacktrace -fconvert=big-endian -fcray-pointer -fdump-core -ffpe-trap=invalid,zero,overflow -ffree-line-length-none -finit-real=nan -fno-second-underscore -frecord-marker=4")
-set(CMAKE_Fortran_FLAGS_DEBUG "-g")
+set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -ffree-line-length-none -finit-real=nan -fno-second-underscore -frecord-marker=4")
+set(CMAKE_Fortran_FLAGS_DEBUG "-Wall -Wextra -fbacktrace -ffpe-trap=invalid,zero,overflow -g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
-
-#CMAKE_Fortran_COMPILER_VERSION
-#CMAKE_C_COMPILER_VERSION
 if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
     message(WARNING "(EC) This code might not work with such an old compiler!  Please consider upgrading.")
-elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 9)
-    message(WARNING "(EC) Old compiler, but should work")
-elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 9 AND CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 10)
-    message(STATUS "(EC) Compiler is modern and everything should be tip-top")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
-    message(WARNING "(EC) Our code has not yet been updated to work with GNU compilers 10.x; adding extra options to be more permissive.")
+    message(STATUS "(EC) Our code has not yet been updated to work with GNU compilers 10.x; adding extra options to be more permissive: -fallow-argument-mismatch.")
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
 endif()
-
 
 # Set the target architecture
 if(NOT TARGET_PROC)
@@ -49,7 +34,6 @@ set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${TARGET_PROC}")
 # It doesn't matter if we defined them even if OpenACC isn't used because the
 # OpenACC_extra_FLAGS variable just won't be used
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
-
 
 if (EXTRA_CHECKS)
    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fanalyzer -fsanitize=bounds -fsanitize=alignment -fstack-protector-all -fstack-check -fstack-clash-protection")

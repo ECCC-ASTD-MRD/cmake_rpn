@@ -13,6 +13,8 @@
 #   --fflags       Fortran compiler flags [${fflags}]
 #   --defs         Preprocessor definitions [${defs}]
 #   --version      library version [${version}]
+#   --arch         architecture [${arch}]
+#   --env          environment version [${env}]
 #   --has-rmn      which version of librmn is it compiled with [${has_rmn}]
 #   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
 #   ...
@@ -23,8 +25,24 @@ macro(ec_build_config)
    list(TRANSFORM EC_CMAKE_DEFINITIONS PREPEND "-D")
    list(JOIN EC_CMAKE_DEFINITIONS " " EC_CMAKE_DEFINITIONS)
 
+   # Build flags list
+   set(EC_C_FLAGS "${CMAKE_C_FLAGS}")
+   set(EC_Fortran_FLAGS "${CMAKE_Fortran_FLAGS}")
+   if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+     set(EC_C_FLAGS "${EC_C_FLAGS} ${CMAKE_C_FLAGS_DEBUG}")
+     set(EC_Fortran_FLAGS "${EC_Fortran_FLAGS} ${CMAKE_Fortran_FLAGS_DEBUG}")
+   endif()
+   if(CMAKE_BUILD_TYPE STREQUAL "Release")
+     set(EC_C_FLAGS "${EC_C_FLAGS} ${CMAKE_C_FLAGS_RELEASE}")
+     set(EC_Fortran_FLAGS "${EC_Fortran_FLAGS} ${CMAKE_Fortran_FLAGS_RELEASE}")
+   endif()
+
+#   get_target_property(coptions tdpack COMPILE_OPTIONS)
+#   if(DEFINED COMPILE_OPTIONS)
+#      set(EC_COPTIONS "${EC_COPTIONS} ${EC_CMAKE_COPTIONS})
+
    # Replace build info variables in script
    configure_file(config.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config @ONLY)
-   install(PROGRAMS ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config DESTINATION bin)
+   install(PROGRAMS ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config DESTINATION bin/${EC_SSM_ARCH})
 endmacro()
 
