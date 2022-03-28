@@ -27,9 +27,4 @@ if(DEFINED ENV{EC_ARCH} AND USE_ECCC_ENV_IF_AVAIL)
    message(STATUS "(EC) Using default presets: ${COMPILER_PRESET_PATH}")
 endif()
 
-# Defaults to C99
-# TODO: Fix code and enable C99
-#set(CMAKE_C_STANDARD 99)
-#set(CMAKE_C_EXTENSIONS OFF)
-
 include("ec_compiler_presets/${COMPILER_PRESET_PATH}")
