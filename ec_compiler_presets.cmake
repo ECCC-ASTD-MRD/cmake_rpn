@@ -5,8 +5,8 @@
 
 # CMAKE_BUILD_TYPE can be one of Debug, Release, RelWithDebInfo, MinSizeRel
 if (NOT CMAKE_BUILD_TYPE)
-  message(STATUS "No build type selected, default to RelWithDebInfo")
   set(CMAKE_BUILD_TYPE "RelWithDebInfo")
+  message(STATUS "(EC) No build type selected, default to ${CMAKE_BUILD_TYPE}")
 endif()
 message(STATUS "(EC) Configuring for ${CMAKE_BUILD_TYPE} build type")
 
