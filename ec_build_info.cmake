@@ -10,6 +10,7 @@ function(ec_build_info)
         ALL
         COMMAND "${CMAKE_COMMAND}" 
             "-DPROJECT_NAME=${PROJECT_NAME}"
+            "-DPROJECT_VERSION=${PROJECT_VERSION}"
             "-DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}"
             "-DCMAKE_C_COMPILER_ID=${CMAKE_C_COMPILER_ID}"
             "-DCMAKE_C_COMPILER_VERSION=${CMAKE_C_COMPILER_VERSION}"

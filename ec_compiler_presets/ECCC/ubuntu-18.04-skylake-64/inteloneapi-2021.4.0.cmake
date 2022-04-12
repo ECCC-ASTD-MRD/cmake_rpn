@@ -1,14 +1,8 @@
-# Copyright 2021, Her Majesty the Queen in right of Canada
-
 # Default configuration for the Intel compiler suite
 # Input:
 #  EXTRA_CHECKS Enable extra checking.  This will make the execution slower.
 
 add_definitions(-DLittle_Endian)
-
-# When we will want to have flags different from the compiler rules, we should add
-#   -ip To enable additional interprocedural optimizations
-#   -threads The linker searches for unresolved references in a library that supports enabling thread-safe operation.
 
 set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs" CACHE STRING "C compiler flags" FORCE)
 set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv")
@@ -32,11 +26,11 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "sse3")
+    set(TARGET_PROC "CORE-AVX512")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m${TARGET_PROC}")
-set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -m${TARGET_PROC}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x${TARGET_PROC}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -x${TARGET_PROC}")
 
 if (EXTRA_CHECKS)
    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
