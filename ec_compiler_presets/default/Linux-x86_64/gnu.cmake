@@ -10,7 +10,7 @@ add_definitions(-DLittle_Endian)
 set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
-set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -ffree-line-length-none -finit-real=nan -fno-second-underscore -frecord-marker=4")
+set(CMAKE_Fortran_FLAGS "-ffree-line-length-none -finit-real=nan")
 set(CMAKE_Fortran_FLAGS_DEBUG "-Wall -Wextra -fbacktrace -ffpe-trap=invalid,zero,overflow -g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
