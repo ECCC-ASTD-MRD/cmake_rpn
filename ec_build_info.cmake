@@ -49,7 +49,7 @@ function(ec_build_info_with_deps)
         BYPRODUCTS "${PROJECT_NAME}_build_info.h"
         COMMENT "Generating ${PROJECT_NAME}_build_info.h"
     )
-    add_custom_target("${PROJECT_NAME}_build_info" DEPENDS "${PROJECT_NAME}_build_info.h")
+    add_custom_target("${PROJECT_NAME}_build_info" DEPENDS ${ARGV} ${PROJECT_NAME}_build_info.h)
 
     include_directories(${CMAKE_CURRENT_BINARY_DIR})
 endfunction()
