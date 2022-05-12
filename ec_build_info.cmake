@@ -26,30 +26,3 @@ function(ec_build_info)
     )
     include_directories(${CMAKE_CURRENT_BINARY_DIR})
 endfunction()
-
-
-function(ec_build_info_with_deps)
-   message(STATUS "(EC) Adding ${PROJECT_NAME}_build_info target with dependencies")
-
-    add_custom_command(
-        OUTPUT "${PROJECT_NAME}_build_info.h"
-        DEPENDS ${ARGV}
-        COMMAND "${CMAKE_COMMAND}"
-            "-DPROJECT_NAME=${PROJECT_NAME}"
-            "-DPROJECT_VERSION=${PROJECT_VERSION}"
-            "-DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}"
-            "-DCMAKE_C_COMPILER_ID=${CMAKE_C_COMPILER_ID}"
-            "-DCMAKE_C_COMPILER_VERSION=${CMAKE_C_COMPILER_VERSION}"
-            "-DCMAKE_CXX_COMPILER_ID=${CMAKE_CXX_COMPILER_ID}"
-            "-DCMAKE_CXX_COMPILER_VERSION=${CMAKE_CXX_COMPILER_VERSION}"
-            "-DCMAKE_Fortran_COMPILER_ID=${CMAKE_Fortran_COMPILER_ID}"
-            "-DCMAKE_Fortran_COMPILER_VERSION=${CMAKE_Fortran_COMPILER_VERSION}"
-            "-DWITH_OPENMP=${WITH_OPENMP}"
-            -P "${CMAKE_SOURCE_DIR}/cmake_rpn/ec_build_info_maketime.cmake"
-        BYPRODUCTS "${PROJECT_NAME}_build_info.h"
-        COMMENT "Generating ${PROJECT_NAME}_build_info.h"
-    )
-    add_custom_target("${PROJECT_NAME}_build_info" DEPENDS ${ARGV} ${PROJECT_NAME}_build_info.h)
-
-    include_directories(${CMAKE_CURRENT_BINARY_DIR})
-endfunction()
