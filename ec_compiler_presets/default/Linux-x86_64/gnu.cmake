@@ -6,7 +6,6 @@
 
 add_definitions(-DLittle_Endian)
 
-#set(CMAKE_C_FLAGS "")
 set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
@@ -36,7 +35,13 @@ set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${TARGET_PROC}")
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
 if (EXTRA_CHECKS)
-   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fanalyzer -fsanitize=bounds -fsanitize=alignment -fstack-protector-all -fstack-check -fstack-clash-protection")
-   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fcheck=all -fsanitize=bounds -fsanitize=alignment")
-   set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -fsanitize=bounds -fsanitize=alignment")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=bounds -fsanitize=alignment -fstack-protector-all -fstack-check ")
+    if(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 8)
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstack-clash-protection")
+    endif()
+    if(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fanalyzer")
+    endif()
+    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fcheck=all -fsanitize=bounds -fsanitize=alignment")
+    set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -fsanitize=bounds -fsanitize=alignment")
 endif()
