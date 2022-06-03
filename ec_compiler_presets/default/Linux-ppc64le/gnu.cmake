@@ -21,12 +21,10 @@ elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
 endif()
 
 # Set the target architecture
-if(NOT TARGET_PROC)
-    set(TARGET_PROC "native")
-endif()
+set(TARGET_PROC "power9")
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${TARGET_PROC}")
-set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -march=${TARGET_PROC}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mcpu=${TARGET_PROC}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -mcpu=${TARGET_PROC}")
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
 # that are not added the find_package(OpenACC)
