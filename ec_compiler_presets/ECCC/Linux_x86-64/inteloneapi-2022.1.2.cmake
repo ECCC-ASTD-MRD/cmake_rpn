@@ -8,11 +8,14 @@ set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs" CACHE STRING "C com
 set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
-set(CMAKE_Fortran_FLAGS "-align array32byte -assume byterecl -convert big_endian -fp-model source -fpe0 -traceback -stand f08" CACHE STRING "Fortran compiler flags" FORCE)
+set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08" CACHE STRING "Fortran compiler flags" FORCE)
 set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
-set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined -static-intel")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
+if(NOT BUILD_SHARED_LIBS)
+    set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -static-intel")
+endif()
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
 # that are not added the find_package(OpenACC)

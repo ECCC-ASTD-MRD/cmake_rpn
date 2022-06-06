@@ -26,7 +26,7 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "CORE-AVX512")
+    set(TARGET_PROC "ICELAKE-SERVER")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x${TARGET_PROC}")

@@ -10,7 +10,7 @@ add_definitions(-DLittle_Endian)
 set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
-set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -ffree-line-length-none -finit-real=nan -fno-second-underscore -frecord-marker=4")
+set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -finit-real=nan")
 set(CMAKE_Fortran_FLAGS_DEBUG "-Wall -Wextra -fbacktrace -ffpe-trap=invalid,zero,overflow -g")
 set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
@@ -18,12 +18,12 @@ if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
     message(WARNING "(EC) This code might not work with such an old compiler!  Please consider upgrading.")
 elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
     message(STATUS "(EC) Our code has not yet been updated to work with GNU compilers 10.x; adding extra options to be more permissive: -fallow-argument-mismatch.")
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -Wno-argument-mismatch")
+    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
 endif()
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "native")
+    set(TARGET_PROC "icelake-server")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${TARGET_PROC}")
