@@ -35,20 +35,18 @@ macro(ec_parse_manifest)
          set(${LBL1}_REQ_VERSION ${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3})
 #         message("${LBL1} ${CMAKE_MATCH_1}..${CMAKE_MATCH_2}..${CMAKE_MATCH_3}")
       endif()
-  endforeach()
+   endforeach()
  
-  #----- Extract version and state
-  if(NOT "${VERSION}" STREQUAL "")
-     string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)(.*)" null ${VERSION})
-     if (NOT ${CMAKE_MATCH_1} STREQUAL "")
-        set(VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
-        set(STATE "${CMAKE_MATCH_4}")
-     endif()
-  endif()
-
-  if (NOT CMAKE_BUILD_TYPE)
-     set(CMAKE_BUILD_TYPE ${BUILD})
-  endif()
+   #----- Extract version and state
+   string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)(.*)" null ${VERSION})
+   if (NOT ${CMAKE_MATCH_1} STREQUAL "")
+      set(VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
+      set(STATE "${CMAKE_MATCH_4}")
+   endif()
+  
+   if (NOT CMAKE_BUILD_TYPE)
+      set(CMAKE_BUILD_TYPE ${BUILD})
+   endif()
 endmacro()
 
 function(ec_check_version DEPENDENCY)
