@@ -20,7 +20,7 @@ function(ec_package_name)
    if (DEFINED ARGV1)
       set(version ${ARGV1})
    else()
-      set(version ${VERSION})
+      set(version ${PROJECT_VERSION})
    endif()
 
    if(DEFINED ENV{ORDENV_PLAT})
