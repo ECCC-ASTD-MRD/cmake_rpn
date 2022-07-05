@@ -3,6 +3,7 @@
 # This modules loads compiler presets for the current platform and handles
 # ECCC's computing environment differently
 
+
 # CMAKE_BUILD_TYPE can be one of Debug, Release, RelWithDebInfo, MinSizeRel
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo")
@@ -36,4 +37,11 @@ else()
     message(STATUS "(EC) Using default presets: ${COMPILER_PRESET_PATH}")
 endif()
 
+# TODO: Fix code and enable C99
+#set(CMAKE_C_STANDARD 99)
+#set(CMAKE_C_EXTENSIONS OFF)
+
+# Retreive CMake's list of eabled languages.  The compiler preset files use this variable
+get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 include("ec_compiler_presets/${COMPILER_PRESET_PATH}")
+unset(languages)

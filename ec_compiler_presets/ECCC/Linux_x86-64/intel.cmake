@@ -6,21 +6,20 @@
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    # -xHost is the Intel equivalent of GCC's -march=native
-    set(TARGET_PROC "Host")
+    set(TARGET_PROC "sse3")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 
 add_definitions(-DLittle_Endian)
 
-if("Fortran" IN_LIST languages)
-    set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -x${TARGET_PROC}" CACHE STRING "C compiler flags" FORCE)
+if("C" IN_LIST languages)
+    set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -m${TARGET_PROC}" CACHE STRING "C compiler flags" FORCE)
     set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 -x${TARGET_PROC}" CACHE STRING "Fortran compiler flags" FORCE)
+    set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 -m${TARGET_PROC}" CACHE STRING "Fortran compiler flags" FORCE)
     set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 endif()
