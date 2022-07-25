@@ -14,29 +14,46 @@ find_path(URP_INCLUDE_DIR
 # [[DOC]] for find_library https://cmake.org/cmake/help/latest/command/find_library.html
 find_library(URP_LIBRARY
    NAMES urp
-   PATHS $ENV{URP_ROOT}/lib ENV LIBRARY_PATH)
+   PATHS ${EC_LD_LIBRARY_PATH})
+find_library(URPLC_LIBRARY
+   NAMES urplc
+   PATHS ${EC_LD_LIBRARY_PATH})
 find_library(MUT_LIBRARY
    NAMES mut
-   PATHS $ENV{URP_ROOT}/lib ENV LIBRARY_PATH)
+   PATHS ${EC_LD_LIBRARY_PATH})
 find_library(DRP_LIBRARY
    NAMES drp
-   PATHS $ENV{URP_ROOT}/lib ENV LIBRARY_PATH)
+   PATHS ${EC_LD_LIBRARY_PATH})
 find_library(DSP_LIBRARY
    NAMES dsp
-   PATHS $ENV{URP_ROOT}/lib ENV LIBRARY_PATH)
+   PATHS ${EC_LD_LIBRARY_PATH})
+find_library(CONFIG_LIBRARY
+   NAMES config
+   PATHS ${EC_LD_LIBRARY_PATH})
+find_library(ZSTD_LIBRARY
+   NAMES zstd
+   PATHS ${EC_LD_LIBRARY_PATH})
 find_library(BZ2_LIBRARY
    NAMES bz2
-   PATHS $ENV{URP_ROOT}/lib ENV LIBRARY_PATH)
+   PATHS ${EC_LD_LIBRARY_PATH})
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(URP DEFAULT_MSG URP_LIBRARY URP_INCLUDE_DIR MUT_LIBRARY DRP_LIBRARY DSP_LIBRARY)
-mark_as_advanced(URP_INCLUDE_DIR URP_LIBRARY MUT_LIBRARY DRP_LIBRARY DSP_LIBRARY)
+find_package_handle_standard_args(URP
+   FOUND_VAR URP_FOUND
+   REQUIRED_VARS
+      URP_LIBRARY 
+      URPLC_LIBRARY 
+      URP_INCLUDE_DIR 
+      MUT_LIBRARY 
+      DRP_LIBRARY 
+      DSP_LIBRARY
+   VERSION_VAR URP_VERSION)
 
 if(URP_FOUND)
    set(URP_INCLUDE_DIRS ${URP_INCLUDE_DIR})
-   set(URP_LIBRARIES ${MUT_LIBRARY} ${DRP_LIBRARY} ${URP_LIBRARY} ${DSP_LIBRARY} ${BZ2_LIBRARY})
+   set(URP_LIBRARIES ${MUT_LIBRARY} ${DRP_LIBRARY} ${URP_LIBRARY} ${DSP_LIBRARY} ${URPLC_LIBRARY} ${CONFIG_LIBRARY} ${ZSTD_LIBRARY} ${BZ2_LIBRARY})
 
-   foreach(lib IN ITEMS MUT DRP URP DSP BZ2)
+   foreach(lib IN ITEMS MUT DRP URP URPLC DSP CONFIG ZSTD BZ2)
        string(LENGTH "${${lib}_LIBRARY}" type)
        math(EXPR type "${type}-2")
        string(SUBSTRING "${${lib}_LIBRARY}" ${type} -1 type)
@@ -52,11 +69,9 @@ if(URP_FOUND)
 
    #----- Add the target that includes all libraries
    add_library(URP::URP INTERFACE IMPORTED)
-   target_link_libraries(URP::URP INTERFACE URP::LibMUT URP::LibDRP URP::LibURP URP::LibDSP URP::LibBZ2)
+   target_link_libraries(URP::URP INTERFACE URP::LibMUT URP::LibDRP URP::LibURP URP::LibDSP URP::LibURPLC URP::LibCONFIG URP::LibZSTD URP::LibBZ2)
    set_target_properties(URP::URP PROPERTIES
-      INTERFACE_INCLUDE_DIRECTORIES ${URP_INCLUDE_DIR}
+      INTERFACE_INCLUDE_DIRECTORIES ${URP_INCLUDE_DIRS}
       INTERFACE_COMPILE_DEFINITIONS HAVE_URP
    )
 endif()
-
-# urp_lib_flags="-lmut -ldrp -lurp -ldsp -lm -lxml2 -lz -lbz2"
