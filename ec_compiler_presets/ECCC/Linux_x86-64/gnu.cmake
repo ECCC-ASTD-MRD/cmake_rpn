@@ -6,7 +6,7 @@
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "haswell")
+    set(TARGET_PROC "x86-64")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 
