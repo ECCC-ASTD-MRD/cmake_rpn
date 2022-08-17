@@ -6,7 +6,7 @@ message(FATAL "(EC) This combinaison of compiler and architecture not yet ready 
 
 add_definitions(-DLittle_Endian)
 
-if("Fortran" IN_LIST languages)
+if("C" IN_LIST languages)
     set(MPI_C_LIBRARIES "-L/usr/mpi/gcc/openmpi-4.0.0rc5/lib64 -lmpi")
     set(MPI_C_INCLUDE_PATH "/usr/mpi/gcc/openmpi-4.0.0rc5/include")
 

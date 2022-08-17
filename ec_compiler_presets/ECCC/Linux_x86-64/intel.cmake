@@ -6,7 +6,7 @@
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "sse3")
+    set(TARGET_PROC "SSE2")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 
