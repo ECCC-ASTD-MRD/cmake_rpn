@@ -41,6 +41,8 @@ else()
             set(CMAKE_Fortran_COMPILER "ifort")
             # set(MPI_C_COMPILER mpicc)
             # set(MPI_Fortran_COMPILER mpif90)
+            # add intel compiler library path to the install RPATH
+            list(APPEND CMAKE_INSTALL_RPATH $ENV{CMPLR_ROOT}/linux/compiler/lib/intel64)
         elseif(COMPILER_SUITE STREQUAL "pgi")
             set(CMAKE_C_COMPILER "pgcc")
             set(CMAKE_CXX_COMPILER "pgc++")
