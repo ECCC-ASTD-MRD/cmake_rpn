@@ -13,7 +13,7 @@ message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 
 add_definitions(-DLittle_Endian)
 
-if("Fortran" IN_LIST languages)
+if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -x${TARGET_PROC}" CACHE STRING "C compiler flags" FORCE)
     set(CMAKE_C_FLAGS_DEBUG "-g -ftrapuv")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
