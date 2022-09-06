@@ -42,7 +42,17 @@ else()
             # set(MPI_C_COMPILER mpicc)
             # set(MPI_Fortran_COMPILER mpif90)
             # add intel compiler library path to the install RPATH
-            list(APPEND CMAKE_INSTALL_RPATH $ENV{CMPLR_ROOT}/linux/compiler/lib/intel64)
+            if(DEFINED $ENV{CMPLR_ROOT})
+                set(INTEL_SO_DIR $ENV{CMPLR_ROOT}/linux/compiler/lib/intel64)
+            else()
+                # CMPLR_ROOT environment variable isn't defined :'(
+                # Hack for CMC with Intel 19
+                set(INTEL_SO_DIR "/fs/ssm/main/opt/intelcomp/intelpsxe-cluster-19.0.3.199/intelpsxe-cluster_19.0.3.199_multi/compilers_and_libraries_2019.3.199/linux/compiler/lib/intel64_lin")
+            endif()
+            if(EXISTS ${INTEL_SO_DIR})
+                list(APPEND CMAKE_INSTALL_RPATH)
+            endif()
+            unset(INTEL_SO_DIR)
         elseif(COMPILER_SUITE STREQUAL "pgi")
             set(CMAKE_C_COMPILER "pgcc")
             set(CMAKE_CXX_COMPILER "pgc++")
