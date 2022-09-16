@@ -5,7 +5,7 @@ if("C" IN_LIST languages)
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-byteswapio -fast -Mvect=fuse,simd -Kieee -traceback" CACHE STRING "Fortran compiler flags" FORCE)
+    set(CMAKE_Fortran_FLAGS "-fast -Mvect=fuse,simd -Kieee -traceback" CACHE STRING "Fortran compiler flags" FORCE)
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 endif()
 

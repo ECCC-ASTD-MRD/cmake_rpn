@@ -8,7 +8,6 @@ if("C" IN_LIST languages)
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-byteswapio" CACHE STRING "Fortran compiler flags" FORCE)
     set(CMAKE_Fortran_FLAGS_DEBUG "-g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
     set(MPI_Fortran_COMPILE_FLAGS "${MPI_Fortran_COMPILE_FLAGS} ${CMAKE_Fortran_FLAGS}" CACHE STRING "Fortran compiler flags")
