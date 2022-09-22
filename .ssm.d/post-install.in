@@ -14,14 +14,11 @@ loginPath=${profileDirPath}/${packageName}.csh
 rm -f ${profilePath} ${loginPath}
 mkdir -p ${profileDirPath}
 
-#cat > ${profilePath} << EOF
-#----- Add the <PackageName>_DIR variable for cmake builds
-#export ${packageName%%_*}_DIR="$packageHome"
-#EOF
+cat > ${profilePath} << EOF
+export EC_CMAKE_MODULE_PATH="$packageHome/include ${EC_CMAKE_MODULE_PATH}"
+EOF
 
-#cat > ${loginPath} << EOF
-#----- Add the <PackageName>_DIR variable for cmake builds
-#setenv ${packageName%%_*}_DIR "$packageHome"
-#
-#EOF
+cat > ${loginPath} << EOF
+setenv EC_CMAKE_MODULE_PATH "$packageHome/include ${EC_CMAKE_MODULE_PATH}"
+EOF
 

@@ -1,0 +1,7 @@
+NAME       : cmake-rpn
+VERSION    : 
+BUILD      : 
+DESCRIPTION: ECCC-MRD CMake fonctions
+SUMMARY    : Package of common functions used for cmake builds
+MAINTAINER : Samuel.Gilbert@ec.gc.ca
+URL        : https://gitlab.science.gc.ca/RPN-SI/cmake-rpn

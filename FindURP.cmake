@@ -14,28 +14,28 @@ find_path(URP_INCLUDE_DIR
 # [[DOC]] for find_library https://cmake.org/cmake/help/latest/command/find_library.html
 find_library(URP_LIBRARY
    NAMES urp
-   PATHS ${EC_LD_LIBRARY_PATH})
+   PATHS ENV LIBRARY_PATH)
 find_library(URPLC_LIBRARY
    NAMES urplc
-   PATHS ${EC_LD_LIBRARY_PATH})
+   PATHS ENV LIBRARY_PATH)
 find_library(MUT_LIBRARY
    NAMES mut
-   PATHS ${EC_LD_LIBRARY_PATH})
+   PATHS ENV LIBRARY_PATH)
 find_library(DRP_LIBRARY
    NAMES drp
-   PATHS ${EC_LD_LIBRARY_PATH})
+   PATHS ENV LIBRARY_PATH)
 find_library(DSP_LIBRARY
    NAMES dsp
-   PATHS ${EC_LD_LIBRARY_PATH})
+   PATHS ENV LIBRARY_PATH)
 find_library(CONFIG_LIBRARY
    NAMES config
-   PATHS ${EC_LD_LIBRARY_PATH})
+   PATHS ENV LIBRARY_PATH)
 find_library(ZSTD_LIBRARY
    NAMES zstd
-   PATHS ${EC_LD_LIBRARY_PATH})
+   PATHS ENV LIBRARY_PATH)
 find_library(BZ2_LIBRARY
    NAMES bz2
-   PATHS ${EC_LD_LIBRARY_PATH})
+   PATHS ENV LIBRARY_PATH)
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(URP
