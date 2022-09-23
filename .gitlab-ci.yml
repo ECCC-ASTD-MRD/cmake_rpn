@@ -23,6 +23,9 @@ package:all:
       - dev
       - schedules
    script:
+      - set +e
+      - source ~/ci-env/latest/profile.sh
+      - set -e
       - mkdir build
       - cd build
       - cmake ../ 
