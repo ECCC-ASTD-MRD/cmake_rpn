@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
 #----- Append EC specific module path
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR})
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/modules)
 
 set(ENV{ORDENV_PLAT} all)  # Force "all" platform
 unset(ENV{COMP_ARCH})
@@ -13,9 +13,7 @@ ec_parse_manifest()        # Parse MANIFEST file
 project(${NAME} DESCRIPTION "${DESCRIPTION}" LANGUAGES NONE)
 set(PROJECT_VERSION ${VERSION}${STATE})
 
-file(GLOB files ./*.cmake ./*.in)
-install(DIRECTORY ec_compiler_presets TYPE INCLUDE) 
-install(FILES ${files} TYPE INCLUDE) 
+install(DIRECTORY modules DESTINATION .) 
 
 ec_package_name()        # Define install prefix  
 ec_prepare_ssm()         # Prepare ssm packaging files

@@ -15,10 +15,10 @@ rm -f ${profilePath} ${loginPath}
 mkdir -p ${profileDirPath}
 
 cat > ${profilePath} << EOF
-export EC_CMAKE_MODULE_PATH="$packageHome/include ${EC_CMAKE_MODULE_PATH}"
+export EC_CMAKE_MODULE_PATH="$packageHome/modules"
 EOF
 
 cat > ${loginPath} << EOF
-setenv EC_CMAKE_MODULE_PATH "$packageHome/include ${EC_CMAKE_MODULE_PATH}"
+setenv EC_CMAKE_MODULE_PATH "$packageHome/modules"
 EOF
 
