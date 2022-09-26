@@ -4,6 +4,9 @@ if (DEFINED EC_INIT_DONE) # Is the initial setup already done
     message(STATUS "(EC) EC Initialisation already done")
 else()
     # Do ec_init() only once (in case of projects cascades)
+    # Define cmake_rpn path for module inclusion
+    set (EC_CMAKE_RPN_DIR ${CMAKE_CURRENT_LIST_DIR}) 
+    message(STATUS "(EC) EC_CMAKE_RPN_DIR ${EC_CMAKE_RPN_DIR}")
     # Compiler selection
     if(NOT DEFINED COMPILER_SUITE)
         if(DEFINED ENV{CRAYPE_VERSION})
