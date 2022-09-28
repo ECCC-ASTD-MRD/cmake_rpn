@@ -14,13 +14,13 @@ message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 add_definitions(-DLittle_Endian)
 
 if("C" IN_LIST languages)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=${TARGET_PROC}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftree-vectorize -march=${TARGET_PROC}")
     set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -g")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -ffree-line-length-none -finit-real=nan -fno-second-underscore -frecord-marker=4 -march=${TARGET_PROC}")
+    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -ffree-line-length-none -finit-real=nan -fno-second-underscore -frecord-marker=4 -ftree-vectorize -march=${TARGET_PROC}")
     set(CMAKE_Fortran_FLAGS_DEBUG "-Wall -Wextra -fbacktrace -ffpe-trap=invalid,zero,overflow -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 

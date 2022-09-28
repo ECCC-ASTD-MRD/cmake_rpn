@@ -15,11 +15,11 @@ add_definitions(-DLittle_Endian)
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -g")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mcpu=${TARGET_PROC}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftree-vectorize -mcpu=${TARGET_PROC}")
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -finit-real=nan -mcpu=${TARGET_PROC}")
+    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -finit-real=nan -ftree-vectorize -mcpu=${TARGET_PROC}")
     set(CMAKE_Fortran_FLAGS_DEBUG "-Wall -Wextra -fbacktrace -ffpe-trap=invalid,zero,overflow -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
