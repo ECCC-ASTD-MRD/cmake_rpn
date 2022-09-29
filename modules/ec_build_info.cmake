@@ -3,6 +3,8 @@
 function(ec_build_info)
     message(STATUS "(EC) Adding build_info target")
 
+    set(BUILD_INFO_OUTPUT_DIR ${ARGV0})
+
     # Variables from the current CMake execution environment have to be passed
     # with "-D" since they will not be available when executed with "-P"
     add_custom_target(
@@ -20,6 +22,7 @@ function(ec_build_info)
             "-DCMAKE_Fortran_COMPILER_ID=${CMAKE_Fortran_COMPILER_ID}"
             "-DCMAKE_Fortran_COMPILER_VERSION=${CMAKE_Fortran_COMPILER_VERSION}"
             "-DWITH_OPENMP=${WITH_OPENMP}"
+            "-DBUILD_INFO_OUTPUT_DIR=${BUILD_INFO_OUTPUT_DIR}"
             -P "${EC_CMAKE_RPN_DIR}/ec_build_info_maketime.cmake"
         BYPRODUCTS "${PROJECT_NAME}_build_info.h"
         COMMENT "Generating ${PROJECT_NAME}_build_info.h"
