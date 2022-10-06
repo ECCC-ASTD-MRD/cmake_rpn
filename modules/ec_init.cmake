@@ -45,7 +45,7 @@ else()
             # set(MPI_C_COMPILER mpicc)
             # set(MPI_Fortran_COMPILER mpif90)
             # add intel compiler library path to the install RPATH
-            if(DEFINED $ENV{CMPLR_ROOT})
+            if(DEFINED ENV{CMPLR_ROOT})
                 set(INTEL_SO_DIR $ENV{CMPLR_ROOT}/linux/compiler/lib/intel64)
             else()
                 # CMPLR_ROOT environment variable isn't defined :'(
