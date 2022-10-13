@@ -25,7 +25,6 @@ else()
 
       # Use env variables if defined
       if(DEFINED ENV{CC})
-         message(STATUS CCCCCCCCCCCCCCCCCCCCCC)
          set(CMAKE_C_COMPILER $ENV{CC})
          set(COMPILER_SUITE "user env defined")
       endif()
