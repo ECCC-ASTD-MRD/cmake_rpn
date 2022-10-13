@@ -16,10 +16,6 @@ else()
             # Try to find which PrgEnv is loaded
             string(REGEX MATCH "PrgEnv-(([a-z]|[A-Z])+)/" COMPILER_SUITE $ENV{LOADEDMODULES})
             set(COMPILER_SUITE ${CMAKE_MATCH_1})
-
-            if(NOT COMPILER_SUITE STREQUAL "intel")
-               message(FATAL_ERROR "(EC) We only support Intel compilers in the CrayLinuxEnvironment!")
-            endif()
         elseif(DEFINED ENV{INTEL_LICENSE_FILE} OR ( (DEFINED ENV{CMPLR_ROOT}) AND ($ENV{CMPLR_ROOT} MATCHES .*intel.*)))
             set(COMPILER_SUITE intel)
         else()
