@@ -1,5 +1,7 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
+add_definitions(-DLittle_Endian)
+
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 endif()
