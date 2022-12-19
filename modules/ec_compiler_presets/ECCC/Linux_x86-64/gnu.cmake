@@ -13,7 +13,7 @@ message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 add_definitions(-DLittle_Endian)
 
 if("C" IN_LIST languages)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftree-vectorize -march=${TARGET_PROC}")
+    set(CMAKE_C_FLAGS "-ftree-vectorize -march=${TARGET_PROC}")
     set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -g")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 endif()
