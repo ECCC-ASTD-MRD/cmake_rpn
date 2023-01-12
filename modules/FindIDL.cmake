@@ -195,7 +195,7 @@ if (NOT IDL_FOUND)
 
   ##____________________________________________________________________________
   ## Actions taken when all components have been found
-
+  include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args (IDL DEFAULT_MSG IDL_LIBRARIES IDL_INCLUDES)
 
   if (IDL_FOUND)
