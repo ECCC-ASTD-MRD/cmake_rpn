@@ -2,8 +2,8 @@
 
 # Add a target to generate API documentation with Doxygen
 
-option(WITH_DOC "Create and install the HTML based API documentation (requires Doxygen and Graphviz)" OFF)
-if(WITH_DOC)
+# Define doc target only once (in case of projects cascades)
+if (EC_INIT_DONE LESS 2)
     find_package(Doxygen REQUIRED dot)
 
     if(NOT PROJECT_SOURCE_DIR)
@@ -17,7 +17,6 @@ if(WITH_DOC)
 
     add_custom_target(
         doc
-        ALL
         COMMAND ${DOXYGEN_EXECUTABLE} ${doxyfile}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generating API documentation with Doxygen"
