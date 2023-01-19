@@ -23,5 +23,5 @@ if (EC_INIT_DONE LESS 2)
         VERBATIM
     )
 
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/html DESTINATION share/doc/${PROJECT_NAME})
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/html DESTINATION share/doc/${PROJECT_NAME} OPTIONAL)
 endif()
