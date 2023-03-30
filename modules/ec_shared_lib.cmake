@@ -34,7 +34,33 @@ function(ec_get_target_shared_lib_dirs _target _res)
 
    #----- We have a shared lib, try to get the lib dir path
    if(ttype STREQUAL SHARED_LIBRARY OR ttype STREQUAL UNKNOWN_LIBRARY)
-      foreach(prop IN ITEMS EC_LIB_INSTALL_PATH IMPORTED_LOCATION)
+      #----- Get the location of the lib
+      set(location IMPORTED_LOCATION)
+      get_property(p TARGET ${_target} PROPERTY IMPORTED_LOCATION)
+      if(NOT p)
+         #----- Check if there is a build type mapping
+         get_target_property(map ${_target} MAP_IMPORTED_CONFIG_${CMAKE_BUILD_TYPE})
+         if(map)
+            set(config ${map})
+         else()
+            set(config ${CMAKE_BUILD_TYPE})
+         endif()
+         #----- Check available configurations
+         get_target_property(tconfigs ${_target} IMPORTED_CONFIGURATIONS)
+         if(config IN_LIST tconfigs)
+            #----- We found a valid config
+            set(location IMPORTED_LOCATION_${config})
+         else()
+            #----- Try the upper case version
+            string(TOUPPER ${config} config)
+            if(config IN_LIST tconfigs)
+               set(location IMPORTED_LOCATION_${config})
+            endif()
+         endif()
+      endif()
+
+      #----- Loop on locations
+      foreach(prop IN ITEMS EC_LIB_INSTALL_PATH ${location})
          get_property(p TARGET ${_target} PROPERTY ${prop})
          if(p)
             if(IS_ABSOLUTE "${p}" AND NOT IS_DIRECTORY "${p}")
