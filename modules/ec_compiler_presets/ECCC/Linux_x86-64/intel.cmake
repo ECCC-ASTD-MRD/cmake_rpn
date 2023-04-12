@@ -22,6 +22,10 @@ if("Fortran" IN_LIST languages)
     set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 -x${TARGET_PROC} -lintlc" CACHE STRING "Fortran compiler flags" FORCE)
     set(CMAKE_Fortran_FLAGS_DEBUG "-g -ftrapuv")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
+
+    # Disable some warnings
+    # 5268: Line length above 132 columns
+    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -diag-disable 5268")
 endif()
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
