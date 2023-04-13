@@ -19,10 +19,10 @@ if("C" IN_LIST languages)
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -finit-real=nan -ftree-vectorize -march=${TARGET_PROC}")
+    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -ffixed-line-length-none -finit-real=nan -ftree-vectorize -march=${TARGET_PROC}")
     set(CMAKE_Fortran_FLAGS_DEBUG "-Wall -Wextra -fbacktrace -ffpe-trap=invalid,zero,overflow -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
-
+    set(CMAKE_Fortran_FLAGS "-ffixed-line-length-none 
     if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
         message(WARNING "(EC) This code might not work with such an old compiler!  Please consider upgrading.")
     elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
