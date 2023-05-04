@@ -16,6 +16,10 @@ if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -x${TARGET_PROC}" CACHE STRING "C compiler flags" FORCE)
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ftrapuv")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
+
+    # Disable some warnings
+    # 10441: icc deprecation in favor of icx
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -diag-disable=10441")
 endif()
 
 if("Fortran" IN_LIST languages)
@@ -24,8 +28,8 @@ if("Fortran" IN_LIST languages)
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
     # Disable some warnings
-    # 5268: Line length above 132 columns
-    # 7025: Non-standard F2008 directive
+    # 5268:  Line length above 132 columns
+    # 7025:  Non-standard F2008 directive
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -diag-disable=5268,7025")
 endif()
 

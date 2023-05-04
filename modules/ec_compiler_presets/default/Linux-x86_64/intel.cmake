@@ -17,6 +17,10 @@ if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -x${TARGET_PROC}" CACHE STRING "C compiler flags" FORCE)
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ftrapuv")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
+
+    # Disable some warnings
+    # 10441: icc deprecation in favor of icx
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -diag-disable=10441")
 endif()
 
 if("Fortran" IN_LIST languages)
