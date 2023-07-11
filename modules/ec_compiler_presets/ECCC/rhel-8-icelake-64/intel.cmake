@@ -30,7 +30,8 @@ if("Fortran" IN_LIST languages)
     # Disable some warnings
     # 5268: Line length above 132 columns
     # 7025: Non-standard F2008 directive
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -diag-disable=5268,7025")
+    # 7373:  Fixed-form is an obsolescent feature in F2008
+    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -diag-disable=5268,7025,7373")
 endif()
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
