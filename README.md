@@ -4,7 +4,8 @@ This package contains common functions used throughout the build of various tool
 It also defines a set of compilers presets optimized for ECCC's many platforms and compilers
 
 # Usage
-This package can be included as a submodule or used through the CMAKE_MODULE_PATH environment variable
+This package can be included as a submodule or used through the CMAKE_MODULE_PATH environment variable.
+When loading the [code-tools](https://gitlab.science.gc.ca/RPN-SI/code-tools/) SSM package, the CMake modules in this package can be accessed using the `EC_CMAKE_MODULE_PATH` environment variable.
 
 ## functions
 
