@@ -4,12 +4,13 @@ This package contains common functions used throughout the build of various tool
 It also defines a set of compilers presets optimized for ECCC's many platforms and compilers
 
 # Usage
-This package can be included as a submodule or used through the CMAKE_MODULE_PATH environment variable
+This package can be included as a submodule or used through the CMAKE_MODULE_PATH environment variable.
+When loading the [code-tools](https://gitlab.science.gc.ca/RPN-SI/code-tools/) SSM package, the CMake modules in this package can be accessed using the `EC_CMAKE_MODULE_PATH` environment variable.
 
 ## functions
 
 * include(ec_init)
-  * Initializes some variables and the compiler suite. If the compiler suite is not defined (cmake -COMPILER_SUITE=[gnu|intel|xlf|pgi|llvm], it will be determined by the compiler which is loaded on the platform. Default is gnu
+  * Initializes some variables and the compiler suite. If the compiler suite is not defined (`cmake -DCOMPILER_SUITE=[gnu|intel|xlf|pgi|llvm]`, it will be determined by the compiler which is loaded on the platform. Default is gnu
 
 * include(ec_compiler_presets)
   * Loads predefined compiler settings optimized per compiler and platform.  Must be included after languages are enabled
