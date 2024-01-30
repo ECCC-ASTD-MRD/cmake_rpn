@@ -4,8 +4,22 @@ This package contains common functions used throughout the build of various tool
 It also defines a set of compilers presets optimized for ECCC's many platforms and compilers
 
 # Usage
-This package can be included as a submodule or used through the CMAKE_MODULE_PATH environment variable.
-When loading the [code-tools](https://gitlab.science.gc.ca/RPN-SI/code-tools/) SSM package, the CMake modules in this package can be accessed using the `EC_CMAKE_MODULE_PATH` environment variable.
+
+## Accessing the modules
+
+CMake finds third party modules through the [CMAKE_MODULE_PATH](https://cmake.org/cmake/help/latest/variable/CMAKE_MODULE_PATH.html) CMake variable.
+
+When loading the [code-tools](https://gitlab.science.gc.ca/RPN-SI/code-tools/) SSM package, the CMake modules in this package can be accessed using the `EC_CMAKE_MODULE_PATH` environment variable by adding it to `CMAKE_MODULE_PATH`:
+```cmake
+list(APPEND CMAKE_MODULE_PATH $ENV{EC_CMAKE_MODULE_PATH})
+```
+
+And if using CMake RPN as a submodule, the subdirectory `modules` of `cmake_rpn`
+must be added to `CMAKE_MODULE_PATH`.  For example:
+```cmake
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_rpn/modules
+```
+if `cmake_rpn` is a submodule stored at the root of your repository.
 
 ## functions
 
