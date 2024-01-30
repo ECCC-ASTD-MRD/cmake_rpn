@@ -7,7 +7,7 @@ It also defines a set of compilers presets optimized for ECCC's many platforms a
 
 ## Accessing the modules
 
-CMake finds third party modules through the [CMAKE_MODULE_PATH](https://cmake.org/cmake/help/latest/variable/CMAKE_MODULE_PATH.html) CMake variable.
+CMake finds third party modules through the [`CMAKE_MODULE_PATH`](https://cmake.org/cmake/help/latest/variable/CMAKE_MODULE_PATH.html) CMake variable.
 
 When loading the [code-tools](https://gitlab.science.gc.ca/RPN-SI/code-tools/) SSM package, the CMake modules in this package can be accessed using the `EC_CMAKE_MODULE_PATH` environment variable by adding it to `CMAKE_MODULE_PATH`:
 ```cmake
