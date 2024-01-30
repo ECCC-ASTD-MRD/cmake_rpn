@@ -15,11 +15,12 @@ list(APPEND CMAKE_MODULE_PATH $ENV{EC_CMAKE_MODULE_PATH})
 ```
 
 And if using CMake RPN as a submodule, the subdirectory `modules` of `cmake_rpn`
-must be added to `CMAKE_MODULE_PATH`.  For example:
+must be added to `CMAKE_MODULE_PATH`.  For example if `cmake_rpn` is a
+submodule stored at the root of your repository:
 ```cmake
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_rpn/modules
 ```
-if `cmake_rpn` is a submodule stored at the root of your repository.
+
 
 ## functions
 
