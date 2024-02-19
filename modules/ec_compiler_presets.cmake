@@ -50,6 +50,9 @@ if (EC_INIT_DONE LESS 2)
   #set(CMAKE_C_STANDARD 99)
   #set(CMAKE_C_EXTENSIONS OFF)
 
+  # set EXTRA_CHECKS option
+  option(EXTRA_CHECKS "Compile with extra debug flags" OFF)
+
   include("ec_compiler_presets/${COMPILER_PRESET_PATH}")
   unset(languages)
 endif()
