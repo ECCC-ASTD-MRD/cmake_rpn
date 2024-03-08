@@ -3,7 +3,7 @@
 #    - Copy the .ssm.d directory in your project's root directory
 #    - Edit the .ssm.d/post-install.in file according to your needs
 #    - Call the ec_prepare_ssm macro.
-#    - Pass wich directory needs dummy files if needed (ie: bin lib include) 
+#    - Pass which directory needs dummy files if needed (ie: bin lib include) 
 #set(EC_SSM 11)
 if (EC_SSM LESS_EQUAL "11")
    set (EC_SSM_ARCH ${EC_ARCH})
