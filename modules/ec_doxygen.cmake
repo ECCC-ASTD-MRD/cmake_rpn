@@ -14,6 +14,22 @@ if (EC_INIT_DONE LESS 2)
         set(doxyfile_in ${CMAKE_CURRENT_LIST_DIR}/Doxyfile.in)
         set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 
+        if (NOT DOC_CALL_GRAPH)
+            set(DOC_CALL_GRAPH "NO")
+        endif()
+        if (NOT DOC_CALLER_GRAPH)
+            set(DOC_CALLER_GRAPH "NO")
+        endif()
+        if (NOT DOC_EXTRACT_ALL)
+            set(DOC_EXTRACT_ALL "NO")
+        endif()
+        if (NOT DOC_INCLUDE_GRAPH)
+            set(DOC_INCLUDE_GRAPH "NO")
+        endif()
+        if (NOT DOC_INCLUDED_BY_GRAPH)
+            set(DOC_INCLUDED_BY_GRAPH "NO")
+        endif()
+
         configure_file(${doxyfile_in} ${doxyfile} @ONLY)
 
         add_custom_target(
