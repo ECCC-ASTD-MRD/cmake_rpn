@@ -6,7 +6,7 @@
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "ICELAKE-SERVER")
+    set(TARGET_PROC "SSE3")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 
@@ -14,7 +14,7 @@ add_definitions(-DLittle_Endian)
 
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -x${TARGET_PROC}" CACHE STRING "C compiler flags" FORCE)
-    set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ftrapuv")
+    set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ftrapv")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 
     # Disable some warnings
@@ -23,13 +23,13 @@ if("C" IN_LIST languages)
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 -x${TARGET_PROC}" CACHE STRING "Fortran compiler flags" FORCE)
+    set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 -x${TARGET_PROC} -lintlc" CACHE STRING "Fortran compiler flags" FORCE)
     set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g -ftrapuv")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
     # Disable some warnings
-    # 5268: Line length above 132 columns
-    # 7025: Non-standard F2008 directive
+    # 5268:  Line length above 132 columns
+    # 7025:  Non-standard F2008 directive
     # 7373:  Fixed-form is an obsolescent feature in F2008
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -diag-disable=5268,7025,7373")
 endif()

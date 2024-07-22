@@ -1,5 +1,4 @@
 #!/bin/bash
-# If changing this file, relfect the changes in libSPI.sh
 # post-install <domainHome> <packageHome>
 
 domainHome=$1

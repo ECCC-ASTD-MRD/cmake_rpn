@@ -14,15 +14,14 @@ add_definitions(-DLittle_Endian)
 
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-ftree-vectorize -march=${TARGET_PROC}")
-    set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -g")
+    set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -O0 -g")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -finit-real=nan -ftree-vectorize -march=${TARGET_PROC}")
-    set(CMAKE_Fortran_FLAGS_DEBUG "-Wall -Wextra -fbacktrace -ffpe-trap=invalid,zero,overflow -g")
+    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -ffixed-line-length-none -finit-real=nan -ftree-vectorize -march=${TARGET_PROC} -fstack-arrays")
+    set(CMAKE_Fortran_FLAGS_DEBUG "-Wall -Wextra -fbacktrace -ffpe-trap=invalid,zero,overflow -O0 -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
-
     if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 7.4)
         message(WARNING "(EC) This code might not work with such an old compiler!  Please consider upgrading.")
     elseif(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)

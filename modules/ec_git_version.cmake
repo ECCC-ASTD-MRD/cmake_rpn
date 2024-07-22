@@ -25,7 +25,8 @@ macro(ec_git_version)
       # <major>.<minor>.<patch>.<tweak> where each component is a number
       # "0.0.1.0" is valid, but not "0.0.1.fe09182"
       set(VERSION ${GIT_VERSION})
-   else()
+#      set(VERSION_SHA1 ?= $(shell git rev-parse HEAD)
+      else()
       set(VERSION "0.0.0")
       message(WARNING "(EC) Failed to get version info from Git!\n" "Git error message:\n" ${GIT_ERROR})
    endif()

@@ -38,12 +38,14 @@ macro(ec_parse_manifest)
    endforeach()
  
    #----- Extract version and state
+   # unset STATE, in case it is inherited from another project
+   unset(STATE)
    string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)(.*)" null ${VERSION})
    if (NOT ${CMAKE_MATCH_1} STREQUAL "")
       set(VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
       set(STATE "${CMAKE_MATCH_4}")
    endif()
-  
+
    if (NOT CMAKE_BUILD_TYPE)
       set(CMAKE_BUILD_TYPE ${BUILD})
    endif()

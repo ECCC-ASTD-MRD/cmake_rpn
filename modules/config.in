@@ -3,12 +3,13 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 #
 # This forms the basis for the xx-config utility, which tells you
-# various things about the library installation.
-# Usage:
-#    Copy to your project directory and remove/add packages
-#    Call this within cmake:
-#       configure_file(config.in ${CMAKE_BINARY_DIR}/${NAME}-config @ONLY)
-#       install(PROGRAMS ${CMAKE_BINARY_DIR}/${NAME}-config DESTINATION bin)
+# various things about the library or binary installation.
+# Built [target]-config script which describes the build parameters.
+# How to use:
+#    - Copy the config.in file from cmake_rpn.
+#    - Edit and remove the components not involved in your project
+#    - Call the ec_build_config macro. 
+#    - The script will be installed in the installation's bin directory.
 
 cc="@CMAKE_C_COMPILER_ID@ @CMAKE_C_COMPILER_VERSION@"
 fc="@CMAKE_Fortran_COMPILER_ID@ @CMAKE_Fortran_COMPILER_VERSION@"
@@ -21,9 +22,10 @@ version=@PROJECT_VERSION@
 env=@EC_CI_ENV@
 arch=@EC_ARCH@
 
-has_rmn=@RMN_VERSION@@RMN_STATE@
-has_vgrid=@VGRID_VERSION@@VGRID_STATE@
-has_eer=@eerUtils_VERSION@@eerUtils_STATE@ 
+has_rmn=@rmn_VERSION@
+has_tdpack=@tdpack_VERSION@
+has_vgrid=@vgrid_VERSION@
+has_eer=@eerUtils_VERSION@
 has_gdal=@GDAL_VERSION@
 has_netcdf=@NETCDF_VERSION@ 
 has_hdf4=@HDF4_VERSION@ 
@@ -41,11 +43,12 @@ Available values for OPTION include:
   --fc           FORTRAN compiler [${fc}]
   --cflags       C compiler flags [${cflags}]
   --fflags       Fortran compiler flags [${fflags}]
-  --defs         Preprocessor definitions [${defs}]
+  --defs         preprocessor definitions [${defs}]
   --version      library version [${version}]
   --env          environment version used [${env}]
   --arch         architecture of build [${arch}]
   --has-rmn      which version of librmn is it compiled with [${has_rmn}]
+  --has-tdpack   which version of tdpack is it compiled with [${has_tdpack}]
   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
   --has-eer      which version of eerUtils is it compiled with [${has_eer}]
   --has-gdal     which version of gdal is it compiled with [${has_gdal}]
@@ -101,6 +104,10 @@ while test $# -gt 0; do
 
     --has-rmn)
        	echo ${has_rmn:-no}
+       	;;
+
+    --has-tdpack)
+       	echo ${has_tdpack:-no}
        	;;
 
     --has-vgrid)
