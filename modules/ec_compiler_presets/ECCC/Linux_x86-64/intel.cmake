@@ -37,9 +37,6 @@ if("Fortran" IN_LIST languages)
 endif()
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
-if(NOT BUILD_SHARED_LIBS)
-    set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -static-intel")
-endif()
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
 # that are not added the find_package(OpenACC)
