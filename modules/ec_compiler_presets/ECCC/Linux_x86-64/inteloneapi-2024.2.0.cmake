@@ -15,6 +15,7 @@ add_definitions(-DLittle_Endian)
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -x${TARGET_PROC}" CACHE STRING "C compiler flags" FORCE)
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ftrapv")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 
     # Disable some warnings
@@ -25,6 +26,7 @@ endif()
 if("Fortran" IN_LIST languages)
     set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 -x${TARGET_PROC} -lintlc" CACHE STRING "Fortran compiler flags" FORCE)
     set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g -ftrapuv")
+    set(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
     # Disable some warnings
