@@ -1,6 +1,6 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
-# Default configuration for the Intel compiler suite
+# Default configuration for the IntelLLVM compiler suite
 # Input:
 #  EXTRA_CHECKS Enable extra checking.  This will make the execution slower.
 
@@ -17,10 +17,6 @@ if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ftrapv")
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
-
-    # Disable some warnings
-    # 10441: icc deprecation in favor of icx
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -diag-disable=10441")
 endif()
 
 if("Fortran" IN_LIST languages)
