@@ -10,10 +10,7 @@ stages:
   - deploy
 
 before_script:
-  # Force color CMake output even when output is not TTY
-  - export CLICOLOR_FORCE=true
-  - if [[ ${CI_COMMIT_REF_NAME} == "dev" && ${ECCI_PROCESS:0:3} != "dev" && ${ECCI_PROCESS} != "nightly" ]]; then ECCI_PROCESS="dev_${CI_PIPELINE_ID}"; fi
-  - SSM=${ECCI_SSM}/`[[ ${ECCI_PROCESS:0:3} != "dev" ]] && echo ${ECCI_PROCESS} || echo staging`
+  - source ~/ci-admin/env/init.sh
 
 package:all:
    stage: package
