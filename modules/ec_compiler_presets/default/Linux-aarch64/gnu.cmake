@@ -16,7 +16,7 @@ add_definitions(-DLittle_Endian)
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-ftree-vectorize -march=${TARGET_PROC}")
     set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -O0 -g")
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 endif()
 

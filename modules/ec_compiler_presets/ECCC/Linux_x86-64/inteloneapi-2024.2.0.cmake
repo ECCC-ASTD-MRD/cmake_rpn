@@ -15,7 +15,7 @@ add_definitions(-DLittle_Endian)
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -x${TARGET_PROC}" CACHE STRING "C compiler flags" FORCE)
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ftrapv")
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 endif()
 
