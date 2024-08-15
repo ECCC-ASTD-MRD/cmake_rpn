@@ -18,9 +18,13 @@ if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 
+    if(WITH_PROFILING)
+        string(APPEND CMAKE_C_FLAGS " -pg")
+    endif()
+
     # Disable some warnings
     # 10441: icc deprecation in favor of icx
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -diag-disable=10441")
+    string(APPEND CMAKE_C_FLAGS " -diag-disable=10441")
 endif()
 
 if("Fortran" IN_LIST languages)
@@ -29,11 +33,15 @@ if("Fortran" IN_LIST languages)
     set(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
+    if(WITH_PROFILING)
+        string(APPEND CMAKE_Fortran_FLAGS " -pg")
+    endif()
+
     # Disable some warnings
     # 5268: Line length above 132 columns
     # 7025: Non-standard F2008 directive
     # 7373:  Fixed-form is an obsolescent feature in F2008
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -diag-disable=5268,7025,7373")
+    string(APPEND CMAKE_Fortran_FLAGS " -diag-disable=5268,7025,7373")
 endif()
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
@@ -46,12 +54,12 @@ set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
 if (EXTRA_CHECKS)
     if("C" IN_LIST languages)
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+        string(APPEND CMAKE_C_FLAGS " -Wall")
     endif()
 
     if("Fortran" IN_LIST languages)
-        set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -warn all -check all")
+        string(APPEND CMAKE_Fortran_FLAGS " -warn all -check all")
     endif()
 
-    set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -warn all -check all")
+    string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " -warn all -check all")
 endif()

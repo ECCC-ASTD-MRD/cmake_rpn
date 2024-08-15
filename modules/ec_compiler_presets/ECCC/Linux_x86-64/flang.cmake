@@ -8,6 +8,10 @@ if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-W" CACHE STRING "C compiler flags" FORCE)
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
+
+    if(WITH_PROFILING)
+        string(APPEND CMAKE_C_FLAGS " -fprofile-generate")
+    endif()
 endif()
 
 if("Fortran" IN_LIST languages)
@@ -15,7 +19,11 @@ if("Fortran" IN_LIST languages)
     set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
-    set(MPI_Fortran_COMPILE_FLAGS "${MPI_Fortran_COMPILE_FLAGS} ${CMAKE_Fortran_FLAGS}" CACHE STRING "Fortran compiler flags")
+    if(WITH_PROFILING)
+        string(APPEND CMAKE_Fortran_FLAGS " -fprofile-generate")
+    endif()
+
+    string(APPEND MPI_Fortran_COMPILE_FLAGS " ${CMAKE_Fortran_FLAGS}")
 endif()
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "-s")

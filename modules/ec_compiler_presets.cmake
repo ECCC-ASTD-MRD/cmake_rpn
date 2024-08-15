@@ -15,7 +15,9 @@ if (EC_INIT_DONE LESS 2)
   #message(DEBUG "(EC) CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
   #message(DEBUG "(EC) CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
 
-  option(USE_ECCC_ENV_IF_AVAIL "Use ECCC's custom build environment" TRUE)
+  option(EXTRA_CHECKS "Compile with extra debug flags" OFF)
+  option(WITH_PROFILING "Compile with profiling for tools like gprof" OFF)
+  option(USE_ECCC_ENV_IF_AVAIL "Use ECCC's custom build environment" ON)
   #message(DEBUG "(EC) USE_ECCC_ENV_IF_AVAIL=${USE_ECCC_ENV_IF_AVAIL}")
 
   # Retrieve CMake list of enabled languages.  The compiler preset files use this variable
@@ -49,9 +51,6 @@ if (EC_INIT_DONE LESS 2)
   # TODO: Fix code and enable C99
   #set(CMAKE_C_STANDARD 99)
   #set(CMAKE_C_EXTENSIONS OFF)
-
-  # set EXTRA_CHECKS option
-  option(EXTRA_CHECKS "Compile with extra debug flags" OFF)
 
   include("ec_compiler_presets/${COMPILER_PRESET_PATH}")
   unset(languages)
