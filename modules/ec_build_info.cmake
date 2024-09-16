@@ -22,6 +22,8 @@ function(ec_build_info)
             "-DCMAKE_Fortran_COMPILER_ID=${CMAKE_Fortran_COMPILER_ID}"
             "-DCMAKE_Fortran_COMPILER_VERSION=${CMAKE_Fortran_COMPILER_VERSION}"
             "-DWITH_OPENMP=${WITH_OPENMP}"
+            "-DPREVIOUS_GIT_COMMIT=${GIT_COMMIT}"
+            "-DPREVIOUS_GIT_STATUS=${GIT_STATUS}"
             "-DBUILD_INFO_OUTPUT_DIR=${BUILD_INFO_OUTPUT_DIR}"
             -P "${EC_CMAKE_RPN_DIR}/ec_build_info_maketime.cmake"
         BYPRODUCTS "${PROJECT_NAME}_build_info.h"
