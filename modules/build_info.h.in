@@ -16,6 +16,12 @@
 #define GIT_STATUS                  "@GIT_STATUS@"
 #define EC_ARCH                     "@EC_ARCH@"
 #define BUILD_USER                  "@EC_USER@"
+/* \deprecated BUILD_TIMESTAMP is deprecated and should no longer be used.
+    Use GIT_COMMIT_TIMESTAMP instead.
+    BUILD_TIMESTAMP will be removed in version 2.0.0.
+    It is only kept for backward compatibility and no longer contains
+    the actual build date but instead the date of the latest commit. */
+#define BUILD_TIMESTAMP             "@GIT_COMMIT_TIMESTAMP@"
 
 #define C_COMPILER_ID            "@CMAKE_C_COMPILER_ID@"
 #define C_COMPILER_VERSION       "@CMAKE_C_COMPILER_VERSION@"

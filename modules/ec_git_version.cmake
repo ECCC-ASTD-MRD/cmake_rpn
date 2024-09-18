@@ -91,6 +91,12 @@ macro(ec_git_version)
     )
     if(${GIT_RESULT} EQUAL 0)
         set(GIT_TIMESTAMP ${GIT_TIMESTAMP} CACHE STRING "Timestamp of the commit" FORCE)
+        message(DEPRECATION "BUILD_TIMESTAMP is deprecated and should no longer be used.\n\
+        Use GIT_COMMIT_TIMESTAMP instead.
+        BUILD_TIMESTAMP will be removed in version 2.0.0.\n\
+        It is only kept for backward compatibility and no longer contains\n\
+        the actual build date but instead the date of the latest commit.")
+        set(BUILD_TIMESTAMP ${GIT_COMMIT_TIMESTAMP})
         if (EC_INIT_DONE LESS 2)
             # Print only if in a standalone git repository
             message(STATUS "(EC) Git commit timestamp: " ${GIT_COMMIT_TIMESTAMP})
