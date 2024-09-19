@@ -41,7 +41,6 @@ endfunction()
 
 
 macro(ec_prepare_ssm)
-    string(TIMESTAMP BUILD_TIMESTAMP UTC)
     cmake_host_system_information(RESULT OS_HOSTNAME QUERY HOSTNAME)
     cmake_host_system_information(RESULT OS_FQDN QUERY FQDN)
     cmake_host_system_information(RESULT OS_NAME QUERY OS_NAME)
@@ -50,8 +49,13 @@ macro(ec_prepare_ssm)
     cmake_host_system_information(RESULT OS_PLATFORM QUERY OS_PLATFORM)
 
     # Replace ssm info variables in control file
-    configure_file(.ssm.d/control.json.in ${CMAKE_BINARY_DIR}/.ssm.d/control.json @ONLY)
-    install(FILES ${CMAKE_BINARY_DIR}/.ssm.d/control.json DESTINATION .ssm.d)
+
+    # Let's get super twisted:
+    # Since we want to substitute the date when the package is actually built,
+    # we set the content of the variable to be another @semothing@ tag
+    # so that it can be substituted in a later pass
+    set(BUILD_TIMESTAMP "@BUILD_TIMESTAMP@")
+    configure_file(.ssm.d/control.json.in ${CMAKE_BINARY_DIR}/.ssm.d/control.json.in @ONLY)
 
     # Replace ssm variables in post-install file
     configure_file(.ssm.d/post-install.in ${CMAKE_BINARY_DIR}/.ssm.d/post-install @ONLY)
@@ -65,4 +69,12 @@ macro(ec_prepare_ssm)
             install(FILES ${CMAKE_BINARY_DIR}/${dummy}/dummy_$ENV{COMP_ARCH} DESTINATION ${dummy})
         endforeach()
     endif()
+
+    # This will be executed when "make install" or "make package" is invoked
+    install(CODE "
+    string(TIMESTAMP BUILD_TIMESTAMP UTC)
+    configure_file(${CMAKE_BINARY_DIR}/.ssm.d/control.json.in ${CMAKE_BINARY_DIR}/.ssm.d/control.json @ONLY)
+    ")
+    # The file doesn't exist right now but it will when this command is actually executed
+    install(FILES ${CMAKE_BINARY_DIR}/.ssm.d/control.json DESTINATION .ssm.d)
  endmacro()
