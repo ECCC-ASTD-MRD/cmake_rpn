@@ -10,7 +10,7 @@ macro(ec_parse_manifest)
    endif()
 
    foreach(line ${dependencies})
-      string(REGEX MATCH "[#]|([A-Z,a-z,_]+)[ ]*([<,>,=,~,:]+)[ ]*(.*)" res ${line})
+      string(REGEX MATCH "[#]|([A-Z,a-z,0-9,_]+)[ ]*([<,>,=,~,:]+)[ ]*(.*)" res ${line})
       set(LBL1 ${CMAKE_MATCH_1})
       set(LBL2 ${CMAKE_MATCH_2})
       set(LBL3 ${CMAKE_MATCH_3})
