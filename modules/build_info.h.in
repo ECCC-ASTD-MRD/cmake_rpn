@@ -30,7 +30,8 @@
     Frequent commits and personnal/feature/bugfix branches will remove the reliance on the
     BUILD_TIMESTAMP to track code states.
 
-    To enable BUILD_TIMESTAMP, add @ at each side of BUILD_TIMESTAMP inside the double quotes.
+    To enable BUILD_TIMESTAMP substitution, add @ at each side of BUILD_TIMESTAMP inside the
+    double quotes.
 */
 #define BUILD_TIMESTAMP             "BUILD_TIMESTAMP"
 
