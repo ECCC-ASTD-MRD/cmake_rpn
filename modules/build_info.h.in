@@ -21,7 +21,7 @@
 
     NOTE: This means that even if no code was changed, all files that include this one will
     be rebuilt. Furthermore, it will cascade to all other files depending on those files.
-    This will add significant time when re-building, especially for a large projects with
+    This will add significant time when re-building, especially for large projects with
     sub-projects.
 
     Unless this is this is absolutely necessary for your project, we advise that you
