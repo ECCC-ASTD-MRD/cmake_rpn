@@ -12,6 +12,7 @@ function(ec_build_info)
         ALL
         COMMAND "${CMAKE_COMMAND}" 
             "-DPROJECT_NAME=${PROJECT_NAME}"
+            "-DVERSION_FROM_MANIFEST=${VERSION_FROM_MANIFEST}"
             "-DPROJECT_VERSION=${PROJECT_VERSION}"
             "-DPROJECT_DESCRIPTION=${DESCRIPTION}"
             "-DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}"
@@ -26,6 +27,7 @@ function(ec_build_info)
             "-DPREVIOUS_GIT_STATUS=${GIT_STATUS}"
             "-DBUILD_INFO_OUTPUT_DIR=${BUILD_INFO_OUTPUT_DIR}"
             -P "${EC_CMAKE_RPN_DIR}/ec_build_info_maketime.cmake"
+            "--log-level=DEBUG"
         BYPRODUCTS "${PROJECT_NAME}_build_info.h"
         COMMENT "Generating ${PROJECT_NAME}_build_info.h"
     )

@@ -47,7 +47,11 @@ macro(ec_git_version)
             endif()
         endif()
         set(GIT_STATUS ${GIT_STATUS} CACHE STRING "Status of the git repository" FORCE)
-        set(VERSION ${GIT_VERSION} CACHE STRING "Project's version" FORCE)
+        if(NOT VERSION_FROM_MANIFEST)
+            message(DEBUG "(EC) VERSION not defined in the MANIFEST. Setting VERSION with GIT_VERSION")
+            set(VERSION ${GIT_VERSION} CACHE STRING "Project's version" FORCE)
+            set(PROJECT_VERSION ${VERSION})
+        endif()
         if (EC_INIT_DONE LESS 2)
             # Print only if in a standalone git repository
             message(STATUS "(EC) Git status: " ${GIT_STATUS})
@@ -91,12 +95,6 @@ macro(ec_git_version)
     )
     if(${GIT_RESULT} EQUAL 0)
         set(GIT_TIMESTAMP ${GIT_TIMESTAMP} CACHE STRING "Timestamp of the commit" FORCE)
-        message(DEPRECATION "BUILD_TIMESTAMP is deprecated and should no longer be used.\n\
-        Use GIT_COMMIT_TIMESTAMP instead.
-        BUILD_TIMESTAMP will be removed in version 2.0.0.\n\
-        It is only kept for backward compatibility and no longer contains\n\
-        the actual build date but instead the date of the latest commit.")
-        set(BUILD_TIMESTAMP ${GIT_COMMIT_TIMESTAMP})
         if (EC_INIT_DONE LESS 2)
             # Print only if in a standalone git repository
             message(STATUS "(EC) Git commit timestamp: " ${GIT_COMMIT_TIMESTAMP})
