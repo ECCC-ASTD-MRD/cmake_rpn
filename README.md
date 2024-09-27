@@ -47,7 +47,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_rpn/modules)
   * For each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH.
   * VERSION is optional in the MANIFEST file: if not present, it will be taken from the output of `ec_git_version()`.
   * If used in conjunction with `ec_git_version()`, `ec_parse_manifest()` **must** be called first.
-  * If the `MANIFEST` is modified, `cmake` must be re-executed.
+  * If the `MANIFEST` is modified, `cmake` must be re-executed with the `--fresh` option.
   * Example of `MANIFEST`:
 
 
