@@ -1,13 +1,24 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
-#----- Parse a MANIFEST file (optional path in argument)
-macro(ec_parse_manifest)
-    if(DEFINED ARGV0)
-        file(STRINGS ${ARGV0}/MANIFEST dependencies)
-    else()  
-        file(STRINGS MANIFEST dependencies)
-    endif()
+include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
 
+# Parse a MANIFEST file (optional path in argument)
+macro(ec_parse_manifest)
+    if("${ARGV0}" STREQUAL "")
+        set(MANIFEST_FILE MANIFEST)
+    else()
+        set(MANIFEST_FILE ${ARGV0}/MANIFEST)
+    endif()
+    debugLogVar("ec_parse_manifest" "MANIFEST_FILE")
+    file(REAL_PATH ${MANIFEST_FILE} MANIFEST_FILE_PATH)
+    debugLogVar("ec_parse_manifest" "MANIFEST_FILE_PATH")
+    file(STRINGS ${MANIFEST_FILE_PATH} dependencies)
+
+    file(TIMESTAMP ${MANIFEST_FILE_PATH} MANIFEST_MTIME UTC)
+    debugLogVar("ec_parse_manifest" "MANIFEST_MTIME")
+
+    # Unset the version in case it was obtained by ec_git_version()
+    unset(VERSION)
     foreach(line ${dependencies})
         string(REGEX MATCH "[#]|([A-Z,a-z,0-9,_]+)[ ]*([<,>,=,~,:]+)[ ]*(.*)" res ${line})
         set(LBL1 ${CMAKE_MATCH_1})
@@ -35,7 +46,7 @@ macro(ec_parse_manifest)
     endforeach()
 
     if(VERSION)
-        message(DEBUG "(EC) VERSION (${VERSION}) set in the MANIFEST")
+        debugLog("ec_parse_manifest" "VERSION (${VERSION}) set in the MANIFEST")
         set(VERSION_FROM_MANIFEST ON CACHE BOOL "Version information taken from the manifest and should not be overwritten" FORCE)
 
         # Extract version and state
@@ -45,9 +56,15 @@ macro(ec_parse_manifest)
             set(STATE "${CMAKE_MATCH_4}")
         endif()
         set(PROJECT_VERSION ${VERSION}${STATE})
-        message(DEBUG "(EC) PROJECT_VERSION=${PROJECT_VERSION}")
+        debugLogVar("ec_parse_manifest" "PROJECT_VERSION")
     else()
+        debugLog("ec_parse_manifest" "VERSION NOT set in the MANIFEST. Checking if GIT_VERSION is defined...")
+        set(VERSION_FROM_MANIFEST OFF CACHE BOOL "Version information taken from the manifest and should not be overwritten" FORCE)
         unset(STATE)
+        if(GIT_VERSION)
+            debugLog("ec_parse_manifest" "GIT_VERSION is defined (${GIT_VERSION}). Setting VERSION with it.")
+            set(VERSION ${GIT_VERSION})
+        endif()
     endif()
 
     # Set default build type if not already defined

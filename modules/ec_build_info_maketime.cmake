@@ -8,12 +8,54 @@
 set(CMAKE_SOURCE_DIR "${SOURCE_DIR}")
 set(CMAKE_CURRENT_SOURCE_DIR "${SOURCE_DIR}")
 
-include(${CMAKE_CURRENT_LIST_DIR}/ec_git_version.cmake)
-ec_git_version()
+include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
+
+# Even forcibly setting cache variables from here or from lower in the call stack doesn't really update CMake's cache
+# This is why we create and use our own variable file
+
+set(PREVIOUS_FILE_PATH ${CMAKE_CURRENT_BINARY_DIR}/ec_build_info.previous)
+if(EXISTS ${PREVIOUS_FILE_PATH})
+    file(STRINGS ${PREVIOUS_FILE_PATH} LINES)
+    foreach(line ${LINES})
+        if(NOT line STREQUAL "")
+            string(REGEX MATCH "([^=]+)=(.+)" res ${line})
+            # If the manifest isn't present, there will be nothing after the equal sign
+            if(NOT CMAKE_MATCH_2 STREQUAL "")
+                set(${CMAKE_MATCH_1} ${CMAKE_MATCH_2})
+            endif()
+        endif()
+    endforeach()
+endif()
+
+debugLogVar("ec_build_info_maketime.cmake" "PREVIOUS_GIT_COMMIT")
+debugLogVar("ec_build_info_maketime.cmake" "PREVIOUS_GIT_STATUS")
 
 set(EC_ARCH $ENV{EC_ARCH})
 set(EC_USER $ENV{USER})
 string(TIMESTAMP BUILD_TIMESTAMP UTC)
+
+if(NOT "${MANIFEST_FILE_PATH}" STREQUAL "")
+    debugLogVar("ec_build_info_maketime.cmake" "MANIFEST_FILE_PATH")
+    debugLogVar("ec_build_info_maketime.cmake" "PREVIOUS_MANIFEST_MTIME")
+    file(TIMESTAMP ${MANIFEST_FILE_PATH} MANIFEST_MTIME UTC)
+    debugLogVar("ec_build_info_maketime.cmake" "MANIFEST_MTIME")
+    if(NOT PREVIOUS_MANIFEST_MTIME MATCHES "${MANIFEST_MTIME}")
+        debugLog("ec_build_info_maketime.cmake" "MANIFEST has changed")
+        # Will the variables be updated in the parent CMake context?
+        get_filename_component(MANIFEST_DIR ${MANIFEST_FILE_PATH} DIRECTORY)
+        debugLogVar("ec_build_info_maketime.cmake" "MANIFEST_DIR")
+        include(${CMAKE_CURRENT_LIST_DIR}/ec_parse_manifest.cmake)
+        ec_parse_manifest(${MANIFEST_DIR})
+        unset(MANIFEST_DIR)
+        set(BUILD_INFO_CHANGED ON)
+    endif()
+endif()
+
+include(${CMAKE_CURRENT_LIST_DIR}/ec_git_version.cmake)
+ec_git_version()
+
+debugLogVar("ec_build_info_maketime.cmake" "GIT_COMMIT")
+debugLogVar("ec_build_info_maketime.cmake" "GIT_STATUS")
 
 # Provide old behaviour if BUILD_INFO_OUTPUT_DIR is not defined
 if("${BUILD_INFO_OUTPUT_DIR}" STREQUAL "")
@@ -21,22 +63,30 @@ if("${BUILD_INFO_OUTPUT_DIR}" STREQUAL "")
 endif()
 set(BUILD_INFO_PATH ${BUILD_INFO_OUTPUT_DIR}/${PROJECT_NAME}_build_info.h)
 
-message(DEBUG "(EC) BUILD_INFO_OUTPUT_DIR=${BUILD_INFO_OUTPUT_DIR}")
-message(DEBUG "(EC) BUILD_INFO_PATH=${BUILD_INFO_PATH}")
-message(DEBUG "(EC) PREVIOUS_GIT_COMMIT=${PREVIOUS_GIT_COMMIT}")
-message(DEBUG "(EC) GIT_COMMIT=${GIT_COMMIT}")
-message(DEBUG "(EC) PREVIOUS_GIT_STATUS=${PREVIOUS_GIT_STATUS}")
-message(DEBUG "(EC) GIT_STATUS=${GIT_STATUS}")
+debugLogVar("ec_build_info_maketime.cmake" "BUILD_INFO_OUTPUT_DIR")
+debugLogVar("ec_build_info_maketime.cmake" "BUILD_INFO_PATH")
 
 if(NOT EXISTS ${BUILD_INFO_PATH})
-    message(DEBUG "(EC) Creating initial ${PROJECT_NAME}_build_info.h")
+    debugLog("ec_build_info_maketime.cmake" "Creating initial ${PROJECT_NAME}_build_info.h")
     configure_file(${CMAKE_CURRENT_LIST_DIR}/build_info.h.in ${BUILD_INFO_PATH} @ONLY)
 else()
-    message(DEBUG "(EC) ${PROJECT_NAME}_build_info.h exists. Checking if it's up to date...")
+    debugLog("ec_build_info_maketime.cmake" "${PROJECT_NAME}_build_info.h exists. Checking if it's up to date...")
+
     if( (NOT PREVIOUS_GIT_COMMIT MATCHES "${GIT_COMMIT}") OR (NOT PREVIOUS_GIT_STATUS MATCHES "${GIT_STATUS}") )
-        message(DEBUG "(EC) Repository status has changed; rebuilding ${PROJECT_NAME}_build_info.h")
-        configure_file(${CMAKE_CURRENT_LIST_DIR}/build_info.h.in ${BUILD_INFO_PATH} @ONLY)
+        debugLog("ec_build_info_maketime.cmake" "Repository status has changed")
+        set(BUILD_INFO_CHANGED ON)
     else()
-        message(DEBUG "(EC) Repository status is unchanged; ${PROJECT_NAME}_build_info.h is up-to-date")
+        debugLog("ec_build_info_maketime.cmake" "Repository status is unchanged")
+    endif()
+
+    if(BUILD_INFO_CHANGED)
+        debugLog("ec_build_info_maketime.cmake" "Rebuilding ${PROJECT_NAME}_build_info.h")
+        debugLogVar("ec_build_info_maketime.cmake" "GIT_VERSION")
+        configure_file(${CMAKE_CURRENT_LIST_DIR}/build_info.h.in ${BUILD_INFO_PATH} @ONLY)
+        unset(BUILD_INFO_CHANGED)
+    else()
+        debugLog("ec_build_info_maketime.cmake" "${PROJECT_NAME}_build_info.h is still up-to-date; doing nothing")
     endif()
 endif()
+
+configure_file(${CMAKE_CURRENT_LIST_DIR}/ec_build_info.previous.in ${PREVIOUS_FILE_PATH} @ONLY)

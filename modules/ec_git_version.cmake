@@ -10,7 +10,23 @@
 # <major>.<minor>.<patch>.<tweak> where each component is a number
 # "0.0.1.0" is valid, but not "0.0.1.fe09182"
 
+
+include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
+
 macro(ec_git_version)
+    # This is a dirty fix for a very strange bug:
+    # Sometimes `git describe` still adds dirty even if changes in the repository have been reverted.
+    # As far as we known, this only happens on hpcr5-in
+    # We therefore execute `git status` while ignoring all its output to force a refresh of the state.
+    execute_process(
+        COMMAND git status
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        RESULT_VARIABLE GIT_RESULT
+        OUTPUT_VARIABLE GIT_OUTPUT
+        ERROR_VARIABLE GIT_ERROR
+    )
+    unset(GIT_OUTPUT)
+
     execute_process(
         COMMAND git describe --tags --always --dirty --broken
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -24,6 +40,7 @@ macro(ec_git_version)
         message(WARNING "(EC) Failed to get version from Git!\n" "Git error message:\n" ${GIT_ERROR})
         set(VERSION "0.0.0")
     endif()
+    debugLogVar("ec_git_version" "GIT_VERSION")
 
     execute_process(
         COMMAND git status --porcelain
@@ -46,10 +63,10 @@ macro(ec_git_version)
                 string(APPEND GIT_VERSION "-dirty")
             endif()
         endif()
-        set(GIT_STATUS ${GIT_STATUS} CACHE STRING "Status of the git repository" FORCE)
+        debugLogVar("ec_git_version" "GIT_VERSION")
         if(NOT VERSION_FROM_MANIFEST)
-            message(DEBUG "(EC) VERSION not defined in the MANIFEST. Setting VERSION with GIT_VERSION")
-            set(VERSION ${GIT_VERSION} CACHE STRING "Project's version" FORCE)
+            debugLog("ec_git_version" "VERSION_FROM_MANIFEST not defined. Setting VERSION and PROJECT_VERSION with GIT_VERSION")
+            set(VERSION ${GIT_VERSION})
             set(PROJECT_VERSION ${VERSION})
         endif()
         if (EC_INIT_DONE LESS 2)
@@ -75,7 +92,6 @@ macro(ec_git_version)
         ERROR_STRIP_TRAILING_WHITESPACE
     )
     if(${GIT_RESULT} EQUAL 0)
-        set(GIT_COMMIT ${GIT_COMMIT} CACHE STRING "Repository commit hash" FORCE)
         if (EC_INIT_DONE LESS 2)
             # Print only if in a standalone git repository
             message(STATUS "(EC) Git commit: " ${GIT_COMMIT})
@@ -94,7 +110,6 @@ macro(ec_git_version)
         ERROR_STRIP_TRAILING_WHITESPACE
     )
     if(${GIT_RESULT} EQUAL 0)
-        set(GIT_TIMESTAMP ${GIT_TIMESTAMP} CACHE STRING "Timestamp of the commit" FORCE)
         if (EC_INIT_DONE LESS 2)
             # Print only if in a standalone git repository
             message(STATUS "(EC) Git commit timestamp: " ${GIT_COMMIT_TIMESTAMP})
