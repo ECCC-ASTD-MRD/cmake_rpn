@@ -83,7 +83,7 @@ GDAL  ~>= 2.0.0
   * Builds the ssm control file and pre/post install scripts if needed.  To use, copy the `.ssm.d` directory to your project ROOT and edit the pre/post install scripts as required.  Information for the control file is taken from the MANIFEST file.
 
 * `ec_build_info()`
-  * Produces an header file (${PROJECT_NAME}_build_info.h) with build information and an associated target (build_info) that will update the timestamp and version when ```make``` is invoked.  The following definitions will be present in the generated header file:
+  * Produces an header file (${PROJECT_NAME}_build_info.h) with build information and an associated target (build_info) that will update the timestamp and version when `make` is invoked. If you want to modify the provided template (to enable BUILD_TIMESTAMP for example), please copy it to the root of your project. The following definitions will be present in the generated header file:
     * PROJECT_NAME
     * PROJECT_NAME_STRING
     * PROJECT_VERSION_STRING
