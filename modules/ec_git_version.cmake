@@ -1,18 +1,23 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
-# This module exports the following variables:
-#  GIT_VERSION : Latest tag obtained or short commit hash obtained from Git
-#  VERSION : The GIT_VERSION if it is compatible with CMake 0.0.0 otherwise
-#
-# This module also add a definition nammed VERSION which contains GIT_VERSION
-
-# CMake does not deal with versions that do not follow the form
-# <major>.<minor>.<patch>.<tweak> where each component is a number
-# "0.0.1.0" is valid, but not "0.0.1.fe09182"
-
+include_guard(GLOBAL)
 
 include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/ec_split_version.cmake)
 
+# Get version information from the Git repository
+# The following variables will be defined:
+#  GIT_COMMIT : Hash of the latest commit
+#  GIT_COMMIT_TIMESTAMP : Timestamp of the latest commit
+#  GIT_STATUS : A string that indicates if the repository is "Clean" or "Dirty"
+#  GIT_VERSION : Latest tag obtained or short commit hash obtained from Git
+#                with the "-dirty" suffix if applicable
+#
+# Furthermore, these variables will be set if they were not defined by ec_parse_manifest() :
+#  VERSION : The part of GIT_VERSION compatible with CMake (<major>[.<minor>[.<patch>[.<tweak>]]]]).
+#            If no version can be obtained from the repository, it is set to 0.0.0
+#  STATE : Anything after the <major>[.<minor>[.<patch>[.<tweak>]]]] part of GIT_VERSION
+#  PROJECT_VERSION : Will have the same content as GIT_VERSION
 macro(ec_git_version)
     # This is a dirty fix for a very strange bug:
     # Sometimes `git describe` still adds dirty even if changes in the repository have been reverted.
@@ -67,7 +72,10 @@ macro(ec_git_version)
         if(NOT VERSION_FROM_MANIFEST)
             debugLog("ec_git_version" "VERSION_FROM_MANIFEST not defined. Setting VERSION and PROJECT_VERSION with GIT_VERSION")
             set(VERSION ${GIT_VERSION})
-            set(PROJECT_VERSION ${VERSION})
+            ec_split_version()
+            debugLogVar("ec_git_version" "VERSION")
+            debugLogVar("ec_git_version" "STATE")
+            set(PROJECT_VERSION ${GIT_VERSION})
         endif()
         if (EC_INIT_DONE LESS 2)
             # Print only if in a standalone git repository

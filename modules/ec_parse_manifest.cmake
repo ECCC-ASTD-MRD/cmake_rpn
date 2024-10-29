@@ -1,8 +1,18 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
+include_guard(GLOBAL)
+
 include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/ec_split_version.cmake)
 
 # Parse a MANIFEST file (optional path in argument)
+# Version information will be taken from the MANIFEST if defined.
+# If version informaton is not defined in the MANIFEST, this module will try to obtain it from GIT_VERSION
+# The following variables will be set :
+#  VERSION : The part of the version compatible with CMake (<major>[.<minor>[.<patch>[.<tweak>]]]]).
+#            If no version can be obtained from the repository, it is set to 0.0.0
+#  STATE : Anything after the <major>[.<minor>[.<patch>[.<tweak>]]]] part of VERSION
+#  PROJECT_VERSION : Complete version string (VERSION concatenated with STATE)
 macro(ec_parse_manifest)
     if("${ARGV0}" STREQUAL "")
         set(MANIFEST_FILE MANIFEST)
@@ -25,7 +35,7 @@ macro(ec_parse_manifest)
         set(LBL2 ${CMAKE_MATCH_2})
         set(LBL3 ${CMAKE_MATCH_3})
 
-        #----- Skip comment lines
+        # Skip comment lines
         if("${res}" STREQUAL "" OR "${res}" MATCHES "#" OR "${LBL3}" STREQUAL "")
             continue()
         endif()
@@ -35,7 +45,7 @@ macro(ec_parse_manifest)
         else()
             set(${LBL1}_REQ_VERSION_CHECK ${LBL2})
 
-            #----- Parse dependencies
+            # Parse dependencies
             string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)(.*)" null ${LBL3})
             set(${LBL1}_REQ_VERSION_MAJOR  ${CMAKE_MATCH_1})
             set(${LBL1}_REQ_VERSION_MINOR  ${CMAKE_MATCH_2})
@@ -48,15 +58,6 @@ macro(ec_parse_manifest)
     if(VERSION)
         debugLog("ec_parse_manifest" "VERSION (${VERSION}) set in the MANIFEST")
         set(VERSION_FROM_MANIFEST ON CACHE BOOL "Version information taken from the manifest and should not be overwritten" FORCE)
-
-        # Extract version and state
-        string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)(.*)" null ${VERSION})
-        if (NOT ${CMAKE_MATCH_1} STREQUAL "")
-            set(VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
-            set(STATE "${CMAKE_MATCH_4}")
-        endif()
-        set(PROJECT_VERSION ${VERSION}${STATE})
-        debugLogVar("ec_parse_manifest" "PROJECT_VERSION")
     else()
         debugLog("ec_parse_manifest" "VERSION NOT set in the MANIFEST. Checking if GIT_VERSION is defined...")
         set(VERSION_FROM_MANIFEST OFF CACHE BOOL "Version information taken from the manifest and should not be overwritten" FORCE)
@@ -66,6 +67,12 @@ macro(ec_parse_manifest)
             set(VERSION ${GIT_VERSION})
         endif()
     endif()
+
+    ec_split_version()
+    debugLogVar("ec_parse_manifest" "VERSION")
+    debugLogVar("ec_parse_manifest" "STATE")
+    set(PROJECT_VERSION ${VERSION}${STATE})
+    debugLogVar("ec_parse_manifest" "PROJECT_VERSION")
 
     # Set default build type if not already defined
     if (NOT CMAKE_BUILD_TYPE AND BUILD)
