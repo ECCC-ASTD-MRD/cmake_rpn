@@ -4,20 +4,26 @@
 # Input:
 # EXTRA_CHECKS Enable extra checking.  This will make the execution slower.
 
+include(${CMAKE_CURRENT_LIST_DIR}/../../../ec_debugLog.cmake)
+
+debugLogVar("intel.cmake" "CMAKE_C_COMPILER")
+debugLogVar("intel.cmake" "CMAKE_C_COMPILER_VERSION")
+debugLogVar("intel.cmake" "CMAKE_C_COMPILER_ID")
+
 # Set the target architecture
 if(TARGET_PROC)
     message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
     set(TARGET_ARCH "-x${TARGET_PROC}")
 else()
     message(STATUS "(EC) Target architecture: native")
-    set(TARGET_ARCH "-march=native")
+    set(TARGET_ARCH "-xHost")
 endif()
 
 add_definitions(-DLittle_Endian)
 
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs ${TARGET_ARCH}" CACHE STRING "C compiler flags" FORCE)
-    set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ftrapuv")
+    set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 
@@ -32,9 +38,14 @@ endif()
 
 if("Fortran" IN_LIST languages)
     set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 ${TARGET_ARCH}" CACHE STRING "Fortran compiler flags" FORCE)
-    set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g -ftrapuv")
+    set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g")
     set(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
+    if(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 2024.2)
+        string(APPEND CMAKE_C_FLAGS_DEBUG " -ftrapv")
+    else()
+        string(APPEND CMAKE_C_FLAGS_DEBUG " -ftrapuv")
+    endif()
 
     if(WITH_PROFILING)
         string(APPEND CMAKE_Fortran_FLAGS " -pg")
@@ -55,14 +66,22 @@ set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
 # OpenACC_extra_FLAGS variable just won't be used
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
-if (EXTRA_CHECKS)
+if(WITH_WARNINGS)
     if("C" IN_LIST languages)
         string(APPEND CMAKE_C_FLAGS " -Wall")
     endif()
 
     if("Fortran" IN_LIST languages)
-        string(APPEND CMAKE_Fortran_FLAGS " -warn all -check all")
+        string(APPEND CMAKE_Fortran_FLAGS " -warn all")
+    endif()
+endif()
+
+if(EXTRA_CHECKS)
+    message(STATUS "(EC) Enabling extra checks")
+
+    if("Fortran" IN_LIST languages)
+        string(APPEND CMAKE_Fortran_FLAGS " -check all")
     endif()
 
-    string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " -warn all -check all")
+    string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " -check all")
 endif()

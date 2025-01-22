@@ -13,7 +13,7 @@ message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 add_definitions(-DLittle_Endian)
 
 if("C" IN_LIST languages)
-    set(CMAKE_C_FLAGS "-ftree-vectorize -march=${TARGET_PROC} -Wall -Wextra -Wpedantic")
+    set(CMAKE_C_FLAGS "-ftree-vectorize -march=${TARGET_PROC}")
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
@@ -21,11 +21,11 @@ if("C" IN_LIST languages)
     if(WITH_PROFILING)
         string(APPEND CMAKE_C_FLAGS " -pg")
     endif()
+    message(DEBUG "CMAKE_C_FLAGS=${CMAKE_C_FLAGS}")
 endif()
 
 if("Fortran" IN_LIST languages)
-    # TODO Add -Wpedantic
-    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -finit-real=nan -ftree-vectorize -march=${TARGET_PROC} -fstack-arrays -Wall -Wextra")
+    set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -finit-real=nan -ftree-vectorize -march=${TARGET_PROC} -fstack-arrays")
     set(CMAKE_Fortran_FLAGS_DEBUG "-fbacktrace -ffpe-trap=invalid,zero,overflow -O0 -g")
     set(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
@@ -40,6 +40,7 @@ if("Fortran" IN_LIST languages)
         message(STATUS "(EC) Our code has not yet been updated to work with GNU compilers 10.x; adding extra options to be more permissive: -fallow-argument-mismatch.")
         string(APPEND CMAKE_Fortran_FLAGS " -fallow-argument-mismatch")
     endif()
+    message(DEBUG "CMAKE_Fortran_FLAGS=${CMAKE_Fortran_FLAGS}")
 endif()
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
@@ -47,6 +48,16 @@ endif()
 # It doesn't matter if we defined them even if OpenACC isn't used because the
 # OpenACC_extra_FLAGS variable just won't be used
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
+
+if(WITH_WARNINGS)
+    if("C" IN_LIST languages)
+        string(APPEND CMAKE_C_FLAGS " -Wall -Wextra -Wpedantic")
+    endif()
+
+    if("Fortran" IN_LIST languages)
+        string(APPEND CMAKE_Fortran_FLAGS " -Wall -Wextra")
+    endif()
+endif()
 
 if (EXTRA_CHECKS)
     if("C" IN_LIST languages)

@@ -52,14 +52,22 @@ set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
 # OpenACC_extra_FLAGS variable just won't be used
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
-if (EXTRA_CHECKS)
+if(WITH_WARNINGS)
     if("C" IN_LIST languages)
         string(APPEND CMAKE_C_FLAGS " -Wall")
     endif()
 
     if("Fortran" IN_LIST languages)
-        string(APPEND CMAKE_Fortran_FLAGS " -warn all -check all")
+        string(APPEND CMAKE_Fortran_FLAGS " -warn all")
+    endif()
+endif()
+
+if(EXTRA_CHECKS)
+    message(STATUS "(EC) Enabling extra checks")
+
+    if("Fortran" IN_LIST languages)
+        string(APPEND CMAKE_Fortran_FLAGS " -check all")
     endif()
 
-    string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " -warn all -check all")
+    string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " -check all")
 endif()
