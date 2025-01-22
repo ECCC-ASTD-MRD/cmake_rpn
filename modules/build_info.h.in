@@ -33,7 +33,7 @@
     To enable BUILD_TIMESTAMP substitution, add @ at each side of BUILD_TIMESTAMP inside the
     double quotes.
 */
-#define BUILD_TIMESTAMP             "BUILD_TIMESTAMP"
+#define BUILD_TIMESTAMP             "@BUILD_TIMESTAMP@"
 
 #define C_COMPILER_ID            "@CMAKE_C_COMPILER_ID@"
 #define C_COMPILER_VERSION       "@CMAKE_C_COMPILER_VERSION@"
