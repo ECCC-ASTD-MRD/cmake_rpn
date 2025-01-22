@@ -5,14 +5,34 @@
 
 /* Warning: The project name macro does not include quotes!  This is so we can
     cat it into a symbol name */
-#define PROJECT_NAME                @PROJECT_NAME@
+#define PROJECT_NAME                 @PROJECT_NAME@
 #define PROJECT_NAME_STRING         "@PROJECT_NAME@"
-#define PROJECT_VERSION_STRING      "@PROJECT_NAME@ @PROJECT_VERSION@ @EC_ARCH@ @BUILD_TIMESTAMP@"
+#define PROJECT_VERSION_STRING      "@PROJECT_NAME@ @PROJECT_VERSION@ @EC_ARCH@ @GIT_COMMIT_TIMESTAMP@"
 #define PROJECT_DESCRIPTION_STRING  "@PROJECT_DESCRIPTION@"
 #define VERSION                     "@PROJECT_VERSION@"
 #define GIT_VERSION                 "@GIT_VERSION@"
+#define GIT_COMMIT                  "@GIT_COMMIT@"
+#define GIT_COMMIT_TIMESTAMP        "@GIT_COMMIT_TIMESTAMP@"
+#define GIT_STATUS                  "@GIT_STATUS@"
 #define EC_ARCH                     "@EC_ARCH@"
 #define BUILD_USER                  "@EC_USER@"
+
+/* The next define directive gives access to a timestamp of when the make command was issued.
+
+    NOTE: This means that even if no code was changed, all files that include this one will
+    be rebuilt. Furthermore, it will cascade to all other files depending on those files.
+    This will add significant time when re-building, especially for large projects with
+    sub-projects.
+
+    Unless this is this is absolutely necessary for your project, we advise that you
+    use GIT_VERSION instead.
+
+    Frequent commits and personnal/feature/bugfix branches will remove the reliance on the
+    BUILD_TIMESTAMP to track code states.
+
+    To enable BUILD_TIMESTAMP substitution, add @ at each side of BUILD_TIMESTAMP inside the
+    double quotes.
+*/
 #define BUILD_TIMESTAMP             "@BUILD_TIMESTAMP@"
 
 #define C_COMPILER_ID            "@CMAKE_C_COMPILER_ID@"

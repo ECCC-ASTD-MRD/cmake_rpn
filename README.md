@@ -24,25 +24,37 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_rpn/modules)
 
 ## Functions
 
-* include(ec_init)
+* `include(ec_init)`
   * Initializes some variables and the compiler suite. If the compiler suite is not defined (`cmake -DCOMPILER_SUITE=[gnu|intel|xlf|pgi|llvm]`, it will be determined by the compiler which is loaded on the platform.  Default is gnu.
 
-* include(ec_compiler_presets)
+* `include(ec_compiler_presets)`
   * Loads predefined compiler settings optimized per compiler and platform.  Must be included after languages are enabled.
 
-* include(ec_doxygen) 
+* `include(ec_doxygen)`
   * Creates a __doc__ target to build the documentation with Doxygen.  Please note that the __doc__ target is not included in __all__.  This means that it won't be built when running ```make```.  To build the documentation, ```make doc``` must be executed explicitly.
 
-* include(ec_org_manpages) 
+* `include(ec_org_manpages)`
   * Creates a __man__ target to build the man pages from org documents.
 
-* ec_parse_manifest()
-  * Parses a `MANIFEST` file defining package information and dependencies, and defines the variables NAME, VERSION, BUILD, DESCRIPTION, MAINTAINER, URL and for each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH.  (Note: VERSION is optional in the MANIFEST file: if not present, it will be taken from the output of `ec_git_version()`).  Example of `MANIFEST`:
+* `ec_parse_manifest()`
+  * Parses a `MANIFEST` file defining package information and dependencies, and defines the variables bellow.
+    * `NAME` Name of the project
+    * `VERSION` [Semantic version](https://semver.org) of the project. Must be of the form: Major.Minor.Patch. An optional pre-release version may be appended after an hyphen. Examples of pre-release identifiers: -alpha, -beta, -rc.1
+    * `BUILD` Type of the build. Must be one of the following: Debug, Release, RelWithDebInfo and MinSizeRel. `BUILD` is a default and will not overwrite `CMAKE_BUILD_TYPE` if it is already set.
+    * `DESCRIPTION` Description of the project
+    * `MAINTAINER` Name of the project's maintainer. May also include an email address
+    * `URL` Project's URL such as GitLab
+  * For each dependencies [dependency]_REQ_VERSION, [dependency]_REQ_VERSION_MAJOR, [dependency]_REQ_VERSION_MINOR, [dependency]_REQ_VERSION_PATCH.
+  * VERSION is optional in the MANIFEST file: if not present, it will be taken from the output of `ec_git_version()`.
+  * If used in conjunction with `ec_git_version()`, `ec_parse_manifest()` **must** be called first.
+  * If the `MANIFEST` is modified, `cmake` must be re-executed with the `--fresh` option.
+  * Example of `MANIFEST`:
 
 
 ```
 NAME       : libgeoref
 VERSION    : 0.1.0
+STATE      : 
 BUILD      : Debug
 DESCRIPTION: ECCC-CCMEP Geo reference manipulation library
 SUMMARY    : This library allows for reprojection, coordinate transform and interpolation in between various type of geo reference (RPN,WTK,meshes,...)
@@ -58,39 +70,43 @@ vgrid ~>= 6.5.0
 GDAL  ~>= 2.0.0
 ```
 
-* ec_git_version()
+* `ec_git_version()`
   * Extracts the version from git information into variables GIT_VERSION and VERSION.  VERSION variable would then be replaced by the value in the MANIFEST file, if present.
 
-* ec_package_name()
+* `ec_package_name()`
   * Defines the variable PACKAGE_NAME using the EC convention (NAME_VERSION-COMPARCH-PLATFORM).
 
-* ec_install_symlink(filepath sympath)
+* `ec_install_symlink(filepath sympath)`
   * Defines a symlink (sympath->filepath) to be invoked at the install step.
 
-* ec_prepare_ssm()
+* `ec_prepare_ssm()`
   * Builds the ssm control file and pre/post install scripts if needed.  To use, copy the `.ssm.d` directory to your project ROOT and edit the pre/post install scripts as required.  Information for the control file is taken from the MANIFEST file.
 
-* ec_build_info()
-  * Produces an header file (${PROJECT_NAME}_build_info.h) with build information and an associated target (build_info) that will update the timestamp and version when ```make``` is invoked.  The following definitions will be present in the generated header file:
+* `ec_build_info()`
+  * Produces an header file (${PROJECT_NAME}_build_info.h) with build information and an associated target (build_info) that will update the timestamp and version when `make` is invoked. If you want to modify the provided template (to enable BUILD_TIMESTAMP for example), please copy it to the root of your project. The following definitions will be present in the generated header file:
     * PROJECT_NAME
     * PROJECT_NAME_STRING
     * PROJECT_VERSION_STRING
     * PROJECT_DESCRIPTION_STRING
     * VERSION
+    * GIT_VERSION
+    * GIT_COMMIT
+    * GIT_COMMIT_TIMESTAMP
+    * GIT_STATUS
     * EC_ARCH
     * BUILD_USER
-    * BUILD_TIMESTAMP
     * C_COMPILER_ID
     * C_COMPILER_VERSION
     * CXX_COMPILER_ID
     * CXX_COMPILER_VERSION
     * FORTRAN_COMPILER_ID
     * FORTRAN_COMPILER_VERSION
+    * `BUILD_TIMESTAMP` is also available, but not enabled by default because it has significant consequences on the build process. Please read the instructions in [the build_info.in template](modules/build_info.h.in) for more information.
 
-* ec_build_config()
+* `ec_build_config()`
   * Parses the file `config.in` to build a configuration information script "[NAME]-config" giving information on how the package was built (compiler, flags, libraries version, etc.) which will end up in the bin directory.  Copy the `cmake_rpn` provided `config.in` file into your project and adjust the information needed.
 
-* ec_dump_cmake_variables()
+* `ec_dump_cmake_variables()`
   * Dumps all of the cmake variables sorted.
 
 * find_package functions
@@ -112,7 +128,7 @@ Generate the configuration files for the project to be usable via cmake `find_pa
 ## Example usage
 
 ```cmake
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.21)
 
 #----- Append EC specific module path
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_rpn/modules $ENV{EC_CMAKE_MODULE_PATH})

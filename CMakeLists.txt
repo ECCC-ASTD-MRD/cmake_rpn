@@ -7,11 +7,10 @@ set(ENV{ORDENV_PLAT} all)  # Force "all" platform
 unset(ENV{COMP_ARCH})
 
 include(ec_init)           # Initialise compilers and ec specific functions
-ec_git_version()           # Get version from git state
 ec_parse_manifest()        # Parse MANIFEST file
+ec_git_version()           # Get version from git state
 
 project(${NAME} DESCRIPTION "${DESCRIPTION}" LANGUAGES NONE)
-set(PROJECT_VERSION ${VERSION}${STATE})
 
 install(DIRECTORY modules DESTINATION .) 
 

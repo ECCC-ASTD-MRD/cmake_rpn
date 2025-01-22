@@ -1,6 +1,6 @@
 NAME       : cmake-rpn
-VERSION    : 
-BUILD      : 
+VERSION    :
+BUILD      :
 DESCRIPTION: ECCC-MRD CMake fonctions
 SUMMARY    : Package of common functions used for cmake builds
 MAINTAINER : Samuel.Gilbert@ec.gc.ca
