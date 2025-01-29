@@ -37,7 +37,7 @@ endif()
 
 set(EC_ARCH $ENV{EC_ARCH})
 set(EC_USER $ENV{USER})
-string(TIMESTAMP BUILD_TIMESTAMP UTC)
+string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M" UTC)
 
 if(NOT "${MANIFEST_FILE_PATH}" STREQUAL "")
     debugLogVar("ec_build_info_maketime.cmake" "MANIFEST_FILE_PATH")
