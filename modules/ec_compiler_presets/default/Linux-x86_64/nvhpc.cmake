@@ -9,6 +9,10 @@ if("C" IN_LIST languages)
     if(WITH_PROFILING)
         string(APPEND CMAKE_C_FLAGS " -pg")
     endif()
+
+    if(WITH_WARNINGS)
+        string(APPEND CMAKE_C_FLAGS " -Wall -Wextra -Wpedantic")
+    endif()
 endif()
 
 if("Fortran" IN_LIST languages)
@@ -19,5 +23,3 @@ if("Fortran" IN_LIST languages)
         string(APPEND CMAKE_Fortran_FLAGS " -pg")
     endif()
 endif()
-
-
