@@ -20,7 +20,7 @@ if("C" IN_LIST languages)
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 -arch ${TARGET_PROC} -lintlc" CACHE STRING "Fortran compiler flags" FORCE)
+    set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 -x${TARGET_PROC}" CACHE STRING "Fortran compiler flags" FORCE)
     set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g -ftrapuv")
     set(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
