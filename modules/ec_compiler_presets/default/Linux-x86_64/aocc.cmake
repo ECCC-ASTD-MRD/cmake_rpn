@@ -13,7 +13,7 @@ if("C" IN_LIST languages)
 endif()
 
 if("Fortran" IN_LIST languages)
-    set(CMAKE_Fortran_FLAGS "-Mbyteswapio" CACHE STRING "Fortran compiler flags" FORCE)
+    set(CMAKE_Fortran_FLAGS "-Mbyteswapio -Wno-unused-command-line-argument" CACHE STRING "Fortran compiler flags" FORCE)
     set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
