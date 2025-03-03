@@ -21,6 +21,7 @@ libs=CMAKE_LIBS
 version=@PROJECT_VERSION@
 env=@EC_CI_ENV@
 arch=@EC_ARCH@
+date=@BUILD__TIMESTAMP@
 
 has_rmn=@rmn_VERSION@
 has_tdpack=@tdpack_VERSION@
@@ -39,6 +40,7 @@ Usage: @NAME@-config [OPTION]
 Available values for OPTION include:
 
   --help         display this help message and exit
+  --date         build timestamp [${date}]
   --cc           C compiler [${cc}]
   --fc           FORTRAN compiler [${fc}]
   --cflags       C compiler flags [${cflags}]
@@ -77,6 +79,10 @@ while test $# -gt 0; do
     --help)
 	usage 0
 	;;
+
+    --date)
+        echo ${date}
+        ;;
 
     --cc)
        	echo ${cc:-no}
