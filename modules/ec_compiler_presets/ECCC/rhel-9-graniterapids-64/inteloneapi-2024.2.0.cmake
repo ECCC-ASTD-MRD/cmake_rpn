@@ -6,7 +6,7 @@
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "ICELAKE-SERVER")
+    set(TARGET_PROC "Host")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 
