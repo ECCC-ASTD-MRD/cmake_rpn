@@ -7,6 +7,13 @@ function(ec_build_info)
 
     set(BUILD_INFO_OUTPUT_DIR ${ARGV0})
 
+    debugLogVar("ec_build_info" "PROJECT_NAME")
+    debugLogVar("ec_build_info" "CMAKE_CURRENT_BINARY_DIR")
+    debugLogVar("ec_build_info" "GENERATE_BUILD_CONFIG")
+    debugLogVar("ec_build_info" EC_C_FLAGS)
+    debugLogVar("ec_build_info" EC_Fortran_FLAGS)
+    debugLogVar("ec_build_info" EC_CMAKE_DEFINITIONS)
+
     cmake_language(GET_MESSAGE_LOG_LEVEL LOG_LEVEL)
     debugLogVar("ec_build_info" "LOG_LEVEL")
 
@@ -15,7 +22,7 @@ function(ec_build_info)
     add_custom_target(
         "${PROJECT_NAME}_build_info"
         ALL
-        COMMAND "${CMAKE_COMMAND}" 
+        COMMAND "${CMAKE_COMMAND}"
             "-DPROJECT_NAME=${PROJECT_NAME}"
             "-DVERSION_FROM_MANIFEST=${VERSION_FROM_MANIFEST}"
             "-DPROJECT_VERSION=${PROJECT_VERSION}"
@@ -30,6 +37,10 @@ function(ec_build_info)
             "-DWITH_OPENMP=${WITH_OPENMP}"
             "-DMANIFEST_FILE_PATH=${MANIFEST_FILE_PATH}"
             "-DBUILD_INFO_OUTPUT_DIR=${BUILD_INFO_OUTPUT_DIR}"
+            "-DGENERATE_BUILD_CONFIG=${GENERATE_BUILD_CONFIG}"
+            "-DEC_C_FLAGS=${EC_C_FLAGS}"
+            "-DEC_Fortran_FLAGS=${EC_Fortran_FLAGS}"
+            "-DEC_CMAKE_DEFINITIONS=${EC_CMAKE_DEFINITIONS}"
             -P "${EC_CMAKE_RPN_DIR}/ec_build_info_maketime.cmake"
             "--log-level=${LOG_LEVEL}"
         BYPRODUCTS "${PROJECT_NAME}_build_info.h"
