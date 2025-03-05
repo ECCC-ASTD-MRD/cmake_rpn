@@ -1,1 +1,1 @@
-../../default/aocc.cmake
+../../default/Linux-x86_64/aocc.cmake
