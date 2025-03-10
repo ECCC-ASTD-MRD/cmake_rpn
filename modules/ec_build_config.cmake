@@ -52,5 +52,5 @@ macro(ec_build_config)
     debugLogVar("ec_build_config" EC_Fortran_FLAGS)
     debugLogVar("ec_build_config" EC_CMAKE_DEFINITIONS)
 
-    install(PROGRAMS ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config DESTINATION bin/${EC_SSM_ARCH})
+    install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config DESTINATION bin/${EC_SSM_ARCH})
 endmacro()
