@@ -1,5 +1,8 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
+# For GET_MESSAGE_LOG_LEVEL
+cmake_minimum_required(VERSION 3.25)
+
 include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
 
 function(ec_build_info)
