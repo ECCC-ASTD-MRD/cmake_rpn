@@ -8,7 +8,7 @@
 # How to use:
 #    - Copy the config.in file from cmake_rpn.
 #    - Edit and remove the components not involved in your project
-#    - Call the ec_build_config macro. 
+#    - Call the ec_build_config macro.
 #    - The script will be installed in the installation's bin directory.
 
 cc="@CMAKE_C_COMPILER_ID@ @CMAKE_C_COMPILER_VERSION@"
@@ -21,15 +21,15 @@ libs=CMAKE_LIBS
 version=@PROJECT_VERSION@
 env=@EC_CI_ENV@
 arch=@EC_ARCH@
-date=@BUILD__TIMESTAMP@
+date=@BUILD_TIMESTAMP@
 
 has_rmn=@rmn_VERSION@
 has_tdpack=@tdpack_VERSION@
 has_vgrid=@vgrid_VERSION@
 has_eer=@eerUtils_VERSION@
 has_gdal=@GDAL_VERSION@
-has_netcdf=@NETCDF_VERSION@ 
-has_hdf4=@HDF4_VERSION@ 
+has_netcdf=@NETCDF_VERSION@
+has_hdf4=@HDF4_VERSION@
 has_hdf5=@HDF5_VERSION@
 
 usage()
@@ -95,7 +95,7 @@ while test $# -gt 0; do
     --cflags)
        	echo ${cflags}
        	;;
-           
+
     --fflags)
        	echo ${fflags}
        	;;
@@ -143,15 +143,15 @@ while test $# -gt 0; do
     --version)
 	    echo ${version}
 	    ;;
-        
+
     --env)
        echo ${env}
        ;;
-       
+
     --arch)
        echo ${arch}
        ;;
-       
+
     *)
         echo "unknown option: $1"
 	    usage 1

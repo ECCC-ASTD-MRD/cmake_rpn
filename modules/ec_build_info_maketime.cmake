@@ -9,21 +9,11 @@ set(CMAKE_SOURCE_DIR "${SOURCE_DIR}")
 set(CMAKE_CURRENT_SOURCE_DIR "${SOURCE_DIR}")
 
 include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
-debugLogVar("ec_build_info_maketime.cmake" CMAKE_CURRENT_SOURCE_DIR)
 
 
 function(generate_build_info)
     message(STATUS "(EC) Using ${BUILD_INFO_TMPL_PATH} to genreate ${BUILD_INFO_PATH}")
     configure_file(${BUILD_INFO_TMPL_PATH} ${BUILD_INFO_PATH} @ONLY)
-
-    debugLogVar("ec_build_info_maketime.cmake" GENERATE_BUILD_CONFIG)
-    if(GENERATE_BUILD_CONFIG)
-        debugLogVar("ec_build_info_maketime.cmake" EC_C_FLAGS)
-        debugLogVar("ec_build_info_maketime.cmake" EC_Fortran_FLAGS)
-        debugLogVar("ec_build_info_maketime.cmake" EC_CMAKE_DEFINITIONS)
-        # Replace build info variables in script
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config @ONLY)
-    endif()
 endfunction()
 
 # Even forcibly setting cache variables from here or from lower in the call stack doesn't really update CMake's cache
