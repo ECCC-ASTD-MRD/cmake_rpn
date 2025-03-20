@@ -1,1 +1,1 @@
-inteloneapi-2024.2.0.cmake
+inteloneapi-2024.0.1.cmake
