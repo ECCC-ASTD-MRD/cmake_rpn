@@ -22,6 +22,7 @@
 macro(ec_build_config)
     if(DEFINED ENV{ECCI_ENV})
         message(STATUS "(EC) EC CI environment detected (ECCI_ENV); enabling WITH_CONFIG_SCRIPT")
+        set(WITH_CONFIG_SCRIPT ON)
     endif()
 
     if(WITH_CONFIG_SCRIPT)
