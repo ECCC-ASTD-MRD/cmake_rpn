@@ -5,31 +5,11 @@ variables:
    ORD_SOUMET_M: "2G"
    ORD_SOUMET_TMPFS: "1G"
 
-stages:
-  - package
-  - deploy
-
-before_script:
-  - source ~/ci-admin/env/init.sh
-
-package:all:
-   stage: package
-   only:
-      - master
-      - tags
-      - dev
-      - schedules
-   script:
-      - set +e
-      - source ~/ci-env/latest/profile.sh
-      - . r.load.dot /fs/ssm/main/opt/cmake/cmake-3.30.0
-      - set -e
-      - mkdir build
-      - cd build
-      - cmake ../ 
-      - make package
-      - ~/ci-admin-bundle/bin/ci-package-ssm.sh package ${ECCI_PROCESS}
-
+include:
+   - project: 'RPN-SI/ci-admin'
+     ref: dev
+     file: '/ci/.gitlab-ci-config-package.yml'
+     
 deploy:staging:
    stage: deploy
    only:
