@@ -31,7 +31,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_rpn/modules)
   * Loads predefined compiler settings optimized per compiler and platform.  Must be included after languages are enabled.
 
 * `include(ec_doxygen)`
-  * Creates a __doc__ target to build the documentation with Doxygen.  Please note that the __doc__ target is not included in __all__.  This means that it won't be built when running ```make```.  To build the documentation, ```make doc``` must be executed explicitly.
+  * Defines the `WITH_DOC` option. If enabled, it creates a __doc__ target to build the documentation with Doxygen.  Please note that the __doc__ target is not included in __all__.  This means that it won't be built when running ```make```.  To build the documentation, ```make doc``` must be executed explicitly.
 
 * `include(ec_org_manpages)`
   * Creates a __man__ target to build the man pages from org documents.
@@ -104,7 +104,7 @@ GDAL  ~>= 2.0.0
     * `BUILD_TIMESTAMP` is also available, but not enabled by default because it has significant consequences on the build process. Please read the instructions in [the build_info.in template](modules/build_info.h.in) for more information.
 
 * `ec_build_config()`
-  * Parses the file `config.in` to build a configuration information script "[NAME]-config" giving information on how the package was built (compiler, flags, libraries version, etc.) which will end up in the bin directory.  Copy the `cmake_rpn` provided `config.in` file into your project and adjust the information needed.
+  * Parses the file `config.in` to build a configuration information script "[NAME]-config" giving information on how the package was built (compiler, flags, libraries version, etc.) which will end up in the bin directory.  Copy the `cmake_rpn` provided `config.in` file into your project and adjust the information needed. This function must be called after dependencies have been defined. A script will only be generated if `WITH_CONFIG_SCRIPT` is defined and true or if `ECCI_ENV` environment variable was detected.
 
 * `ec_dump_cmake_variables()`
   * Dumps all of the cmake variables sorted.

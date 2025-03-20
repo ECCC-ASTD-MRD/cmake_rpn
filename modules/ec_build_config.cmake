@@ -20,6 +20,10 @@
 #   ...
 
 macro(ec_build_config)
+    if(DEFINED ENV{ECCI_ENV})
+        message(STATUS "(EC) EC CI environment detected (ECCI_ENV); enabling WITH_CONFIG_SCRIPT")
+    endif()
+
     if(WITH_CONFIG_SCRIPT)
         # Get preprocessor defines
         get_directory_property(EC_CMAKE_DEFINITIONS DIRECTORY ${CMAKE_SOURCE_DIR} COMPILE_DEFINITIONS)
