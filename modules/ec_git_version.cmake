@@ -33,7 +33,7 @@ macro(ec_git_version)
     unset(GIT_OUTPUT)
 
     execute_process(
-        COMMAND git describe --tags --always --dirty --broken
+        COMMAND git describe --tags --always --dirty --broken --first-parent
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         RESULT_VARIABLE GIT_RESULT
         OUTPUT_VARIABLE GIT_VERSION
