@@ -12,7 +12,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
 
 
 function(generate_build_info)
-    message(STATUS "(EC) Using ${BUILD_INFO_TMPL_PATH} to genreate ${BUILD_INFO_PATH}")
+    message(STATUS "(EC) Using ${BUILD_INFO_TMPL_PATH} to generate ${BUILD_INFO_PATH}")
     configure_file(${BUILD_INFO_TMPL_PATH} ${BUILD_INFO_PATH} @ONLY)
 endfunction()
 

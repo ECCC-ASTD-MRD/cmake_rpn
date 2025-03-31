@@ -1,6 +1,6 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
-message(FATAL "(EC) This combinaison of compiler and architecture not yet ready for use")
+message(FATAL "(EC) This combination of compiler and architecture is not yet ready for use")
 
 #TODO MV suggested to add -qufmt=be
 
