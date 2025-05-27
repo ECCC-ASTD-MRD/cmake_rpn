@@ -47,18 +47,28 @@ set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
 # that are not added the find_package(OpenACC)
-# It doesn't matter if we defined them even if OpenACC isn't used because the
+# It doesn't matter if we define them even if OpenACC isn't used because the
 # OpenACC_extra_FLAGS variable just won't be used
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
-if (EXTRA_CHECKS)
+if(WITH_WARNINGS)
     if("C" IN_LIST languages)
         string(APPEND CMAKE_C_FLAGS " -Wall")
     endif()
 
     if("Fortran" IN_LIST languages)
-        string(APPEND CMAKE_Fortran_FLAGS " -warn all -check all")
+        string(APPEND CMAKE_Fortran_FLAGS " -warn all")
+    endif()
     endif()
 
-    string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " -warn all -check all")
+if (EXTRA_CHECKS)
+    if("C" IN_LIST languages)
+        string(APPEND CMAKE_C_FLAGS " -fstack-security-check -fstack-protector-all")
+    endif()
+
+    if("Fortran" IN_LIST languages)
+        string(APPEND CMAKE_Fortran_FLAGS " -check all")
+    endif()
+
+    string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " -check all")
 endif()
