@@ -1,8 +1,11 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
-# Default configuration for the Intel compiler suite
+# Default configuration for the Intel and IntelLLVM compiler suites
 # Input:
 # EXTRA_CHECKS Enable extra checking.  This will make the execution slower.
+
+# Compiler shared library location
+list(APPEND CMAKE_INSTALL_RPATH $ENV{CMPLR_ROOT}/lib)
 
 include(${CMAKE_CURRENT_LIST_DIR}/../../../ec_debugLog.cmake)
 
@@ -95,7 +98,7 @@ set(CMAKE_EXE_LINKER_FLAGS_INIT "--allow-shlib-undefined")
 
 # There might be extra OpenMP and OpenACC flags which are specific to each compiler,
 # that are not added the find_package(OpenACC)
-# It doesn't matter if we defined them even if OpenACC isn't used because the
+# It doesn't matter if we define them even if OpenACC isn't used because the
 # OpenACC_extra_FLAGS variable just won't be used
 set(OpenACC_extra_FLAGS "-fopt-info-optimized-omp")
 
