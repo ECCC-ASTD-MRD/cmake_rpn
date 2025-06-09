@@ -19,6 +19,11 @@ include(${CMAKE_CURRENT_LIST_DIR}/ec_split_version.cmake)
 #  STATE : Anything after the <major>[.<minor>[.<patch>[.<tweak>]]]] part of GIT_VERSION
 #  PROJECT_VERSION : Will have the same content as GIT_VERSION
 macro(ec_git_version)
+    cmake_parse_arguments(EC_GIT_VERSION "FIRST_PARENT;" "" "" "${ARGN}")
+    if(EC_GIT_VERSION_UNPARSED_ARGUMENTS)
+        message(FATAL_ERROR "Unexpected arguments in call to ec_git_version: '${ECGV_UNPARSED_ARGUMENTS}'")
+    endif()
+
     # This is a dirty fix for a very strange bug:
     # Sometimes `git describe` still adds dirty even if changes in the repository have been reverted.
     # As far as we known, this only happens on hpcr5-in
@@ -32,8 +37,14 @@ macro(ec_git_version)
     )
     unset(GIT_OUTPUT)
 
+    # Don't add quotes: it has to be a list in the CMake sense
+    set(ec_git_version_command git describe --tags --always --dirty --broken)
+    if(EC_GIT_VERSION_FIRST_PARENT)
+        set(ec_git_version_command ${ec_git_version_command} --first-parent)
+    endif()
+
     execute_process(
-        COMMAND git describe --tags --always --dirty --broken --first-parent
+        COMMAND ${ec_git_version_command}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         RESULT_VARIABLE GIT_RESULT
         OUTPUT_VARIABLE GIT_VERSION
