@@ -9,7 +9,7 @@ list(APPEND CMAKE_INSTALL_RPATH $ENV{CMPLR_ROOT}/linux/compiler/lib/intel64)
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "ICELAKE-SERVER")
+    set(TARGET_PROC "graniterapids")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 

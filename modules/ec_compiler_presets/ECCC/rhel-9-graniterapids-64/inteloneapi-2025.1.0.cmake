@@ -9,7 +9,7 @@ list(APPEND CMAKE_INSTALL_RPATH $ENV{CMPLR_ROOT}/lib)
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "Host")
+    set(TARGET_PROC "graniterapids")
 endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 
