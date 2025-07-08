@@ -30,9 +30,9 @@ else()
          endif()
       endif()
    endif()
-   
+
    if(NOT DEFINED COMPILER_SUITE)
-      # Cray are treated trhtough their CrayLinuxEnvironment
+      # Cray are treated through their CrayLinuxEnvironment
       if(DEFINED ENV{CRAYPE_VERSION})
          set(CMAKE_SYSTEM_NAME CrayLinuxEnvironment)
          # We have to leave the default compiler on Cray for cmake to be able to find MPI
