@@ -7,7 +7,30 @@ else()
    # Define cmake_rpn path for module inclusion
    set (EC_CMAKE_RPN_DIR ${CMAKE_CURRENT_LIST_DIR}) 
    message(STATUS "(EC) EC_CMAKE_RPN_DIR ${EC_CMAKE_RPN_DIR}")
+
    # Compiler selection
+   if(NOT DEFINED COMPILER_SUITE)
+      # Check if COMP_ARCH is defined to select the COMPILER_SUITE
+      if(DEFINED ENV{COMP_ARCH})
+         string(SUBSTRING $ENV{COMP_ARCH} 0 2 comp)
+         if(comp STREQUAL "in") 
+            set(COMPILER_SUITE intel CACHE STRING "Compiler suite to use for the build")
+         elseif(comp STREQUAL "nv") 
+            set(COMPILER_SUITE nvhpc CACHE STRING "Compiler suite to use for the build")
+         elseif(comp STREQUAL "ao") 
+            set(COMPILER_SUITE aocc CACHE STRING "Compiler suite to use for the build")
+         elseif(comp STREQUAL "gn") 
+            set(COMPILER_SUITE gnu CACHE STRING "Compiler suite to use for the build")
+         elseif(comp STREQUAL "ll") 
+            set(COMPILER_SUITE llvm CACHE STRING "Compiler suite to use for the build")
+         elseif(comp STREQUAL "xl") 
+            set(COMPILER_SUITE xl CACHE STRING "Compiler suite to use for the build")
+         elseif(comp STREQUAL "pg") 
+            set(COMPILER_SUITE pgi CACHE STRING "Compiler suite to use for the build")
+         endif()
+      endif()
+   endif()
+   
    if(NOT DEFINED COMPILER_SUITE)
       # Cray are treated trhtough their CrayLinuxEnvironment
       if(DEFINED ENV{CRAYPE_VERSION})
