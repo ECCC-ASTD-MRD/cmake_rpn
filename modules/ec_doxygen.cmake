@@ -32,6 +32,12 @@ if (EC_INIT_DONE LESS 2)
                 set(DOC_INCLUDED_BY_GRAPH "NO")
             endif()
 
+            # This option defaults to true to include documentation for static functions and members
+            # They are mainly of interest to package developers and not users
+            if (NOT DEFINED DOC_EXTRACT_STATIC)
+                set(DOC_EXTRACT_STATIC "YES")
+            endif()
+
             configure_file(${doxyfile_in} ${doxyfile} @ONLY)
 
             add_custom_target(
