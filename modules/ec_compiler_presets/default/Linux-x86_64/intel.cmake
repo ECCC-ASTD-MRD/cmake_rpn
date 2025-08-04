@@ -58,8 +58,8 @@ add_definitions(-DLittle_Endian)
 
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs ${C_ARCH_SPEC}" CACHE STRING "C compiler flags" FORCE)
-    set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
+    set(CMAKE_C_FLAGS_DEBUG "-O0 -g3")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g3 -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 
     if(CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 2024.2)
@@ -79,8 +79,8 @@ endif()
 
 if("Fortran" IN_LIST languages)
     set(CMAKE_Fortran_FLAGS "-convert big_endian -align array32byte -assume byterecl -fp-model source -fpe0 -traceback -stand f08 ${Fortran_ARCH_SPEC}" CACHE STRING "Fortran compiler flags" FORCE)
-    set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g -ftrapuv")
-    set(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -g")
+    set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g3 -ftrapuv -debug-parameters all")
+    set(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -g3 -debug-parameters all")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
     if(WITH_PROFILING)

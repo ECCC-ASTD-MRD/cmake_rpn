@@ -14,8 +14,8 @@ add_definitions(-DLittle_Endian)
 
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-ftree-vectorize -march=${TARGET_PROC}")
-    set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG")
+    set(CMAKE_C_FLAGS_DEBUG "-O0 -g3")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g3 -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 
     if(WITH_PROFILING)
@@ -26,8 +26,8 @@ endif()
 
 if("Fortran" IN_LIST languages)
     set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -fcray-pointer -frecord-marker=4 -fno-second-underscore -ffree-line-length-none -finit-real=nan -ftree-vectorize -march=${TARGET_PROC} -fstack-arrays")
-    set(CMAKE_Fortran_FLAGS_DEBUG "-fbacktrace -ffpe-trap=invalid,zero,overflow -O0 -g")
-    set(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -g")
+    set(CMAKE_Fortran_FLAGS_DEBUG "-fbacktrace -ffpe-trap=invalid,zero,overflow -O0 -g3")
+    set(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -g3")
     set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 
     if(WITH_PROFILING)
