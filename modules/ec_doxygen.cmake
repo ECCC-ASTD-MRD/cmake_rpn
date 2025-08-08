@@ -54,6 +54,11 @@ if(EC_INIT_DONE LESS 2)
                 set(DOC_EXTRACT_STATIC "NO")
             endif()
 
+            set(DOC_DEFINES "")
+            if(MPI_FOUND)
+                string(APPEND DOC_DEFINES " \\\n                         HAVE_MPI")
+            endif()
+
             set(doxyfile_in ${CMAKE_CURRENT_LIST_DIR}/Doxyfile.in)
             set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
             configure_file(${doxyfile_in} ${doxyfile} @ONLY)
