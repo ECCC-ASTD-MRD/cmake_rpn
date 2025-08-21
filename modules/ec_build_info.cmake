@@ -40,4 +40,6 @@ function(ec_build_info)
     )
 
     include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_build_info.h TYPE INCLUDE)
 endfunction()
