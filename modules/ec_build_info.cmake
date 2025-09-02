@@ -8,7 +8,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
 function(ec_build_info)
     message(STATUS "(EC) Adding build_info target")
 
-    set(BUILD_INFO_OUTPUT_DIR ${ARGV0})
+    set(BUILD_INFO_OUTPUT_DIR ${ARGV0} PARENT_SCOPE)
 
     cmake_language(GET_MESSAGE_LOG_LEVEL LOG_LEVEL)
     debugLogVar("ec_build_info" "LOG_LEVEL")
@@ -18,7 +18,7 @@ function(ec_build_info)
     add_custom_target(
         "${PROJECT_NAME}_build_info"
         ALL
-        COMMAND "${CMAKE_COMMAND}" 
+        COMMAND "${CMAKE_COMMAND}"
             "-DPROJECT_NAME=${PROJECT_NAME}"
             "-DVERSION_FROM_MANIFEST=${VERSION_FROM_MANIFEST}"
             "-DPROJECT_VERSION=${PROJECT_VERSION}"
@@ -42,4 +42,24 @@ function(ec_build_info)
     include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_build_info.h TYPE INCLUDE)
+endfunction()
+
+
+# Add the build_info c source file to each of the provided targets
+function(ec_add_build_info_to_targets)
+    # Parameters:
+    # [in] List of targets to which to add the build info
+
+    if("${BUILD_INFO_OUTPUT_DIR}" STREQUAL "")
+        set(BUILD_INFO_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR})
+    endif()
+    set(BUILD_INFO_PATH ${BUILD_INFO_OUTPUT_DIR}/${PROJECT_NAME}_build_info.c)
+
+    # Generate the build_info c file. Once generated, it content never changes so we can do with here
+    configure_file(${CMAKE_CURRENT_FUNCTION_LIST_DIR}/build_info.c.in ${BUILD_INFO_PATH} @ONLY)
+
+    # TODO: Figure out how to add it to the sources of all of a project's targets
+    foreach(target ${ARGV})
+        target_sources(${target} PRIVATE ${BUILD_INFO_PATH})
+    endforeach()
 endfunction()
