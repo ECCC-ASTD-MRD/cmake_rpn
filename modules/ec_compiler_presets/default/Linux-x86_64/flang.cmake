@@ -1,6 +1,7 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
 add_definitions(-DLittle_Endian)
+add_link_options(-Wl,--as-needed)
 
 if("C" IN_LIST languages)
     # original flags in previous version of Linux-x86_64-gfortran

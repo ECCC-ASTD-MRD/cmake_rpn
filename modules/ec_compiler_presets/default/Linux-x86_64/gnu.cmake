@@ -11,8 +11,10 @@ endif()
 message(STATUS "(EC) Target architecture: ${TARGET_PROC}")
 
 add_definitions(-DLittle_Endian)
+add_link_options(-Wl,--as-needed)
 
 if("C" IN_LIST languages)
+    # set(CMAKE_C_FLAGS "-ffunction-sections -fdata-sections -ftree-vectorize -march=${TARGET_PROC}")
     set(CMAKE_C_FLAGS "-ftree-vectorize -march=${TARGET_PROC}")
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g3")
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g3 -DNDEBUG")

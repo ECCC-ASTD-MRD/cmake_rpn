@@ -3,6 +3,7 @@
 message(FATAL "(EC) This combination of compiler and architecture is not yet ready for use")
 
 add_definitions(-DLittle_Endian)
+add_link_options(-Wl,--as-needed)
 
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-W" CACHE STRING "C compiler flags" FORCE)

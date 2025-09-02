@@ -1,6 +1,7 @@
 # Copyright 2021, Her Majesty the Queen in right of Canada
 
 add_definitions(-DLittle_Endian)
+add_link_options(-Wl,--as-needed)
 
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-Wno-static-in-inline -march=native" CACHE STRING "C compiler flags" FORCE)

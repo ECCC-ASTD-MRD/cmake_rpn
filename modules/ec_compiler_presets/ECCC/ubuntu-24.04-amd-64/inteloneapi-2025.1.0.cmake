@@ -49,6 +49,7 @@ message(STATUS "(EC) C Target architecture spec: ${C_ARCH_SPEC}")
 message(STATUS "(EC) Fortran Target architecture spec: ${Fortran_ARCH_SPEC}")
 
 add_definitions(-DLittle_Endian)
+add_link_options(-Wl,--as-needed)
 
 if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs ${C_ARCH_SPEC}" CACHE STRING "C compiler flags" FORCE)
