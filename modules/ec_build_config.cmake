@@ -18,6 +18,8 @@
 #   --has-vgrid    which version of vgrid is it compiled with [${has_vgrid}]
 #   ...
 
+set(EC_BUILD_CONFIG_MACRO_DEF_DIR "${CMAKE_CURRENT_LIST_DIR}")
+
 macro(ec_build_config)
     # Get preprocessor defines
     get_directory_property(EC_CMAKE_DEFINITIONS DIRECTORY ${CMAKE_SOURCE_DIR} COMPILE_DEFINITIONS)
@@ -43,6 +45,13 @@ macro(ec_build_config)
     string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M" UTC)
 
     # Replace build info variables in script
+    if(NOT IS_READABLE ${CMAKE_CURRENT_SOURCE_DIR}/config.in)
+        message(FATAL_ERROR "${CMAKE_CURRENT_SOURCE_DIR}/config.in not found!\n\
+Please copy\n${EC_BUILD_CONFIG_MACRO_DEF_DIR}/config.in\n\
+to your project and edit it to remove the unnecessary components.")
+    endif()
     configure_file(config.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config @ONLY)
-    install(PROGRAMS ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config DESTINATION bin/${EC_SSM_ARCH})
+    if(NOT CMAKE_SKIP_INSTALL_RULES)
+        install(PROGRAMS ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config DESTINATION bin/${EC_SSM_ARCH})
+    endif()
 endmacro()
