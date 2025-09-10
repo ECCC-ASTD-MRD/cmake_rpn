@@ -13,6 +13,8 @@ function(ec_build_info)
     cmake_language(GET_MESSAGE_LOG_LEVEL LOG_LEVEL)
     debugLogVar("ec_build_info" "LOG_LEVEL")
 
+    string(MAKE_C_IDENTIFIER "${PROJECT_NAME}" PROJECT_NAME_C_ID)
+
     # Variables from the current CMake execution environment have to be passed
     # with "-D" since they will not be available when executed with "-P"
     add_custom_target(
@@ -20,6 +22,7 @@ function(ec_build_info)
         ALL
         COMMAND "${CMAKE_COMMAND}"
             "-DPROJECT_NAME=${PROJECT_NAME}"
+            "-DPROJECT_NAME_C_ID=${PROJECT_NAME_C_ID}"
             "-DVERSION_FROM_MANIFEST=${VERSION_FROM_MANIFEST}"
             "-DPROJECT_VERSION=${PROJECT_VERSION}"
             "-DPROJECT_DESCRIPTION=${DESCRIPTION}"
@@ -56,6 +59,8 @@ function(ec_add_build_info_to_targets)
         set(BUILD_INFO_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR})
     endif()
     set(BUILD_INFO_PATH ${BUILD_INFO_OUTPUT_DIR}/${PROJECT_NAME}_build_info.c)
+
+    string(MAKE_C_IDENTIFIER "${PROJECT_NAME}" PROJECT_NAME_C_ID)
 
     # Generate the build_info c file. Once generated, it content never changes so we can do with here
     configure_file(${CMAKE_CURRENT_FUNCTION_LIST_DIR}/build_info.c.in ${BUILD_INFO_PATH} @ONLY)

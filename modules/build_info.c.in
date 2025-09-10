@@ -2,104 +2,104 @@
 #include <@PROJECT_NAME@_build_info.h>
 
 
-char @PROJECT_NAME@_project_name[] = PROJECT_NAME_STRING;
-char @PROJECT_NAME@_project_version[] = PROJECT_VERSION_STRING;
-char @PROJECT_NAME@_project_description[] = PROJECT_DESCRIPTION_STRING;
-char @PROJECT_NAME@_version[] = VERSION;
-char @PROJECT_NAME@_git_commit[] = GIT_COMMIT;
-char @PROJECT_NAME@_git_commit_timestamp[] = GIT_COMMIT_TIMESTAMP;
-char @PROJECT_NAME@_git_status[] = GIT_STATUS;
-char @PROJECT_NAME@_ec_arch[] = EC_ARCH;
-char @PROJECT_NAME@_build_user[] = BUILD_USER;
-char @PROJECT_NAME@_build_timestamp[] = BUILD_TIMESTAMP;
-char @PROJECT_NAME@_c_compiler_id[] = C_COMPILER_ID;
-char @PROJECT_NAME@_c_compiler_version[] = C_COMPILER_VERSION;
-char @PROJECT_NAME@_cxx_compiler_id[] = CXX_COMPILER_ID;
-char @PROJECT_NAME@_cxx_compiler_version[] = CXX_COMPILER_VERSION;
-char @PROJECT_NAME@_fortran_compiler_id[] = FORTRAN_COMPILER_ID;
-char @PROJECT_NAME@_fortran_compiler_version[] = FORTRAN_COMPILER_VERSION;
+char @PROJECT_NAME_C_ID@_project_name[] = PROJECT_NAME_STRING;
+char @PROJECT_NAME_C_ID@_project_version[] = PROJECT_VERSION_STRING;
+char @PROJECT_NAME_C_ID@_project_description[] = PROJECT_DESCRIPTION_STRING;
+char @PROJECT_NAME_C_ID@_version[] = VERSION;
+char @PROJECT_NAME_C_ID@_git_commit[] = GIT_COMMIT;
+char @PROJECT_NAME_C_ID@_git_commit_timestamp[] = GIT_COMMIT_TIMESTAMP;
+char @PROJECT_NAME_C_ID@_git_status[] = GIT_STATUS;
+char @PROJECT_NAME_C_ID@_ec_arch[] = EC_ARCH;
+char @PROJECT_NAME_C_ID@_build_user[] = BUILD_USER;
+char @PROJECT_NAME_C_ID@_build_timestamp[] = BUILD_TIMESTAMP;
+char @PROJECT_NAME_C_ID@_c_compiler_id[] = C_COMPILER_ID;
+char @PROJECT_NAME_C_ID@_c_compiler_version[] = C_COMPILER_VERSION;
+char @PROJECT_NAME_C_ID@_cxx_compiler_id[] = CXX_COMPILER_ID;
+char @PROJECT_NAME_C_ID@_cxx_compiler_version[] = CXX_COMPILER_VERSION;
+char @PROJECT_NAME_C_ID@_fortran_compiler_id[] = FORTRAN_COMPILER_ID;
+char @PROJECT_NAME_C_ID@_fortran_compiler_version[] = FORTRAN_COMPILER_VERSION;
 
-char * @PROJECT_NAME@_get_project_name(void) {
-    return @PROJECT_NAME@_project_name;
+char * @PROJECT_NAME_C_ID@_get_project_name(void) {
+    return @PROJECT_NAME_C_ID@_project_name;
 }
 
-char * @PROJECT_NAME@_get_project_version(void) {
-    return @PROJECT_NAME@_project_version;
+char * @PROJECT_NAME_C_ID@_get_project_version(void) {
+    return @PROJECT_NAME_C_ID@_project_version;
 }
 
-char * @PROJECT_NAME@_get_project_description(void) {
-    return @PROJECT_NAME@_project_description;
+char * @PROJECT_NAME_C_ID@_get_project_description(void) {
+    return @PROJECT_NAME_C_ID@_project_description;
 }
 
-char * @PROJECT_NAME@_get_version(void) {
-    return @PROJECT_NAME@_version;
+char * @PROJECT_NAME_C_ID@_get_version(void) {
+    return @PROJECT_NAME_C_ID@_version;
 }
 
-char * @PROJECT_NAME@_get_git_commit(void) {
-    return @PROJECT_NAME@_git_commit;
+char * @PROJECT_NAME_C_ID@_get_git_commit(void) {
+    return @PROJECT_NAME_C_ID@_git_commit;
 }
 
-char * @PROJECT_NAME@_get_git_commit_timestamp(void) {
-    return @PROJECT_NAME@_git_commit_timestamp;
+char * @PROJECT_NAME_C_ID@_get_git_commit_timestamp(void) {
+    return @PROJECT_NAME_C_ID@_git_commit_timestamp;
 }
 
-char * @PROJECT_NAME@_get_git_status(void) {
-    return @PROJECT_NAME@_git_status;
+char * @PROJECT_NAME_C_ID@_get_git_status(void) {
+    return @PROJECT_NAME_C_ID@_git_status;
 }
 
-char * @PROJECT_NAME@_get_ec_arch(void) {
-    return @PROJECT_NAME@_ec_arch;
+char * @PROJECT_NAME_C_ID@_get_ec_arch(void) {
+    return @PROJECT_NAME_C_ID@_ec_arch;
 }
 
-char * @PROJECT_NAME@_get_build_user(void) {
-    return @PROJECT_NAME@_build_user;
+char * @PROJECT_NAME_C_ID@_get_build_user(void) {
+    return @PROJECT_NAME_C_ID@_build_user;
 }
 
-char * @PROJECT_NAME@_get_build_timestamp(void) {
-    return @PROJECT_NAME@_build_timestamp;
+char * @PROJECT_NAME_C_ID@_get_build_timestamp(void) {
+    return @PROJECT_NAME_C_ID@_build_timestamp;
 }
 
-char * @PROJECT_NAME@_get_c_compiler_id(void) {
-    return @PROJECT_NAME@_c_compiler_id;
+char * @PROJECT_NAME_C_ID@_get_c_compiler_id(void) {
+    return @PROJECT_NAME_C_ID@_c_compiler_id;
 }
 
-char * @PROJECT_NAME@_get_c_compiler_version(void) {
-    return @PROJECT_NAME@_c_compiler_version;
+char * @PROJECT_NAME_C_ID@_get_c_compiler_version(void) {
+    return @PROJECT_NAME_C_ID@_c_compiler_version;
 }
 
-char * @PROJECT_NAME@_get_cxx_compiler_id(void) {
-    return @PROJECT_NAME@_cxx_compiler_id;
+char * @PROJECT_NAME_C_ID@_get_cxx_compiler_id(void) {
+    return @PROJECT_NAME_C_ID@_cxx_compiler_id;
 }
 
-char * @PROJECT_NAME@_get_cxx_compiler_version(void) {
-    return @PROJECT_NAME@_cxx_compiler_version;
+char * @PROJECT_NAME_C_ID@_get_cxx_compiler_version(void) {
+    return @PROJECT_NAME_C_ID@_cxx_compiler_version;
 }
 
-char * @PROJECT_NAME@_get_fortran_compiler_id(void) {
-    return @PROJECT_NAME@_fortran_compiler_id;
+char * @PROJECT_NAME_C_ID@_get_fortran_compiler_id(void) {
+    return @PROJECT_NAME_C_ID@_fortran_compiler_id;
 }
 
-char * @PROJECT_NAME@_get_fortran_compiler_version(void) {
-    return @PROJECT_NAME@_fortran_compiler_version;
+char * @PROJECT_NAME_C_ID@_get_fortran_compiler_version(void) {
+    return @PROJECT_NAME_C_ID@_fortran_compiler_version;
 }
 
 
 //! Print build information
-void @PROJECT_NAME@_print_build_info(void) {
-    printf("project_name: %s\n", @PROJECT_NAME@_project_name);
-    printf("project_version: %s\n", @PROJECT_NAME@_project_version);
-    printf("project_description: %s\n", @PROJECT_NAME@_project_description);
-    printf("version: %s\n", @PROJECT_NAME@_version);
-    printf("git_commit: %s\n", @PROJECT_NAME@_git_commit);
-    printf("git_commit_timestamp: %s\n", @PROJECT_NAME@_git_commit_timestamp);
-    printf("git_status: %s\n", @PROJECT_NAME@_git_status);
-    printf("ec_arch: %s\n", @PROJECT_NAME@_ec_arch);
-    printf("build_user: %s\n", @PROJECT_NAME@_build_user);
-    printf("build_timestamp: %s\n", @PROJECT_NAME@_build_timestamp);
-    printf("c_compiler_id: %s\n", @PROJECT_NAME@_c_compiler_id);
-    printf("c_compiler_version: %s\n", @PROJECT_NAME@_c_compiler_version);
-    printf("cxx_compiler_id: %s\n", @PROJECT_NAME@_cxx_compiler_id);
-    printf("cxx_compiler_version: %s\n", @PROJECT_NAME@_cxx_compiler_version);
-    printf("fortran_compiler_id: %s\n", @PROJECT_NAME@_fortran_compiler_id);
-    printf("fortran_compiler_version: %s\n", @PROJECT_NAME@_fortran_compiler_version);
+void @PROJECT_NAME_C_ID@_print_build_info(void) {
+    printf("project_name: %s\n", @PROJECT_NAME_C_ID@_project_name);
+    printf("project_version: %s\n", @PROJECT_NAME_C_ID@_project_version);
+    printf("project_description: %s\n", @PROJECT_NAME_C_ID@_project_description);
+    printf("version: %s\n", @PROJECT_NAME_C_ID@_version);
+    printf("git_commit: %s\n", @PROJECT_NAME_C_ID@_git_commit);
+    printf("git_commit_timestamp: %s\n", @PROJECT_NAME_C_ID@_git_commit_timestamp);
+    printf("git_status: %s\n", @PROJECT_NAME_C_ID@_git_status);
+    printf("ec_arch: %s\n", @PROJECT_NAME_C_ID@_ec_arch);
+    printf("build_user: %s\n", @PROJECT_NAME_C_ID@_build_user);
+    printf("build_timestamp: %s\n", @PROJECT_NAME_C_ID@_build_timestamp);
+    printf("c_compiler_id: %s\n", @PROJECT_NAME_C_ID@_c_compiler_id);
+    printf("c_compiler_version: %s\n", @PROJECT_NAME_C_ID@_c_compiler_version);
+    printf("cxx_compiler_id: %s\n", @PROJECT_NAME_C_ID@_cxx_compiler_id);
+    printf("cxx_compiler_version: %s\n", @PROJECT_NAME_C_ID@_cxx_compiler_version);
+    printf("fortran_compiler_id: %s\n", @PROJECT_NAME_C_ID@_fortran_compiler_id);
+    printf("fortran_compiler_version: %s\n", @PROJECT_NAME_C_ID@_fortran_compiler_version);
 }

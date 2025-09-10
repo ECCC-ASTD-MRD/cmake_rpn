@@ -6,6 +6,7 @@
 /* Warning: The project name macro does not include quotes!  This is so we can
     cat it into a symbol name */
 #define PROJECT_NAME                 @PROJECT_NAME@
+#define PROJECT_NAME_C_ID            @PROJECT_NAME_C_ID@
 #define PROJECT_NAME_STRING         "@PROJECT_NAME@"
 #define PROJECT_VERSION_STRING      "@PROJECT_NAME@ @PROJECT_VERSION@ @EC_ARCH@ @GIT_COMMIT_TIMESTAMP@"
 #define PROJECT_DESCRIPTION_STRING  "@PROJECT_DESCRIPTION@"
@@ -41,24 +42,24 @@
 #define FORTRAN_COMPILER_VERSION "@CMAKE_Fortran_COMPILER_VERSION@"
 
 #ifdef __STDC_VERSION__
-char * @PROJECT_NAME@_get_project_name(void);
-char * @PROJECT_NAME@_get_project_version(void);
-char * @PROJECT_NAME@_get_project_description(void);
-char * @PROJECT_NAME@_get_version(void);
-char * @PROJECT_NAME@_get_git_commit(void);
-char * @PROJECT_NAME@_get_git_commit_timestamp(void);
-char * @PROJECT_NAME@_get_git_status(void);
-char * @PROJECT_NAME@_get_ec_arch(void);
-char * @PROJECT_NAME@_get_build_user(void);
-char * @PROJECT_NAME@_get_build_timestamp(void);
-char * @PROJECT_NAME@_get_c_compiler_id(void);
-char * @PROJECT_NAME@_get_c_compiler_version(void);
-char * @PROJECT_NAME@_get_cxx_compiler_id(void);
-char * @PROJECT_NAME@_get_cxx_compiler_version(void);
-char * @PROJECT_NAME@_get_fortran_compiler_id(void);
-char * @PROJECT_NAME@_get_fortran_compiler_version(void);
+char * @PROJECT_NAME_C_ID@_get_project_name(void);
+char * @PROJECT_NAME_C_ID@_get_project_version(void);
+char * @PROJECT_NAME_C_ID@_get_project_description(void);
+char * @PROJECT_NAME_C_ID@_get_version(void);
+char * @PROJECT_NAME_C_ID@_get_git_commit(void);
+char * @PROJECT_NAME_C_ID@_get_git_commit_timestamp(void);
+char * @PROJECT_NAME_C_ID@_get_git_status(void);
+char * @PROJECT_NAME_C_ID@_get_ec_arch(void);
+char * @PROJECT_NAME_C_ID@_get_build_user(void);
+char * @PROJECT_NAME_C_ID@_get_build_timestamp(void);
+char * @PROJECT_NAME_C_ID@_get_c_compiler_id(void);
+char * @PROJECT_NAME_C_ID@_get_c_compiler_version(void);
+char * @PROJECT_NAME_C_ID@_get_cxx_compiler_id(void);
+char * @PROJECT_NAME_C_ID@_get_cxx_compiler_version(void);
+char * @PROJECT_NAME_C_ID@_get_fortran_compiler_id(void);
+char * @PROJECT_NAME_C_ID@_get_fortran_compiler_version(void);
 
-void @PROJECT_NAME@_print_build_info(void);
+void @PROJECT_NAME_C_ID@_print_build_info(void);
 #endif
 
 #endif /* _BUILD_INFO_H */
