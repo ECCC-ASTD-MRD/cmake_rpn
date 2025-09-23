@@ -4,7 +4,7 @@ add_definitions(-DLittle_Endian)
 add_link_options(-Wl,--as-needed)
 
 if("C" IN_LIST languages)
-    set(CMAKE_C_FLAGS "-Wno-static-in-inline -march=native" CACHE STRING "C compiler flags" FORCE)
+    set(CMAKE_C_FLAGS "-Wno-static-in-inline -march=native -Werror=sometimes-uninitialized" CACHE STRING "C compiler flags" FORCE)
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
 

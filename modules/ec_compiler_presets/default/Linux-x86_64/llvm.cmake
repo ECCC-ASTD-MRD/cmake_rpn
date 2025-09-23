@@ -5,15 +5,34 @@ add_link_options(-Wl,--as-needed)
 
 if("C" IN_LIST languages)
   # original flags in previous version of Linux-x86_64-gfortran
-  set(CMAKE_C_FLAGS "-W" CACHE STRING "C compiler flags" FORCE)
+  set(CMAKE_C_FLAGS "-march=native -W -Werror=sometimes-uninitialized" CACHE STRING "C compiler flags" FORCE)
   set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
   set(CMAKE_C_FLAGS_RELEASE "-O2")
 endif()
 
 if("Fortran" IN_LIST languages)
-  set(CMAKE_Fortran_FLAGS "-fconvert=big-endian -DFLANG_NEW " CACHE STRING "Fortran compiler flags" FORCE)
+  set(CMAKE_Fortran_FLAGS "-march=native -fconvert=big-endian -DFLANG_NEW " CACHE STRING "Fortran compiler flags" FORCE)
   set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -g")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
 endif()
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "-s")
+
+if(WITH_WARNINGS)
+    if("C" IN_LIST languages)
+        string(APPEND CMAKE_C_FLAGS " -Wall")
+    endif()
+
+    # TODO: Find the appropriate flags for Fortran
+    # if("Fortran" IN_LIST languages)
+    #     string(APPEND CMAKE_Fortran_FLAGS " -warn all")
+    # endif()
+endif()
+
+if(EXTRA_CHECKS)
+    message(STATUS "(EC) Enabling extra checks")
+
+    if("C" IN_LIST languages)
+        string(APPEND CMAKE_C_FLAGS " -fcatch-undefined-behaviour")
+    endif()
+endif()
