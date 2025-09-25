@@ -4,10 +4,13 @@ add_definitions(-DLittle_Endian)
 add_link_options(-Wl,--as-needed)
 
 if("C" IN_LIST languages)
-  # original flags in previous version of Linux-x86_64-gfortran
-  set(CMAKE_C_FLAGS "-march=native -W -Werror=sometimes-uninitialized -Werror=uninitialized" CACHE STRING "C compiler flags" FORCE)
-  set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
-  set(CMAKE_C_FLAGS_RELEASE "-O2")
+    set(CMAKE_C_FLAGS "-march=native -W" CACHE STRING "C compiler flags" FORCE)
+    set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
+    set(CMAKE_C_FLAGS_RELEASE "-O2")
+
+    if(STRICT)
+        string(APPEND CMAKE_C_FLAGS " -Werror=uninitialized")
+    endif()
 endif()
 
 if("Fortran" IN_LIST languages)

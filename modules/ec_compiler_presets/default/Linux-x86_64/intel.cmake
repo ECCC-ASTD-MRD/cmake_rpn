@@ -68,7 +68,7 @@ add_definitions(-DLittle_Endian)
 add_link_options(-Wl,--as-needed)
 
 if("C" IN_LIST languages)
-    set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs -Werror=sometimes-uninitialized -Werror=uninitialized -Werror=uninitialized ${C_ARCH_SPEC}" CACHE STRING "C compiler flags" FORCE)
+    set(CMAKE_C_FLAGS "-fp-model precise -traceback -Wtrigraphs ${C_ARCH_SPEC}" CACHE STRING "C compiler flags" FORCE)
     set(CMAKE_C_FLAGS_DEBUG "-O0 -g3")
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g3 -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
@@ -81,6 +81,10 @@ if("C" IN_LIST languages)
 
     if(WITH_PROFILING)
         string(APPEND CMAKE_C_FLAGS " -pg")
+    endif()
+
+    if(STRICT)
+        string(APPEND CMAKE_C_FLAGS " -Werror=uninitialized")
     endif()
 
     # Disable some warnings
