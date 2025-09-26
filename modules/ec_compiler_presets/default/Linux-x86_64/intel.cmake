@@ -83,7 +83,7 @@ if("C" IN_LIST languages)
         string(APPEND CMAKE_C_FLAGS " -pg")
     endif()
 
-    if(STRICT)
+    if(STRICT AND CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 2021)
         string(APPEND CMAKE_C_FLAGS " -Werror=uninitialized")
     endif()
 

@@ -18,7 +18,7 @@ if (EC_INIT_DONE LESS 2)
     option(EXTRA_CHECKS "Compile with extra debug flags" OFF)
     option(WITH_PROFILING "Compile with profiling for tools like gprof" OFF)
     option(USE_ECCC_ENV_IF_AVAIL "Use ECCC's custom build environment" ON)
-    option(STRICT "Enable stricter checks that may cause errors on some code. Strongly recommended. Mandatory for production." OFF)
+    option(STRICT "Enable stricter checks that may cause build-time errors on some code. Strongly recommended. Mandatory for production." OFF)
     message(DEBUG "(EC) USE_ECCC_ENV_IF_AVAIL=${USE_ECCC_ENV_IF_AVAIL}")
 
     # Retrieve CMake list of enabled languages.  The compiler preset files use this variable

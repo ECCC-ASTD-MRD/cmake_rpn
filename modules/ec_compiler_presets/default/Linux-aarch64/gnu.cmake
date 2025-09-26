@@ -18,6 +18,10 @@ if("C" IN_LIST languages)
     set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -pedantic -O0 -g3")
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g3 -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE "-O2")
+
+    if(STRICT)
+        string(APPEND CMAKE_C_FLAGS " -Werror=uninitialized")
+    endif()
 endif()
 
 if("Fortran" IN_LIST languages)

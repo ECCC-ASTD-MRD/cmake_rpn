@@ -23,6 +23,11 @@ if("C" IN_LIST languages)
     if(WITH_PROFILING)
         string(APPEND CMAKE_C_FLAGS " -pg")
     endif()
+
+    if(STRICT)
+        string(APPEND CMAKE_C_FLAGS " -Werror=uninitialized")
+    endif()
+
     message(DEBUG "CMAKE_C_FLAGS=${CMAKE_C_FLAGS}")
 endif()
 
