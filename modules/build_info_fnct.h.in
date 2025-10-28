@@ -1,0 +1,24 @@
+// Functions to query to the build information baked into a library binary
+
+// To avoid clashes for projects that use many libraries, both the include
+// file and function names are prefixed with the project name sanitized to
+// be used as a C symbol name
+
+char * @PROJECT_NAME_C_ID@_get_project_name(void);
+char * @PROJECT_NAME_C_ID@_get_project_version(void);
+char * @PROJECT_NAME_C_ID@_get_project_description(void);
+char * @PROJECT_NAME_C_ID@_get_version(void);
+char * @PROJECT_NAME_C_ID@_get_git_commit(void);
+char * @PROJECT_NAME_C_ID@_get_git_commit_timestamp(void);
+char * @PROJECT_NAME_C_ID@_get_git_status(void);
+char * @PROJECT_NAME_C_ID@_get_ec_arch(void);
+char * @PROJECT_NAME_C_ID@_get_build_user(void);
+char * @PROJECT_NAME_C_ID@_get_build_timestamp(void);
+char * @PROJECT_NAME_C_ID@_get_c_compiler_id(void);
+char * @PROJECT_NAME_C_ID@_get_c_compiler_version(void);
+char * @PROJECT_NAME_C_ID@_get_cxx_compiler_id(void);
+char * @PROJECT_NAME_C_ID@_get_cxx_compiler_version(void);
+char * @PROJECT_NAME_C_ID@_get_fortran_compiler_id(void);
+char * @PROJECT_NAME_C_ID@_get_fortran_compiler_version(void);
+
+void @PROJECT_NAME_C_ID@_print_build_info(void);

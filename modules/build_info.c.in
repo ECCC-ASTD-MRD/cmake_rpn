@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <@PROJECT_NAME@_build_info.h>
+#include <@PROJECT_NAME@_build_info_fnct.h>
 
 
 char @PROJECT_NAME_C_ID@_project_name[] = PROJECT_NAME_STRING;
