@@ -130,9 +130,11 @@ endif()
 if(EXTRA_CHECKS)
     message(STATUS "(EC) Enabling extra checks")
 
+    if("C" IN_LIST languages)
+        string(APPEND CMAKE_C_FLAGS " -fstack-security-check -fstack-protector-all")
+    endif()
+
     if("Fortran" IN_LIST languages)
         string(APPEND CMAKE_Fortran_FLAGS " -check all")
     endif()
-
-    string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " -check all")
 endif()
