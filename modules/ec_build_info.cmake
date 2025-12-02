@@ -6,6 +6,12 @@ cmake_minimum_required(VERSION 3.25)
 include(${CMAKE_CURRENT_LIST_DIR}/ec_debugLog.cmake)
 
 function(ec_build_info)
+    # Parameters:
+    #     ARGV0 : Path of the folder where to write ${PROJECT_NAME}_build_info.h
+    #             Optional; defaults to CMAKE_CURRENT_BINARY_DIR if not specified or is empty
+    #     ARGV1 : Boolean to toggle the installation of ${PROJECT_NAME}_build_info.h
+    #             Optional; defaults to false.
+    #             Since it's the second positional parameter, both parameters must be specified in order to change this one
     message(STATUS "(EC) Adding build_info target")
 
     set(BUILD_INFO_OUTPUT_DIR ${ARGV0} PARENT_SCOPE)
@@ -42,10 +48,25 @@ function(ec_build_info)
         COMMENT "Generating ${PROJECT_NAME}_build_info.h"
     )
 
+    # We need BUILD_INFO_OUTPUT_DIR to be defined in the rest of the function
+    # but we don't want to set it in the parent scope if it wasn't already done
+    if("${BUILD_INFO_OUTPUT_DIR}" STREQUAL "")
+        set(BUILD_INFO_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR})
+    endif()
     include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/build_info_fnct.h.in")
+        set(BUILD_INFO_FNCT_TMPL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/build_info_fnct.h.in)
+    else()
+        set(BUILD_INFO_FNCT_TMPL_PATH ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/build_info_fnct.h.in)
+    endif()
+    configure_file(${BUILD_INFO_FNCT_TMPL_PATH} ${BUILD_INFO_OUTPUT_DIR}/${PROJECT_NAME}_build_info_fnct.h @ONLY)
+
     if(NOT CMAKE_SKIP_INSTALL_RULES)
-        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_build_info.h TYPE INCLUDE)
+        if(ARGV1)
+            message(STATUS "(EC) ${PROJECT_NAME}_build_info_fnct.h will be installed")
+            install(FILES ${BUILD_INFO_OUTPUT_DIR}/${PROJECT_NAME}_build_info_fnct.h TYPE INCLUDE)
+        endif()
     endif()
 endfunction()
 
