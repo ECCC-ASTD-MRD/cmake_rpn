@@ -127,7 +127,7 @@ if(WITH_WARNINGS)
     endif()
 endif()
 
-if(EXTRA_CHECKS)
+if (EXTRA_CHECKS)
     message(STATUS "(EC) Enabling extra checks")
 
     if("C" IN_LIST languages)
@@ -135,6 +135,8 @@ if(EXTRA_CHECKS)
     endif()
 
     if("Fortran" IN_LIST languages)
-        string(APPEND CMAKE_Fortran_FLAGS " -check all")
+        string(APPEND CMAKE_Fortran_FLAGS " -check all,nouninit")
     endif()
+
+    string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " -check all,nouninit")
 endif()
