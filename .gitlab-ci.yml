@@ -2,7 +2,7 @@ variables:
    GIT_SUBMODULE_STRATEGY: recursive
    ORD_SOUMET_W: "10"
    ORD_SOUMET_C: "1"
-   ORD_SOUMET_M: "2G"
+   ORD_SOUMET_M: "4G"
    ORD_SOUMET_TMPFS: "1G"
 
 include:
