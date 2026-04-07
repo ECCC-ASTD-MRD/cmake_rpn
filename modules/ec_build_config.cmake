@@ -45,7 +45,7 @@ macro(ec_build_config)
     string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M" UTC)
 
     # Replace build info variables in script
-    if(NOT IS_READABLE ${CMAKE_CURRENT_SOURCE_DIR}/config.in)
+    if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/config.in)
         message(FATAL_ERROR "${CMAKE_CURRENT_SOURCE_DIR}/config.in not found!\n\
 Please copy\n${EC_BUILD_CONFIG_MACRO_DEF_DIR}/config.in\n\
 to your project and edit it to remove the unnecessary components.")
