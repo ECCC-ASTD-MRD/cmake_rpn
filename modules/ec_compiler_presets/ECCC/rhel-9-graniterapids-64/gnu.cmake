@@ -2,7 +2,7 @@
 
 # Set the target architecture
 if(NOT TARGET_PROC)
-    set(TARGET_PROC "icelake-server")
+    set(TARGET_PROC "graniterapids")
 endif()
 
 include(${CMAKE_CURRENT_LIST_DIR}/../../default/Linux-x86_64/gnu.cmake)
