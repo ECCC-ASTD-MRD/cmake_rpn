@@ -29,7 +29,7 @@ if (EC_INIT_DONE LESS 2)
     if(DEFINED ENV{EC_ARCH} AND USE_ECCC_ENV_IF_AVAIL)
         set(found "NOTFOUND")
 
-        # We can use "cmake_path(HAS_FILENAME EC_ARCH hasComp)" here since if there is no "/",
+        # We can't use "cmake_path(HAS_FILENAME EC_ARCH hasComp)" here since if there is no "/",
         # the platform is specified in EC_ARCH but hasComp will be true. Furthermore, we can't
         # store the boolean result of the regex matches so we have this ugly construct
         set(hasComp FALSE)
@@ -39,11 +39,11 @@ if (EC_INIT_DONE LESS 2)
 
         if(hasComp)
             cmake_path(GET EC_ARCH FILENAME compName)
+            string(REGEX REPLACE ".+-" "" compVersion ${compName})
             # Try to load specified preset
             cmake_path(SET COMPILER_PRESET_PATH NORMALIZE "ECCC/$ENV{EC_ARCH}")
             include("ec_compiler_presets/${COMPILER_PRESET_PATH}" OPTIONAL RESULT_VARIABLE found)
         else()
-            message(WARNING "(EC) WARNING: Compiler not specified, trying the compiler found by CMake")
             if("C" IN_LIST languages)
                 string(TOLOWER ${CMAKE_C_COMPILER_ID} compName)
             elseif("Fortran" IN_LIST languages)
@@ -51,13 +51,15 @@ if (EC_INIT_DONE LESS 2)
             else()
                 message(FATAL_ERROR "(EC) C and Fortran aren't enabled for this project; automatic compiler identification failed")
             endif()
+            set(compVersion ${CMAKE_C_COMPILER_VERSION})
+            message(WARNING "(EC) WARNING: Compiler not specified, trying the compiler found by CMake (${compName})")
             # Try to load a preset for the specified architecture and CMake detected compiler version
             cmake_path(SET COMPILER_PRESET_PATH NORMALIZE "ECCC/$ENV{EC_ARCH}/${compName}-${CMAKE_C_COMPILER_VERSION}")
             include("ec_compiler_presets/${COMPILER_PRESET_PATH}" OPTIONAL RESULT_VARIABLE found)
         endif()
 
         if(NOT found)
-            message(WARNING "(EC) WARNING: Preset for the specific compiler version (${CMAKE_C_COMPILER_VERSION}) not found, trying without version")
+            message(WARNING "(EC) WARNING: Preset for the specific compiler version (${compVersion}) not found, trying without version")
             if(hasComp)
                 cmake_path(GET EC_ARCH PARENT_PATH platform)
                 # Strip away version, if any
@@ -70,6 +72,7 @@ if (EC_INIT_DONE LESS 2)
             include("ec_compiler_presets/${COMPILER_PRESET_PATH}" OPTIONAL RESULT_VARIABLE found)
         endif()
         unset(hasComp)
+        unset(compVersion)
 
         if(NOT found)
             # Final fallback to non optimized
