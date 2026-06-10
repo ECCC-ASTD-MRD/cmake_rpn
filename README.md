@@ -121,7 +121,7 @@ GDAL  ~>= 2.0.0
   * find_package(GDB [OPTIONAL|REQUIRED])
   * find_package(R [OPTIONAL|REQUIRED])
 
-## Cmake config file
+## CMake config file
 
 Generate the configuration files for the project to be usable via cmake `find_package` command.  To use, copy the `Config.cmake.in` file to your project ROOT and edit it according to your needs (it shows a dependency to librmn, which may not be needed for your project).
 
@@ -146,8 +146,14 @@ set(PROJECT_VERSION ${VERSION})
 ec_build_info()            # Generate build include file
 include(ec_compiler_presets)
 
+# All testing CMake commands can be placed in a CMakeLists.txt in a tests sub-directory
+# which can then be added to the project with `add_subdirectory(tests)` instead of
+# being placed in the top level CMakeLists.txt
 include(CTest)             # For tests (optional)
 add_custom_target(check COMMAND CTEST_OUTPUT_ON_FAILURE=true ${CMAKE_CTEST_COMMAND})
+add_custom_target(test_execs)
+add_dependencies(check test_execs)
+# Test executables should be added as dependencies to the test_execs target
 enable_testing()
 
 include(ec_doxygen)        # Doxygen target (-DWITH_DOC=TRUE)
@@ -157,12 +163,12 @@ if (NOT rmn_FOUND)
    find_package(rmn ${RMN_REQ_VERSION} COMPONENTS shared REQUIRED)
 endif()
 
-add_subdirectory(src src)
+add_subdirectory(src)
 
-#----- Generate the config file for the project to be usable via cmake find_package command
+# Generate the config file for the project to be usable via cmake find_package command
 set(INCLUDE_INSTALL_DIR include)
-set(LIB_INSTALL_DIR     lib)
-set(CONFIG_INSTALL_DIR  "${LIB_INSTALL_DIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION}")
+set(LIB_INSTALL_DIR lib)
+set(CONFIG_INSTALL_DIR "${LIB_INSTALL_DIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION}")
 
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
@@ -180,7 +186,7 @@ install(FILES   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
     DESTINATION "${CONFIG_INSTALL_DIR}"
 )
 
-#----- Packaging
+# Packaging
 ec_package_name()       # Define package prefix  
 ec_build_config()       # Create build configuration script
 ec_prepare_ssm()        # Prepare ssm packaging files
