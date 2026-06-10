@@ -96,3 +96,4 @@ PREDEFINED             = "f77name(x)=x"@DOC_DEFINES@
 ALPHABETICAL_INDEX     = YES
 SORT_MEMBER_DOCS       = YES
 SORT_BRIEF_DOCS        = YES
+ALIASES = deprecated="\qualifier deprecated ^^ \deprecated"
