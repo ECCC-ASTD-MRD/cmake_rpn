@@ -29,6 +29,12 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_rpn/modules)
 
 * `include(ec_compiler_presets)`
   * Loads predefined compiler settings optimized per compiler and platform.  Must be included after languages are enabled.
+  * A few configuration options are available to control the presets:
+    * `EXTRA_CHECKS` Compile with extra debug flags. Default: OFF
+    * `WITH_PROFILING` Compile with profiling for tools like gprof. Default: OFF
+    * `USE_ECCC_ENV_IF_AVAIL` Use ECCC's custom build environment if available. Default: ON
+    * `STRICT` Enable stricter checks that may cause build-time errors on some code. Strongly recommended. Mandatory for production. Default: OFF
+    * `FORTRAN_VERSION` Version of the Fortran standard to specify to the compiler (Use 5 chars for versions > 2000, ie: f2018). Default: Undefined
 
 * `include(ec_doxygen)`
   * Defines the `WITH_DOC` option. If enabled, it creates a __doc__ target to build the documentation with Doxygen.  Please note that the __doc__ target is not included in __all__.  This means that it won't be built when running ```make```.  To build the documentation, ```make doc``` must be executed explicitly.
