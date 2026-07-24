@@ -38,9 +38,16 @@ macro(ec_git_version)
     unset(GIT_OUTPUT)
 
     # Don't add quotes: it has to be a list in the CMake sense
-    set(ec_git_version_command git describe --tags --always --dirty --broken)
-    if(EC_GIT_VERSION_FIRST_PARENT)
+    message(STATUS "Ervig (cmake_rpn): EC_GIT_VERSION_COMMAND=${EC_GIT_VERSION_COMMAND}")
+    if ( GIT_VERSION_COMMAND )
+      set(ec_git_version_command ${GIT_VERSION_COMMAND})
+      message(STATUS "Ervig (cmake_rpn): in 'if ( DEFINED GIT_VERSION_COMMAND )'")
+    else()
+      message(STATUS "Ervig (cmake_rpn): in 'else' of 'if ( DEFINED GIT_VERSION_COMMAND )'")
+      set(ec_git_version_command git describe --tags --always --dirty --broken)
+      if(EC_GIT_VERSION_FIRST_PARENT)
         set(ec_git_version_command ${ec_git_version_command} --first-parent)
+      endif()
     endif()
 
     execute_process(
@@ -58,7 +65,9 @@ macro(ec_git_version)
     endif()
     debugLogVar("ec_git_version" "GIT_VERSION")
 
-    execute_process(
+    ## If not defined or empty,
+    if ( NOT GIT_VERSION_COMMAND )
+      execute_process(
         COMMAND git status --porcelain
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         RESULT_VARIABLE GIT_RESULT
@@ -66,34 +75,35 @@ macro(ec_git_version)
         ERROR_VARIABLE GIT_ERROR
         OUTPUT_STRIP_TRAILING_WHITESPACE
         ERROR_STRIP_TRAILING_WHITESPACE
-    )
-    if(${GIT_RESULT} EQUAL 0)
+        )
+      if(${GIT_RESULT} EQUAL 0)
         if(GIT_STATUS MATCHES "^$")
-            set(GIT_STATUS "Clean")
+          set(GIT_STATUS "Clean")
         else()
-            set(GIT_STATUS "Dirty")
-            # `git describe --dirty` doesn't add "-dirty" if there are new untracked files
-            # Because new files can be compiled if a `file(GLOB ...)` was used, we still need
-            # to add "-dirty"
-            if(NOT GIT_VERSION MATCHES "-dirty")
-                string(APPEND GIT_VERSION "-dirty")
-            endif()
+          set(GIT_STATUS "Dirty")
+          # `git describe --dirty` doesn't add "-dirty" if there are new untracked files
+          # Because new files can be compiled if a `file(GLOB ...)` was used, we still need
+          # to add "-dirty"
+          if(NOT GIT_VERSION MATCHES "-dirty")
+            string(APPEND GIT_VERSION "-dirty")
+          endif()
         endif()
         debugLogVar("ec_git_version" "GIT_VERSION")
         if(NOT VERSION_FROM_MANIFEST)
-            debugLog("ec_git_version" "VERSION_FROM_MANIFEST not defined. Setting VERSION and PROJECT_VERSION with GIT_VERSION")
-            set(VERSION ${GIT_VERSION})
-            ec_split_version()
-            debugLogVar("ec_git_version" "VERSION")
-            debugLogVar("ec_git_version" "STATE")
-            set(PROJECT_VERSION ${GIT_VERSION})
+          debugLog("ec_git_version" "VERSION_FROM_MANIFEST not defined. Setting VERSION and PROJECT_VERSION with GIT_VERSION")
+          set(VERSION ${GIT_VERSION})
+          ec_split_version()
+          debugLogVar("ec_git_version" "VERSION")
+          debugLogVar("ec_git_version" "STATE")
+          set(PROJECT_VERSION ${GIT_VERSION})
         endif()
         if (EC_INIT_DONE LESS 2)
-            # Print only if in a standalone git repository
-            message(STATUS "(EC) Git status: " ${GIT_STATUS})
+          # Print only if in a standalone git repository
+          message(STATUS "(EC) Git status: " ${GIT_STATUS})
         endif()
-    else()
+      else()
         message(WARNING "(EC) Failed to get status from Git!\n" "Git error message:\n" ${GIT_ERROR})
+      endif()
     endif()
 
     if (EC_INIT_DONE LESS 2)
