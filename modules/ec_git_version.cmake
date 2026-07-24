@@ -38,12 +38,9 @@ macro(ec_git_version)
     unset(GIT_OUTPUT)
 
     # Don't add quotes: it has to be a list in the CMake sense
-    message(STATUS "Ervig (cmake_rpn): EC_GIT_VERSION_COMMAND=${EC_GIT_VERSION_COMMAND}")
     if ( GIT_VERSION_COMMAND )
       set(ec_git_version_command ${GIT_VERSION_COMMAND})
-      message(STATUS "Ervig (cmake_rpn): in 'if ( DEFINED GIT_VERSION_COMMAND )'")
     else()
-      message(STATUS "Ervig (cmake_rpn): in 'else' of 'if ( DEFINED GIT_VERSION_COMMAND )'")
       set(ec_git_version_command git describe --tags --always --dirty --broken)
       if(EC_GIT_VERSION_FIRST_PARENT)
         set(ec_git_version_command ${ec_git_version_command} --first-parent)
