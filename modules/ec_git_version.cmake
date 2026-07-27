@@ -21,7 +21,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/ec_split_version.cmake)
 macro(ec_git_version)
     cmake_parse_arguments(EC_GIT_VERSION "FIRST_PARENT;" "" "" "${ARGN}")
     if(EC_GIT_VERSION_UNPARSED_ARGUMENTS)
-        message(FATAL_ERROR "Unexpected arguments in call to ec_git_version: '${ECGV_UNPARSED_ARGUMENTS}'")
+        message(FATAL_ERROR "Unexpected arguments in call to ec_git_version: '${EC_GIT_VERSION_UNPARSED_ARGUMENTS}'")
     endif()
 
     # This is a dirty fix for a very strange bug:
