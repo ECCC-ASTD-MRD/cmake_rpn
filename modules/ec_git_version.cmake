@@ -37,19 +37,19 @@ macro(ec_git_version)
     )
     unset(GIT_OUTPUT)
 
-    if ( GIT_VERSION_COMMAND )
-      if(EXISTS "${GIT_VERSION_COMMAND}")
-        if(IS_READABLE "${GIT_VERSION_COMMAND}")
-          if(IS_EXECUTABLE "${GIT_VERSION_COMMAND}")
-            set(ec_git_version_command ${GIT_VERSION_COMMAND})
+    if ( EC_GIT_VERSION_COMMAND )
+      if(EXISTS "${EC_GIT_VERSION_COMMAND}")
+        if(IS_READABLE "${EC_GIT_VERSION_COMMAND}")
+          if(IS_EXECUTABLE "${EC_GIT_VERSION_COMMAND}")
+            set(ec_git_version_command ${EC_GIT_VERSION_COMMAND})
           else()
-            message(FATAL_ERROR "ec_git_version: The command 'GIT_VERSION_COMMAND=${GIT_VERSION_COMMAND}' is not executable")
+            message(FATAL_ERROR "ec_git_version: The command 'EC_GIT_VERSION_COMMAND=${EC_GIT_VERSION_COMMAND}' is not executable")
           endif()
         else()
-          message(FATAL_ERROR "ec_git_version: The command 'GIT_VERSION_COMMAND=${GIT_VERSION_COMMAND}' is not readable")
+          message(FATAL_ERROR "ec_git_version: The command 'EC_GIT_VERSION_COMMAND=${EC_GIT_VERSION_COMMAND}' is not readable")
         endif()
       else()
-        message(FATAL_ERROR "ec_git_version: The command 'GIT_VERSION_COMMAND=${GIT_VERSION_COMMAND}' does not exist")
+        message(FATAL_ERROR "ec_git_version: The command 'EC_GIT_VERSION_COMMAND=${EC_GIT_VERSION_COMMAND}' does not exist")
       endif()
     else()
       # Don't add quotes: it has to be a list in the CMake sense
@@ -75,7 +75,7 @@ macro(ec_git_version)
     debugLogVar("ec_git_version" "GIT_VERSION")
 
     ## If not defined or empty,
-    if ( NOT GIT_VERSION_COMMAND )
+    if ( NOT EC_GIT_VERSION_COMMAND )
       execute_process(
         COMMAND git status --porcelain
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
