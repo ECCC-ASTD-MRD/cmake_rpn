@@ -19,7 +19,7 @@ endfunction()
 # Even forcibly setting cache variables from here or from lower in the call stack doesn't really update CMake's cache
 # This is why we create and use our own variable file
 
-set(PREVIOUS_FILE_PATH ${CMAKE_CURRENT_BINARY_DIR}/ec_build_info.previous)
+set(PREVIOUS_FILE_PATH ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_build_info.previous)
 if(EXISTS ${PREVIOUS_FILE_PATH})
     file(STRINGS ${PREVIOUS_FILE_PATH} LINES)
     foreach(line ${LINES})
